@@ -11,7 +11,7 @@ import injectContext from "./js/store/appContext";
 import { Contacts } from "./js/views/Contacts";
 import { AddContact } from "./js/views/AddContact";
 import UserProfile from "./js/views/UserProfile"
-import Navbar from "./js/component/navbar";
+import Navbar from "./js/component/navbar/navbar";
 
 import "./layout.css";
 

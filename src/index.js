@@ -6,6 +6,9 @@ import * as serviceWorker from './serviceWorker';
 
 //include bootstrap npm library into the bundle
 import "bootstrap/dist/css/bootstrap.css";
+import "jquery"
+import "popper.js"
+import "bootstrap"
 
 //import your own components
 import Layout from "./layout";
