@@ -13,7 +13,7 @@ import { AddContact } from "./js/views/AddContact";
 import UserProfile from "./js/views/UserProfile"
 import Navbar from "./js/component/navbar";
 
-import "./layout.css";
+import "../src/styles/layout.css";
 import { Home } from "../src/js/views/Home";
 
 
