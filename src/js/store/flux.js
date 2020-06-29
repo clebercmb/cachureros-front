@@ -31,7 +31,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					created_at: "2019-08-15 23:34:01"
 				} */
 			],
-			products: [],
+			products: [
+				{
+					id:"1000",
+					nombre_producto: "Arrimo",
+					precio:"$ 40.000"
+				},
+				{
+					id:"1001",
+					nombre_producto: "Bateria de Cocina",
+					precio:"$ 10.000"
+				},
+				{
+					id:"1002",
+					nombre_producto: "Reloj Hombre",
+					precio:"$ 5.000"
+				},
+				{
+					id:"1003",
+					nombre_producto: "Botas de Nieve",
+					precio:"$ 60.000"
+				},
+				{
+					id:"1004",
+					nombre_producto: "Botas de invierno",
+					precio:"$ 120.000"
+				},
+			],
 
 			error: undefined
 		},
