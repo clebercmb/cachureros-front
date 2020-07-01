@@ -34,3 +34,12 @@
 .user {
     padding-top: 8px;
 }
+
+
+.link {
+    color: #FFF;
+}
+
+.link:hover {
+     color: red
+}
