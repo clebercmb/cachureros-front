@@ -13,7 +13,9 @@ import { AddContact } from "./js/views/AddContact";
 import UserProfile from "./js/views/UserProfile/UserProfile"
 import Navbar from "./js/component/navbar/navbar";
 
-import "./layout.css";
+import "../src/styles/layout.css";
+import { Home } from "../src/js/views/Home";
+
 
 //import history from "./component/history";
 
@@ -25,7 +27,7 @@ export const Layout = () => {
 					<Navbar/>
 					<Switch>
 						<Route exact path="/index.html" component={Contacts} />
-						<Route exact path="/" component={Contacts} />
+						<Route exact path="/" component={Home} />
 						<Route exact path="/contacts" component={Contacts} />
 						<Route exact path="/user-profile" component={UserProfile} />
 						<Route exact path="/add" component={AddContact} />
