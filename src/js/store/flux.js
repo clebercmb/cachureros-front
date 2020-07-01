@@ -31,6 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					created_at: "2019-08-15 23:34:01"
 				} */
 			],
+<<<<<<< HEAD
 			products: [
 				{
 					id:"1000",
@@ -58,6 +59,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					precio:"$ 120.000"
 				},
 			],
+=======
+
+>>>>>>> 0c407d33322b8f33415ff64fb57b1ba0f41c84d4
 
 			error: undefined
 		},
@@ -89,14 +93,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				setStore({ contacts: contacts });
 			},
-			addProdut: product=> {
-				console.log("flux.product");
-				const store = getStore();
-				let products = store.products;
-				products.push(product)
-				setStore({ products: products });
-
-			},
+			
 			addContact: contact => {
 				console.log("flux.addContact");
 				const store = getStore();
