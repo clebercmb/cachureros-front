@@ -31,7 +31,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					created_at: "2019-08-15 23:34:01"
 				} */
       ],
-
+      infobar: {
+        show:false,
+        info:'',
+        info2:'',
+        
+      },
+      infoStore: {
+        storeName:'Juanita',
+        photoShopper_src:'/images/juanita.jpg',
+        photoStore_src: '/images/tendita-ejuanita.jpg'
+        
+      },
       products: [
         {
           id: "1000",
@@ -65,6 +76,42 @@ const getState = ({ getStore, getActions, setStore }) => {
     actions: {
       //(Arrow) Functions that update the Store
       // Remember to use the scope: scope.state.store & scope.setState()
+      setInfoBar: (show, info, info2) => {
+        console.log('flux.setInfoBar')
+        //const store = getStore()
+        let infobar =  {
+          show:show,
+          info:info,
+          info2: info2
+        }
+        setStore({ infobar: infobar });
+      },
+
+      setInfoStore: (storeName, photoShopper_src, photoStore_src ) => {
+        console.log('flux.setInfoStore')
+        const store = getStore()
+        let infoStore =  {
+          storeName:storeName,
+          photoShopper_src: photoShopper_src,
+          photoStore_src: photoStore_src
+        }
+        setStore({ infoStore: infoStore });
+      },
+
+      getInfoBar: () => {
+        console.log('flux.setInfoBar')
+        const store = getStore()
+
+        return store.infobar;
+      },
+      
+      getInfoStore: () => {
+        console.log('flux.getInfoStore')
+        const store = getStore()
+
+        return store.infoStore;
+      },
+
       fetchContacts: (url) => {
         console.log("flux.fetchContacts");
         console.log("flux.fetchContacts.url", url);
