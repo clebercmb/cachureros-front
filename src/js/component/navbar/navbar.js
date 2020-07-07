@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./navbar.css";
+
+import { Context } from '../../store/appContext';
 
 
 const Navbar = (props) => {
 
+	const { store, actions } = useContext(Context);
+
+	console.log('==>Layout.actions.getInfoBar()', actions.getInfoBar())
+	let infoBar = actions.getInfoBar().info
+
 	return (
 
-	
+		<div className='container-level-01'>
 		<nav id="navbar" className="navbar2">
 			{/* <nav id="menu" className="navbar navbar-light bg-light mb-3"> */}
 			<ul>
 				<li>	
-					<Link to="/">
+					<Link to="/" onClick={(e)=>{actions.setInfoBar(false,'')}} >
 						<img src='/images/Cachurero.svg' alt='Logo'/>
 					</Link>
 				</li>
@@ -35,7 +42,11 @@ const Navbar = (props) => {
 							<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<a className="dropdown-item" href="#">Iniciar Sesión</a>
 								<a className="dropdown-item" href="#">Nueva Cuenta</a>
-								
+
+								<Link to="/product-view" className="dropdown-item"> 
+									Product
+								</Link>
+															
 									
 								<Link to="/user-profile" className="dropdown-item"> 
 									Configuración
@@ -50,6 +61,7 @@ const Navbar = (props) => {
 		
 		</nav>
 
+		</div>
 
 
 

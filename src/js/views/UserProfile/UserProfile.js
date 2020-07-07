@@ -6,10 +6,13 @@ import PropTypes from "prop-types";
 import './UserProfile.css'
 
 
+
+
 const UserProfile = props => {
 	//const [id, setId] = useState("");
 	const { store, actions } = useContext(Context);
 	console.log("props.history", props.history);
+
 
 	const [state, setState] = useState({
 		agendaSlug: "clebermb",
@@ -31,6 +34,7 @@ const UserProfile = props => {
 		console.log("Behavior before the component is added to the DOM");
 		console.log("props.match.params.id", props.match.params.id);
 
+		actions.setInfoBar(true, 'Configuración', '')
 		if (props.match.params.id !== undefined) {
 			console.log("setting up mode");
 			const contacts = store.contacts;
@@ -51,8 +55,12 @@ const UserProfile = props => {
 		//props.history.push("/");
 	}, []);
 
-	return (
+	return (	
+		<div>
+		{/*<InformationBar info="setup"/>*/}
+
 		<div className="userProfile-container">
+
 			<div className='userProfile-item-left'>
 				
 				<div className='userProfile-item-left-item-01'> 
@@ -239,6 +247,7 @@ const UserProfile = props => {
 				</div>
 			</div>
 
+		</div>
 		</div>
 	);
 };
