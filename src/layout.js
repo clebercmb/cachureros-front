@@ -13,14 +13,13 @@ import { AddContact } from "./js/views/AddContact";
 import UserProfile from "./js/views/UserProfile/UserProfile"
 import Navbar from "./js/component/navbar/navbar";
 import ProductView from "./js/views/ProductView/ProductView"
-
+import AddProductView from "./js/views/AddProductView/AddProductView"
 import './styles/general.css'
 import "./styles/layout.css";
 import { Home } from "../src/js/views/Home";
-
 import InformationBar from "./js/component/InformationBar/InformationBar"
-
 import { Context } from "./js/store/appContext";
+
 
 
 //import history from "./component/history";
@@ -49,6 +48,7 @@ export const Layout = () => {
 							<Route exact path="/contacts" component={Contacts} />
 							<Route exact path="/user-profile" component={UserProfile} />
 							<Route exact path="/product-view" component={ProductView} />
+							<Route exact path="/add-product-view" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
 							<Route render={() => <h1 className="notfound">Not found!</h1>} />

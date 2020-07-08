@@ -46,7 +46,11 @@ const Navbar = (props) => {
 								<Link to="/product-view" className="dropdown-item"> 
 									Product
 								</Link>
-															
+
+								<Link to="/add-product-view" className="dropdown-item"> 
+									Nuevo Producto
+								</Link>
+
 									
 								<Link to="/user-profile" className="dropdown-item"> 
 									Configuración
