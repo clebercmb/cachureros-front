@@ -22,7 +22,9 @@ const Navbar = (props) => {
 							<input type="search" className= "form-control" placeholder="Seach"></input>
 						</li>
 						<li>
-							<img src='/images/cart.png' alt='Cart'/>
+						   <Link to="/carritodecompra">
+							   <img src='/images/cart.png' alt='Cart'/>
+						   </Link>
 						</li>
 						<li>
 							<img src='/images/notification.png' alt='Notification'/>
@@ -33,8 +35,8 @@ const Navbar = (props) => {
 								<img className="user" src='/images/user.png' alt='User'/>
 							</a>
 							<div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<a className="dropdown-item" href="#">Iniciar Sesión</a>
-								<a className="dropdown-item" href="#">Nueva Cuenta</a>
+								<Link to="/login" className="dropdown-item">Iniciar Sesión</Link>
+								<Link to= "/registro" className="dropdown-item">Nueva Cuenta</Link>
 								
 									
 								<Link to="/user-profile" className="dropdown-item"> 

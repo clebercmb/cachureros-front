@@ -1,0 +1,51 @@
+.resumenCompra{
+    border: 1px solid #868686;
+    background-color: white;
+    border-radius: 10px;
+    width: 30%;  
+    margin: 0px 50px;
+}
+
+.contenidosresumencompra{
+    width: 90%;
+    margin: 20px auto;
+}
+
+.tituloResumenCompra{
+background-color: rgb(156, 156, 156);
+border: 1px solid #868686;
+width: 100%;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+height: 60px;
+display: flex;
+}
+
+.tituloResumenCompra h1{
+    font-size: 18px;
+    margin: 0px auto;
+    margin-top: 15px;
+}
+
+.subtotal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.comprar{
+    width: 150px;
+    height: 40px;
+    margin: 0px 70px;
+    border-radius: 10px;
+    background-color:#46B704;
+}
+
+.comprar:hover{
+    background-color: #46B704;
+}

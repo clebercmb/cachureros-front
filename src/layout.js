@@ -12,9 +12,11 @@ import { Contacts } from "./js/views/Contacts";
 import { AddContact } from "./js/views/AddContact";
 import UserProfile from "./js/views/UserProfile/UserProfile"
 import Navbar from "./js/component/navbar/navbar";
-
+import Carrito from "./js/views/carrito"
 import "../src/styles/layout.css";
 import { Home } from "../src/js/views/Home";
+import RegistroUsuario from "./js/component/registros/registroUser";
+import Login from "./js/component/registros/login";
 
 
 //import history from "./component/history";
@@ -26,6 +28,9 @@ export const Layout = () => {
 				<ScrollToTop>
 					<Navbar/>
 					<Switch>
+					    <Route exact path="/login" component={Login} />
+					    <Route exact path="/registro" component={RegistroUsuario} />
+					    <Route exact path="/carritodecompra" component={Carrito} />
 						<Route exact path="/index.html" component={Contacts} />
 						<Route exact path="/" component={Home} />
 						<Route exact path="/contacts" component={Contacts} />
