@@ -22,7 +22,10 @@ class ResumenCompra extends React.Component {
             <p>Total</p>
             <p>$0</p>
           </div>
-          <button className="comprar">COMPRAR</button>
+          <div className="comprar">
+          <button className="button-green">COMPRAR</button>
+          </div>
+          
         </div>
       </div>
     );

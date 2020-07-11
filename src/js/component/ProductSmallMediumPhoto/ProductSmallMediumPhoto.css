@@ -1,0 +1,28 @@
+.product-small-medium-photo {
+    width: 169.23px;
+    height: 180.28px;
+    border-radius: 5px;
+}
+
+.product-small-medium-photo-price {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-small-medium-photo-price {
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 18px;
+    margin-top: 10px;
+    color: #0071BC;
+    margin-bottom: 0;
+    
+}
+
+.product-small-medium-photo-name {
+    font-weight: 200;
+    font-size: 12px;
+    line-height: 18px;
+    color: #000000;
+    margin-bottom: 0;
+}

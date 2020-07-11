@@ -1,3 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+
+.container-level-00  {
+    /*background: #DDDDDD;*/
+    background-color: #DDDDDD;
+    height: 100%;
+    margin: auto;
+}
+
+.container-level-01 {
+    margin: auto;
+    max-width: 1170px;
+}
+
 .button-blue {
     background: #0071BC;
     border-radius: 5px;
@@ -17,3 +36,6 @@
     top: 299px;
     color: white;
 }
+
+
+

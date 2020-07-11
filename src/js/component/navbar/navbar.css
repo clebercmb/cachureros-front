@@ -2,7 +2,7 @@
     border: 0;
     padding: 0;
     margin: 0;
-    background: white;
+    background: #DDDDDD;
 }
 
 
@@ -10,6 +10,7 @@
     list-style-type: none;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0;
 }
 
 .right ul {
@@ -41,5 +42,10 @@
 }
 
 .link:hover {
-     color: red
+    color: red
+}
+
+.container *  {
+    margin: 0;
+    padding: 0;
 }

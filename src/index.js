@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "jquery"
 import "popper.js"
 import "bootstrap"
-import './general.css'
+import './styles/general.css'
 
 //import your own components
 import Layout from "./layout";
