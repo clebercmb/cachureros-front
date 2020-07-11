@@ -1,0 +1,36 @@
+.Infopago{
+    border: 1px solid #868686;
+    background-color: white;
+    border-radius: 10px;
+    width: 50%;  
+    margin: 0px 50px;
+}
+
+.ejemplospagocabecera{
+    display: flex;
+    justify-content: space-around;
+}
+
+.ejemplospago{
+    display: flex;
+    width: 50%;
+    height: 100px;
+    background-color: tomato;
+}
+
+.ejemplosseguro{
+    width: 50%;
+    height: 100px;
+    background-color: rgb(71, 255, 132);
+}
+
+
+.tituloInfopago{
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+

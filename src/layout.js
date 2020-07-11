@@ -12,6 +12,9 @@ import { Contacts } from "./js/views/Contacts";
 import { AddContact } from "./js/views/AddContact";
 import UserProfile from "./js/views/UserProfile/UserProfile"
 import Navbar from "./js/component/navbar/navbar";
+import Carrito from "./js/views/carrito"
+import RegistroUsuario from "./js/component/registros/registroUser";
+import Login from "./js/component/registros/login";
 import ProductView from "./js/views/ProductView/ProductView"
 import AddProductView from "./js/views/AddProductView/AddProductView"
 import './styles/general.css'
@@ -19,6 +22,7 @@ import "./styles/layout.css";
 import { Home } from "../src/js/views/Home";
 import InformationBar from "./js/component/InformationBar/InformationBar"
 import { Context } from "./js/store/appContext";
+
 
 
 
@@ -38,11 +42,13 @@ export const Layout = () => {
 		<div className="container-level-00">
 			<BrowserRouter>
 				<Navbar/>
-
 				{infobar}
 				<div className="container-level-01">
-					<ScrollToTop>				
+					<ScrollToTop>
 						<Switch>
+							<Route exact path="/login" component={Login} />
+							<Route exact path="/registro" component={RegistroUsuario} />
+							<Route exact path="/carritodecompra" component={Carrito} />
 							<Route exact path="/index.html" component={Contacts} />
 							<Route exact path="/" component={Home} />
 							<Route exact path="/contacts" component={Contacts} />
