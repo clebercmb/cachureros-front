@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 import "../../styles/productos.css";
+
 class Productos extends React.Component {
   constructor(props) {
     super(props);
@@ -64,7 +65,7 @@ class Productos extends React.Component {
             {this.state.data.map((productos) => {
               return (
                 <div className="col-md-3">
-                  <div className="card mt-3 mb-3">
+                  <div className="card mt-3 mb-3 ml-3 mr-3 p-3">
                     <img
                       src={productos.img}
                       className="card-img-top"
@@ -72,7 +73,7 @@ class Productos extends React.Component {
                     <div className="card-body">
                       <h5 className="card-title">{productos.title}</h5>
                       <p className="card-text">{productos.precio}</p>
-                      <a href="#" className="btn btn-primary">
+                      <a href="#" className="btn btn-primary mt-3">
                         Comprar
                       </a>
                     </div>
