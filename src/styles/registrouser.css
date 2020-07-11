@@ -1,0 +1,114 @@
+.containerLogin{
+    width: 387px;
+    height: 521px;
+    margin: 0px auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    display: block;
+}
+
+.logo1{
+    display: flex;
+    justify-content: center;
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+.opcioncerrar{
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+
+.opcionesregistro{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.registropciones{
+    color: #0071BC;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.registroinicio{
+    color: #46B704;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.registroinicio:hover{
+    color: #0071BC;
+}
+
+.box{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0px auto;  
+}
+
+.box a{
+ font-size: 12px;
+ color: blue;
+}
+
+.boxregistro{
+    border: 1px solid #c4c4c4;
+    height: 30px;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #c4c4c4;
+    padding-left: 5px;
+}
+
+.botonregistro{
+    background-color: #46B704;
+    margin-top: 40px;
+    border-radius: 5px;
+    color: white;
+    height: 30px;
+}
+
+.terminos{
+    font-size: 12px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.terminos span{
+    color: blue;
+}
+
+.redesociales{
+text-align: center;
+margin-bottom: -5px;
+color: #868686;
+}
+
+.fabredes{
+    display: flex;
+    justify-content: center;
+}
+
+.fab{
+    font-size: 25px;
+    padding: 15px;
+}
+
+.fab:hover{
+    font-size: 30px;
+    color: #0071BC;
+}
+
+.fa-instagram:hover{
+    font-size: 30px;
+    color: #bc0048;
+}
+
+.fa-google:hover{
+    font-size: 30px;
+    color: #26bc00;
+}

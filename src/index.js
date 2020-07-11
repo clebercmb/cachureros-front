@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import '../src/styles/index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import '@fortawesome/fontawesome-free/css/all.min.css'
 
 //include bootstrap npm library into the bundle
 import "bootstrap/dist/css/bootstrap.css";
