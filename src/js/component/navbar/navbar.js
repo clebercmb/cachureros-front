@@ -8,7 +8,10 @@ const Navbar = (props) => {
   const { store, actions } = useContext(Context);
 
   console.log("==>Layout.actions.getInfoBar()", actions.getInfoBar());
-  let infoBar = actions.getInfoBar().info;
+
+  let infoBar = actions.getInfoBar().info
+  let infoStore = actions.getInfoStore()
+
 
   return (
     <div className="container-level-01">
@@ -66,7 +69,7 @@ const Navbar = (props) => {
                     Nueva Cuenta
                   </Link>
 
-                  <Link to="/product-view" className="dropdown-item">
+                  <Link to="/product-view/12" className="dropdown-item">
                     Product
                   </Link>
 
@@ -75,6 +78,9 @@ const Navbar = (props) => {
                   </Link>
                   <Link to="/user-profile" className="dropdown-item">
                     Configuración
+                  </Link>
+                  <Link to= {`/user-store/${infoStore.userName}`} className="dropdown-item">
+                    Mi tendita
                   </Link>
                 </div>
               </li>

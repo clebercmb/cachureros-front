@@ -32,7 +32,7 @@ export const AddContact = props => {
 		if (props.match.params.id !== undefined) {
 			console.log("setting up mode");
 			const contacts = store.contacts;
-			const contact = contacts.find(c => c.id == props.match.params.id);
+			const contact = contacts.find(c => c.id === props.match.params.id);
 			console.log("contact found", contact);
 			setState({
 				...state,
@@ -111,7 +111,7 @@ export const AddContact = props => {
 						className="btn btn-primary form-control"
 						onClick={() => {
 							let data;
-							if (state.mode == "Add")
+							if (state.mode === "Add")
 								data = actions.addContact({
 									id: undefined,
 									agenda_slug: state.agendaSlug,
