@@ -31,17 +31,140 @@ const getState = ({ getStore, getActions, setStore }) => {
 					created_at: "2019-08-15 23:34:01"
 				} */
       ],
+      
+      userStore: {
+        url: 'juan2020',
+        userFirstName: 'Juan',
+        storeName:'Juan Store',
+        userPhoto: '/images/juanita.jpg',
+        storePhoto: '/images/tendita-juanita.png',
+        contryStore: 'Chile',
+        cityStore: 'Santiago',
+        district: 'Las Condes',
+        registerDate: '01-fev-2020',
+        qtyToBeSale: 62,
+        qtySold: 422,
+        qtyLikes: 10,
+        qtyFollowers: 5000,
+        qtyFollowing: 2000,
+        blocked: false,
+        products: [
+          {
+            id:1,
+            name: 'Product 1',
+            price: 10000.00,
+            photo: '/images/15kg-Conjunto- 4.png'
+          },
+          {
+            id:2,
+            name: 'Product 2',
+            price: 20000.00,
+            photo: '/images/15kg-Conjunto- 5.png'
+          },
+          {
+            id:3,
+            name: 'Product 3',
+            price: 30000.00,
+            photo: '/images/15kg-Conjunto- 6.png'
+          },
+          {
+            id:4,
+            name: 'Product 4',
+            price: 30000.00,
+            photo: '/images/15kg-Conjunto- 7.png'
+          },
+          {
+            id:5,
+            name: 'Product 5',
+            price: 30000.00,
+            photo: '/images/15kg-Conjunto- 7.png'
+          },
+          {
+            id:6,
+            name: 'Product 6',
+            price: 30000.00,
+            photo: '/images/15kg-Conjunto- 7.png'
+          }
+        ]
+      },
       infobar: {
         show:false,
         info:'',
         info2:'',
+        image: null
         
       },
       infoStore: {
+        userName:"juanita",
         storeName:'Juanita',
         photoShopper_src:'/images/juanita.jpg',
         photoStore_src: '/images/tendita-ejuanita.jpg'
         
+      },
+      product: {
+        id: 1000,
+        store: {
+          url:'juan2020',
+          userFirstName: 'Juania',
+          storeName: 'Juan Store',
+          userPhoto: '/images/juanita.jpg',
+          storePhoto: '/images/tendita-juanita.png'
+        },
+        name: "Zapatillas deportivas transpirables a la moda para hombre y mujer",
+        price: 23000.00,
+        originalPrice: 40000.00, 
+        brand: 'Ruko',
+        color: 'Verde Amerillo',
+        model: 'Deportiva',
+        size: '41',
+        condition: 'Nuevo',
+        qty: 1,
+        photos: [
+          '/images/Imagen Muestra.png',
+          '/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 6.png',
+          '/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 7.png',
+          '/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 8.png',
+          '/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 9.png',
+        ],
+        relatedProducts: [
+          {
+            id: 1001,
+            name: 'Product 1',
+            price: 12000,
+            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          },
+          {
+            id: 1002,
+            name: 'Product 2',
+            price: 12000,
+            photo: '/images/4c10f6caade55663e34b2699d4353c18 2.png'
+          },
+          {
+            id: 1003,
+            name: 'Product 3',
+            price: 12000,
+            photo: '/images/15kg-Conjunto- 4.png'
+          },
+          {
+            id: 1004,
+            name: 'Product 4',
+            price: 12000,
+            photo: '/images/15kg-Conjunto- 6.png'
+          },
+          {
+            id: 1005,
+            name: 'Product 5',
+            price: 12000,
+            photo: '/images/15kg-Conjunto- 7.png'
+          },
+          {
+            id: 1005,
+            name: 'Product 6',
+            price: 12000,
+            photo: '/images/15kg-Conjunto- 7.png'
+          }
+
+        ]
       },
       products: [
         {
@@ -76,21 +199,23 @@ const getState = ({ getStore, getActions, setStore }) => {
     actions: {
       //(Arrow) Functions that update the Store
       // Remember to use the scope: scope.state.store & scope.setState()
-      setInfoBar: (show, info, info2) => {
+      setInfoBar: (show, info, info2, image) => {
         console.log('flux.setInfoBar')
         //const store = getStore()
         let infobar =  {
           show:show,
           info:info,
-          info2: info2
+          info2: info2,
+          image: image
         }
         setStore({ infobar: infobar });
       },
 
-      setInfoStore: (storeName, photoShopper_src, photoStore_src ) => {
+      setInfoStore: (userName,storeName, photoShopper_src, photoStore_src ) => {
         console.log('flux.setInfoStore')
-        const store = getStore()
+        //const store = getStore()
         let infoStore =  {
+          userName:userName,
           storeName:storeName,
           photoShopper_src: photoShopper_src,
           photoStore_src: photoStore_src
@@ -112,11 +237,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.infoStore;
       },
 
+      fetchProduct: (id) => {
+        const store = getStore();
+        return store.product
+      },
+
+      fetchUserStore: (userName) => {
+        const store = getStore();
+        return store.userStore
+      },
+
       fetchContacts: (url) => {
         console.log("flux.fetchContacts");
         console.log("flux.fetchContacts.url", url);
 
-        const store = getStore();
+        //const store = getStore();
         let contacts = []; //store.contacts;
         let ver;
         fetch(url)
@@ -191,7 +326,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(resp.status);
 
             let contacts = store.contacts;
-            let newContacts = contacts.filter((c) => c != contact);
+            let newContacts = contacts.filter((c) => c !== contact);
             console.log("newContacts", newContacts);
             setStore({ contacts: newContacts });
             console.log("store.contacts", store.contacts);
@@ -224,7 +359,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             //						contact = data;
 
             let newContacts = store.contacts.map((c) => {
-              if (c.id == contact.id) {
+              if (c.id === contact.id) {
                 return contact;
               }
               return c;

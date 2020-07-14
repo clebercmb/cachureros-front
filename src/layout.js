@@ -22,8 +22,7 @@ import "./styles/layout.css";
 import { Home } from "../src/js/views/Home";
 import InformationBar from "./js/component/InformationBar/InformationBar"
 import { Context } from "./js/store/appContext";
-
-
+import UserStoreView from "./js/views/UserStoreView/UserStoreView"
 
 
 //import history from "./component/history";
@@ -53,7 +52,8 @@ export const Layout = () => {
 							<Route exact path="/" component={Home} />
 							<Route exact path="/contacts" component={Contacts} />
 							<Route exact path="/user-profile" component={UserProfile} />
-							<Route exact path="/product-view" component={ProductView} />
+							<Route exact path="/product-view/:id" component={ProductView} />
+							<Route exact path="/user-store/:store_id" component={UserStoreView} />
 							<Route exact path="/add-product-view" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
