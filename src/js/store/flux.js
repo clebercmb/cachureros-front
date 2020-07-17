@@ -31,7 +31,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					created_at: "2019-08-15 23:34:01"
 				} */
       ],
-      
+      user: {
+        id: '1',
+        name: 'Juan Perez',
+        email: 'juan@gmail.com'  
+      },
       userStore: {
         url: 'juan2020',
         userFirstName: 'Juan',
@@ -143,6 +147,96 @@ const getState = ({ getStore, getActions, setStore }) => {
         photoStore_src: '/images/tendita-ejuanita.jpg'
         
       },
+      userMessages: [
+        {
+          id:1,
+          user_id:1,
+          type: 'duda',
+          message:'message 1',
+          status:'nueva',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'      
+        },
+        {
+          id:2,
+          user_id:1,
+          type: 'oferta',
+          message:'message 2',
+          status:'leido',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'
+        },
+        {
+          id:3,
+          user_id:1,
+          type: 'venta',
+          message:'message 3',
+          status:'leido',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'        
+        },
+        {
+          id:4,
+          user_id:1,
+          type: 'duda',
+          message:'message 4',
+          status:'nuevo',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'        
+        },
+        {
+          id:5,
+          user_id:1,
+          type: 'oferta',
+          message:'message 5',
+          status:'nueva',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'
+        },
+        {
+          id:6,
+          user_id:1,
+          type: 'venta',
+          message:'message 6',
+          status:'leido',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'        
+        },
+        {
+          id:7,
+          user_id:1,
+          type: 'duda',
+          message:'message 7',
+          status:'nueva',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'        
+        },
+        {
+          id:8,
+          user_id:1,
+          type: 'oferta',
+          message:'message 8',
+          status:'leido',
+          user_from:2,
+          user_from_photo: '/images/juanita.jpg',
+          link:'/product-view/12',
+          date:'17-07-2020 13:10:01'        
+        },
+      ],
       product: {
         id: 1000,
         store: {
@@ -279,16 +373,24 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.infoStore;
       },
 
+      getUser() {
+        console.log('flux.getUser()')
+        const store = getStore()
+
+        return store.user
+      },
       fetchProduct: (id) => {
         const store = getStore();
         return store.product
       },
-
       fetchUserStore: (userName) => {
         const store = getStore();
         return store.userStore
       },
-
+      fetchUserMessages: (userId) => {
+        const store = getStore();
+        return store.userMessages
+      }, 
       fetchContacts: (url) => {
         console.log("flux.fetchContacts");
         console.log("flux.fetchContacts.url", url);
