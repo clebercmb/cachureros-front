@@ -84,6 +84,48 @@ const getState = ({ getStore, getActions, setStore }) => {
             name: 'Product 6',
             price: 30000.00,
             photo: '/images/15kg-Conjunto- 7.png'
+          },
+          {
+            id:7,
+            name: 'Product 7',
+            price: 30000.00,
+            photo: '/images/15kg-Conjunto- 7.png'
+          },
+          {
+            id:8,
+            name: 'Product 8',
+            price: 30000.00,
+            photo: '/images/15kg-Conjunto- 7.png'
+          },
+          {
+            id:9,
+            name: 'Product 9',
+            price: 10000.00,
+            photo: '/images/15kg-Conjunto- 4.png'
+          },
+          {
+            id:10,
+            name: 'Product 10',
+            price: 10000.00,
+            photo: '/images/15kg-Conjunto- 4.png'
+          },
+          {
+            id:11,
+            name: 'Product 11',
+            price: 10000.00,
+            photo: '/images/15kg-Conjunto- 4.png'
+          },
+          {
+            id:12,
+            name: 'Product 12',
+            price: 10000.00,
+            photo: '/images/15kg-Conjunto- 4.png'
+          },
+          {
+            id:3,
+            name: 'Product 13',
+            price: 10000.00,
+            photo: '/images/15kg-Conjunto- 4.png'
           }
         ]
       },

@@ -1,6 +1,6 @@
 .user-store-view {
     width: 100%;
-    height: 1000px;
+
 }
 
 .user-store-view-01 {
@@ -84,7 +84,21 @@
 
 .user-store-view-05 {
     display: flex;
-    justify-content: space-between;
-    margin-top: -480px;
+    flex-wrap: wrap;
+    margin-top: -1410px;
 }
 
+
+.user-store-view-05 > div {
+    margin: 1px 1% 50px 1% ;
+    width:  15%;
+}
+
+
+.user-store-view-05 > div:nth-child(6n) {
+    margin-right: 0;
+}
+
+.user-store-view-05 > div:nth-child(6n+1) {
+    margin-left: 0;
+}
