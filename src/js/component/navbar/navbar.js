@@ -12,6 +12,8 @@ const Navbar = (props) => {
   let infoBar = actions.getInfoBar().info
   let infoStore = actions.getInfoStore()
 
+  let user = actions.getUser();
+
 
   return (
     <div className="container-level-01">
@@ -43,7 +45,9 @@ const Navbar = (props) => {
                 </Link>
               </li>
               <li>
-                <img src="/images/notification.png" alt="Notification" />
+                <Link to={`/message/${user.id}`}>
+                  <img src="/images/notification.png" alt="Notification" />
+                </Link>
               </li>
 
               <li className="nav-item dropdown">

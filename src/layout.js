@@ -23,6 +23,8 @@ import { Home } from "../src/js/views/Home";
 import InformationBar from "./js/component/InformationBar/InformationBar"
 import { Context } from "./js/store/appContext";
 import UserStoreView from "./js/views/UserStoreView/UserStoreView"
+import Message from './js/views/Message/Message'
+import NotAllowed from './js/component/NotAllowed/NotAllowed'
 
 
 //import history from "./component/history";
@@ -57,6 +59,8 @@ export const Layout = () => {
 							<Route exact path="/add-product-view" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
+							<Route exact path="/message/:user_id" component={Message} />	
+							<Route exact path="/not-allowed/" component={NotAllowed} />
 							<Route render={() => <h1 className="notfound">Not found!</h1>} />
 						</Switch>
 					</ScrollToTop>
