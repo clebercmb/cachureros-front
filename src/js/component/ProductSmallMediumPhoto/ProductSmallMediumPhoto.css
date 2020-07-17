@@ -1,7 +1,6 @@
 .product-small-medium-photo {
-    width: 169.23px;
-    height: 180.28px;
-    border-radius: 5px;
+    width: 170px;
+    height: 234px;
 }
 
 .product-small-medium-photo-price {
@@ -10,8 +9,9 @@
 }
 
 .product-small-medium-photo-price {
-    font-weight: 200;
     font-size: 12px;
+    height: 18px;
+    width: 100%;
     line-height: 18px;
     margin-top: 10px;
     color: #0071BC;
@@ -20,16 +20,22 @@
 }
 
 .product-small-medium-photo-name {
-    font-weight: 200;
+    height: 18px;
+    width: 100%;
     font-size: 12px;
     line-height: 18px;
     color: #000000;
     margin-bottom: 0;
 }
 
+.product-small-medium-photo-link {
+    width: 100%;
+    height: 100%; 
+}
+
 .product-small-medium-photo-img {
     width: 100%;
-    height: 100%;
+    height: 180px;
     object-fit: cover;
     margin: 0;
 }
