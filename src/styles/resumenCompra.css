@@ -1,0 +1,52 @@
+.resumenCompra{
+ 
+    background-color: white;
+    border-radius: 10px;
+    width: 30%;  
+    height: 320px;
+    margin: 0px 50px;
+}
+
+.contenidosresumencompra{
+    width: 90%;
+    margin: 20px auto;
+}
+
+.tituloResumenCompra{
+background-color: #c4c4c4;
+
+width: 100%;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+height: 75px;
+display: flex;
+}
+
+.tituloResumenCompra h1{
+    font-size: 18px;
+    margin: 0px auto;
+    margin-top: 15px;
+}
+
+.subtotal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.comprar{
+   display: flex;
+   justify-content: center;
+}
+
+
+/* estilos pagina principal*/
+.resumenpedido{
+    display: flex;
+    justify-content: space-evenly;
+}

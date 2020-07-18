@@ -1,0 +1,118 @@
+.add-product-view-container {
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.add-product-view-a {
+    width: 370px;
+    height: 100%;
+}
+
+
+.add-product-view-b {
+    width: 669px;
+    height: 100%;
+
+}
+
+.add-product-view-a-01 {
+
+    width: 370px;
+    height: 370px;
+    background: rgb(235, 235, 235) url('/images/camera.png') no-repeat center;
+    background-size: 40px;
+
+    width: 370px;
+    height: 370px;
+
+    border: 2px dashed #686767;
+    border-radius: 10px;
+
+}
+
+.add-product-view-a-02 {
+    display: flex;
+    justify-content: space-between;
+}
+.add-product-view-a-02-01 {
+    width: 170px;
+    height: 170px;
+    background: rgb(235, 235, 235) url('/images/camera.png') no-repeat center;
+    background-size: 40px;
+    margin-top: 15px;
+    border: 2px dashed #686767;
+    border-radius: 10px;
+}
+
+.add-product-view-b-01 {
+    width: 670px;
+    height: 54px;
+    margin-bottom: 0;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+
+    color: #1E1E1E;
+}
+
+.add-product-view-b-02{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.add-product-view-b-03, .add-product-view-b-04, .add-product-view-b-05, .add-product-view-b-06 {
+    margin-top: 15px;
+}
+
+.add-product-view-b-04 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-product-view-b-04-01 {
+    width: 269px;
+    height: 38px;
+    border-radius: 4px;
+}
+
+.add-product-view-b-04 * p {
+    margin-bottom: 0;
+}
+
+.add-product-view-b-05 {
+    display: flex;
+    justify-content: start;
+}
+
+.add-product-view-b-05-01 {
+    width: 35px;
+    height: 32px;
+
+    background: #FFFEFE url('/images/check.png') no-repeat center;
+    background-size: 20px;
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-right: 15px;
+} 
+
+.add-product-view-b-06 {
+    width: 668px;
+    height: 2px;
+
+    background: #C4C4C4;
+}
+
+.add-product-view-b-07 {
+    margin-top: 50px;
+} 
+
+.add-product-view-b-07 .button-green {
+    margin-right: 20px;
+}

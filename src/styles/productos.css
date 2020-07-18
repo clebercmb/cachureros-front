@@ -1,0 +1,30 @@
+
+.card{
+    border: none;
+}
+
+
+.card-img-top{
+    border-radius: 5px;
+    
+}
+
+h5.card-title{
+    font-size: 15px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
+
+p.card-text{
+    color:#0071BC;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 0px;
+}
+
+
+a.btn-primary{
+ padding-left: 20px;
+ padding-right: 20px;
+ margin-top: 0px;
+}

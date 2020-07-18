@@ -1,0 +1,47 @@
+.infobar-container {
+    background: black;
+    height: 50px;
+    color: white;  
+    margin-bottom: 10px;
+
+}
+
+.infobar-container .container-level-01 {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+
+.infobar-container-01 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.infobar-container-store-name, .infobar-container-info, .infobar-container-info2{
+    margin-bottom: 0;
+}
+
+.infobar-container-store-name,  .infobar-container-info2{
+    margin-left: 10px ;
+}
+
+.infobar-container-photo-perfil {
+    width: 40px;
+    height: 40px;
+    left: 173px;
+    top: 86px;
+    border-radius: 50px;
+
+}
+
+.infobar-container-separator {
+    width: 29px;
+    height: 0px;
+    left: 397px;
+    top: 92px;
+    background: #FFFFFF;
+    border: 0.2px solid #FFFFFF;
+    transform: rotate(90deg);
+}
