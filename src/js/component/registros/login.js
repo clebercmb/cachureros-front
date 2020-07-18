@@ -12,7 +12,7 @@ class Login extends React.Component {
         </div>
 
         <div className="logo1">
-          <img src="images/Cachurero.png" />
+          <img src="images/Cachurero.png" alt='Logo Cachurero' />
         </div>
 
         <div className="opcionesregistro">
