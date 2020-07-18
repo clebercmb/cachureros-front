@@ -1,6 +1,7 @@
 import React from 'react'
 import "../../../styles/ShoppingCart.css";
 
+
 class ShoppingCart extends React.Component {
     constructor(props) {
       super(props);
@@ -38,9 +39,12 @@ class ShoppingCart extends React.Component {
     }
     render() {
       return (
+       
         <div className="productosAgregados">
           {this.state.data.map((carproductos) => {
             return (
+              <>
+              
               <div>
                 <div className="listProductos">
                   <div>
@@ -55,8 +59,8 @@ class ShoppingCart extends React.Component {
                     </div>
                   </div>
                 </div>
-                
               </div>
+              </>
             );
           })}
         </div>

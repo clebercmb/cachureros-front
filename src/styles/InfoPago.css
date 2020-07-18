@@ -1,36 +1,71 @@
-.Infopago{
-    border: 1px solid #868686;
-    background-color: white;
-    border-radius: 10px;
-    width: 50%;  
-    margin: 0px 50px;
+.Infopago {
+  
+  background-color: white;
+  border-radius: 10px;
+  width: 50%;
+  margin: 0px 50px;
 }
 
-.ejemplospagocabecera{
+.cabecera {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.titulosPagos{
     display: flex;
     justify-content: space-around;
+
+ 
 }
 
-.ejemplospago{
-    display: flex;
-    width: 50%;
-    height: 100px;
-    background-color: tomato;
+.pago {
+  width: 45%;
+  border-radius: 10px;
+  text-align: center;
+
 }
 
-.ejemplosseguro{
-    width: 50%;
-    height: 100px;
-    background-color: rgb(71, 255, 132);
+.mediosPago {
+  font-size: 9px;
+  display: flex;
+  justify-content: space-around;
+
 }
 
+.borderPago {
+  border: 1px solid #1e1e1e;
+  border-radius: 5px;
+  width: 84px;
+  height: 40px;
+}
 
-.tituloInfopago{
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
+.separador{
     margin-bottom: 20px;
 }
 
+/*Pago seguro*/
+.pagoSeguro {
+  width: 45%;
+  border-radius: 10px;
+  text-align: center;
 
+}
 
+.seguroContenido {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.sizeImagen {
+  width: 40px;
+  height: 42px;
+  margin-top: -5px;
+}
+
+.sizeText {
+  padding-left: 5px;
+  font-size: 10px;
+}

@@ -90,7 +90,7 @@
     display: none;
 }
 
-
 .container-checkbox  input:checked ~ .check::after {
     display: block;
 }
+

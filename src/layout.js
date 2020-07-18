@@ -22,9 +22,11 @@ import "./styles/layout.css";
 import { Home } from "../src/js/views/Home";
 import InformationBar from "./js/component/InformationBar/InformationBar"
 import { Context } from "./js/store/appContext";
+import ResumenPedidos from "./js/views/resumenPedidos";
 import UserStoreView from "./js/views/UserStoreView/UserStoreView"
 import Message from './js/views/Message/Message'
 import NotAllowed from './js/component/NotAllowed/NotAllowed'
+
 
 
 //import history from "./component/history";
@@ -47,6 +49,7 @@ export const Layout = () => {
 				<div className="container-level-01">
 					<ScrollToTop>
 						<Switch>
+						    <Route exact path="/resumen-pedidos" component={ResumenPedidos} />
 							<Route exact path="/login" component={Login} />
 							<Route exact path="/registro" component={RegistroUsuario} />
 							<Route exact path="/carritodecompra" component={Carrito} />
