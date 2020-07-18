@@ -147,6 +147,43 @@ const getState = ({ getStore, getActions, setStore }) => {
         photoStore_src: '/images/tendita-ejuanita.jpg'
         
       },
+      userCart:{
+        id: 1,
+        user: {
+          id: 10
+        },
+        products: [
+          {
+            id: 1001,
+            name: 'Product 1',
+            discount: 10000,
+            price: 12000,
+            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          },
+          {
+            id: 1002,
+            name: 'Product 2',
+            discount: 10000,
+            price: 12000,
+            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          },
+          {
+            id: 1003,
+            name: 'Product 3',
+            discount: 10000,
+            price: 12000,
+            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          },
+          {
+            id: 1004,
+            name: 'Product 4',
+            discount: 10000,
+            price: 12000,
+            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          },
+        ]
+
+      },
       userMessages: [
         {
           id:1,
@@ -383,6 +420,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         return store.product
       },
+
+      fetchUserCart: (userId) => {
+        const store = getStore();
+        return store.userCart
+      },
+
       fetchUserStore: (userName) => {
         const store = getStore();
         return store.userStore
