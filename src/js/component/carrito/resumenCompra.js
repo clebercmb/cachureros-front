@@ -1,5 +1,6 @@
 import React from "react";
 import "../../../styles/resumenCompra.css";
+import { Link } from "react-router-dom";
 
 class ResumenCompra extends React.Component {
   render() {
@@ -23,7 +24,10 @@ class ResumenCompra extends React.Component {
             <p>$0</p>
           </div>
           <div className="comprar">
-          <button className="button-green">COMPRAR</button>
+            <Link to='/resumen-pedidos'>
+            <button className="button-green">COMPRAR</button>
+            </Link>
+          
           </div>
           
         </div>

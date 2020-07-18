@@ -1,0 +1,39 @@
+
+.informepago{
+    background-color: white;
+    border-radius: 10px;
+    width: 630px;
+    height: 300px;
+}
+
+.franjainformenvio{
+    height: 75px;
+    background-color: #c4c4c4;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+
+.pagomedios{
+    display: flex;
+    height: 150px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.transferencia{
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding-left: 15px;
+    width: 178px;
+    height: 70px;
+    font-size: 14px;
+    border: 1px solid #868686;
+    border-radius: 10px;
+}
+

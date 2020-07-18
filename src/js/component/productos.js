@@ -14,8 +14,7 @@ class Productos extends React.Component {
           title: "Arrimo",
           precio: "$ 40.000",
           img: "img/mesa 1.png",
-        },
-        {
+        },{
           id: 1,
           title: "Bateria",
           precio: "$ 10.000",
@@ -65,13 +64,13 @@ class Productos extends React.Component {
             {this.state.data.map((productos) => {
               return (
                 <div className="col-md-3">
-                  <div className="card mt-3 mb-3 ml-3 mr-3 p-3">
+                  <div className="card mt-3 mb-3 ml-2  mr-2 p-2">
                     <img
                       src={productos.img}
                       className="card-img-top"
                       alt="..."/>
                     <div className="card-body">
-                      <h5 className="card-title">{productos.title}</h5>
+                      <h5 className="card-title mt-1">{productos.title}</h5>
                       <p className="card-text">{productos.precio}</p>
                       <a href="#" className="btn btn-primary mt-3">
                         Comprar
