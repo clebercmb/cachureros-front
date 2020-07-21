@@ -1,0 +1,18 @@
+.containerHome{
+    margin-top: 10px;
+    left:0;
+    right: 0;
+    height: 800px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.imagenBanner{
+    height: 100%;
+    width: 100%;
+}
+
+.containerProduct{
+padding-top: 850px;
+}

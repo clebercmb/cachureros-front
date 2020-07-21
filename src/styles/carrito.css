@@ -1,3 +1,7 @@
+.containerCarrito{
+    padding-bottom: 30px;
+}
+
 .carrito{
     display: flex;
 }
