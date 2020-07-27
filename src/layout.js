@@ -6,6 +6,8 @@ import ScrollToTop from "./js/component/scrollToTop";
 //import injectContext from "./store/appContext";
 
 import injectContext from "./js/store/appContext";
+//import Routes from './routes'
+import PrivateRoute from './PrivateRoute'
 
 
 import { Contacts } from "./js/views/Contacts";
@@ -56,13 +58,13 @@ export const Layout = () => {
 							<Route exact path="/index.html" component={Contacts} />
 							<Route exact path="/" component={Home} />
 							<Route exact path="/contacts" component={Contacts} />
-							<Route exact path="/user-profile" component={UserProfile} />
+							<PrivateRoute exact path="/user-profile" component={UserProfile} />
 							<Route exact path="/product-view/:id" component={ProductView} />
 							<Route exact path="/user-store/:store_id" component={UserStoreView} />
-							<Route exact path="/add-product-view" component={AddProductView} />
+							<PrivateRoute exact path="/add-product-view" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
-							<Route exact path="/message/:user_id" component={Message} />	
+							<PrivateRoute exact path="/message/:user_id" component={Message} />	
 							<Route exact path="/not-allowed/" component={NotAllowed} />
 							<Route render={() => <h1 className="notfound">Not found!</h1>} />
 						</Switch>
