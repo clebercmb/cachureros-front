@@ -200,25 +200,25 @@ const Filter = (props) => {
                 <div className={`product-feed-filters-content position-05 ${state.filterPosition === 'position-05' ? 'show-filter' : 'hidden-filter'}`}  >
                     <div className='product-feed-filters-content-body'>
                         <div className='product-feed-filters-content-body-wrapper'>
-                            <label name='container-checkbox-news1' className="container-checkbox">Ultimas 24h
+                            <label name='container-checkbox-news1' className="container-checkbox">Las últimas 24h
                                 <input  id='container-checkbox-news1' name='container-checkbox-news1' type="checkbox" />
                                 <span className="check"></span>
                             </label>
                         </div>
                         <div className='product-feed-filters-content-body-wrapper'>
-                            <label name='container-checkbox-news2' className="container-checkbox">Ultimas 24h
+                            <label name='container-checkbox-news2' className="container-checkbox">Los últimos 7 días
                                 <input  id='container-checkbox-news2' name='container-checkbox-news2' type="checkbox" />
                                 <span className="check"></span>
                             </label>
                         </div>
                         <div className='product-feed-filters-content-body-wrapper'>
-                            <label name='container-checkbox-news3' className="container-checkbox">Ultimas 24h
+                            <label name='container-checkbox-news3' className="container-checkbox">Los últimos 14 días
                                 <input  id='container-checkbox-news3' name='container-checkbox-news3' type="checkbox" />
                                 <span className="check"></span>
                             </label>
                         </div>
                         <div className='product-feed-filters-content-body-wrapper'>
-                            <label name='container-checkbox-news4' className="container-checkbox">Ultimas 24h
+                            <label name='container-checkbox-news4' className="container-checkbox">Los últimos 30 días
                                 <input  id='container-checkbox-news4' name='container-checkbox-news4' type="checkbox" />
                                 <span className="check"></span>
                             </label>
