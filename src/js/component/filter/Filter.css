@@ -1,6 +1,7 @@
 
 .filter {
     margin-top: 33px;
+
 }
 
 .filter-01 {
@@ -37,33 +38,36 @@
     color: #0071BC;
 }
 
+.container-price {
+    width: 20%;
+}
+
+.container-price + input {
+    width: 50%;
+}
+
 .position-01 {
-    left: 0px;
+    left: 175px;
 }
 
 .position-02 {
-    left: 177px;
-    top: -517px;
+    left: 352px;
 }
 
 .position-03 {
-    left: 355px;
-    top: -744px
+    left: 530px;
 }
 
 .position-04 {
-    left: 532px;
-    top: -970px;
+    left: 706px;
 }
 
 .position-05 {
-    left: 709px;
-    top: -1110px
+    left: 884px;
 }
 
 .position-06 {
-    left: 887px;
-    top:-1308px;
+    left: 1062px;
 }
 
 .show-filter {
@@ -82,11 +86,14 @@
     background: url('/images/arrow-down.png');
 }
 
+.filter-02 {
+    display: relative;
+}
 
 .product-feed-filters-content {
+    position: absolute;
     width: 283px;
     background: #f0f0f0;
-    position: relative;
     border: solid 0.5px #868686;
     border-radius: 5px;
     padding-left: 8px;

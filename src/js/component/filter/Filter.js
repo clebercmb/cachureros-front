@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useContext } from "react"
 import "./Filter.css"
+import { Context } from '../../store/appContext';
 
 const Filter = (props) => {
+    const { store, actions } = useContext(Context);
 
     const [state, setState] = useState({
         filterPosition: '',
+        regionList:[],
+        categoryList:[],
+        sizeList:[],
+        productStateList:[],
         isOpen: 'hidden-filter',
         isOpen1: 'hidden-filter',
         isOpen2: 'hidden-filter',
@@ -14,6 +20,46 @@ const Filter = (props) => {
         isOpen6: 'hidden-filter',
 
     });
+
+    useEffect(() => {
+        console.log("Filter.useEffect-1: Behavior before the component is added to the DOM")
+        console.log("Filter.useEffect-1: props", props)
+        actions.fetchRegionList()
+        actions.fetchCategoryList()
+        actions.fetchSizeList()
+        actions.fetchProductStateList()
+
+	}, []);
+
+    useEffect(() => {
+		console.log("Filter.useEffect-2: Behavior before the component is added to the DOM");
+		console.log("Filter.useEffect-2: store.regionList", store.regionList);
+        //setState({...state, regionList: store.regionList});        
+        let regionList = store.regionList
+        setState({...state, regionList: regionList});
+
+    }, [store.regionList]);
+
+    useEffect(() => {
+		console.log("Filter.useEffect-3: Behavior before the component is added to the DOM - categoryList")
+        console.log("Filter.useEffect-3: store.categoryList", store.categoryList)
+        let categoryList = store.categoryList
+        setState({...state, categoryList: categoryList});
+    }, [store.categoryList]); 
+
+    useEffect(() => {
+		console.log("Filter.useEffect-4: Behavior before the component is added to the DOM - sizeList")
+        console.log("Filter.useEffect-4: store.sizeList", store.sizeList)
+        let sizeList = store.sizeList
+        setState({...state, sizeList: sizeList});
+    }, [store.sizeList]);
+
+    useEffect(() => {
+		console.log("Filter.useEffect 5-Behavior before the component is added to the DOM - productStateList")
+        console.log("Filter.useEffect 5-store.productStateList", store.productStateList)
+        let productStateList = store.productStateList
+        setState({...state, productStateList: productStateList});
+    }, [store.productStateList]);
     
     let changeFilterPosition = (filterPosition) => {
         console.log('***changeFilterPosition***')
@@ -27,6 +73,41 @@ const Filter = (props) => {
         console.log('Filter.changeFilterPositionstate.state.filterPosition=', state.filterPosition)
         console.log('Filter.changeFilterPositionstate.state.isOpen=', state.isOpen)
     }
+
+
+    const regionListOptions = state.regionList.map((region, i) => {
+        return (
+            <div key={i} className='product-feed-filters-content-body-wrapper'>
+                <label name={'container-checkbox-region'+i} className="container-checkbox">{region.name}
+                    <input  value={region.id} id={'container-checkbox-region'+i} name={'container-checkbox-region'+i} type="checkbox" />
+                    <span className="check"></span>
+                </label>
+            </div>
+
+        )    
+    })   
+    
+    const categoryListOptions = state.categoryList.map((category, i) => {
+        return(
+            <div key={i} className='product-feed-filters-content-body-wrapper'>
+                <label name={'container-checkbox-category'+i} className="container-checkbox">{category.name}
+                    <input  value={category.id} id={'container-checkbox-category'+i} name={'container-checkbox-category'+i} type="checkbox" />
+                    <span className="check"></span>
+                </label>
+            </div>
+        )
+    })
+
+    const sizeListOptions = state.sizeList.map((size, i) => {
+        return(
+            <div key={i} className='product-feed-filters-content-body-wrapper'>
+                <label name={'container-checkbox-size'+i} className="container-checkbox">{size.name}
+                    <input  id={'container-checkbox-size'+i} name={'container-checkbox-size'+i} type="checkbox" />
+                    <span className="check"></span>
+                </label>
+            </div>
+        )
+    })
 
     return (
         <div className='filter'>
@@ -67,271 +148,108 @@ const Filter = (props) => {
                 </button>
             </div>
 
-            <div className={`product-feed-filters-content position-01 ${state.filterPosition === 'position-01' ? 'show-filter' : 'hidden-filter'}`}  >
-                <div className='product-feed-filters-content-body'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Arica and Parinacota
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
+            <div className='filter-02'>
+                <div className={`product-feed-filters-content position-01 ${state.filterPosition === 'position-01' ? 'show-filter' : 'hidden-filter'}`}  >
+                    <div className='product-feed-filters-content-body'>
+                        {regionListOptions}
+                    </div> 
+                    <div className='product-feed-filters-content-buttons'>
+                        <button className='button-clear'>Limpar</button>
+                        <button className='button-apply'>Aplicar</button>
                     </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Tarapacá
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Antofagasta
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Atacama
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Coquimbo
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Valparaíso
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Santiago
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">O'Higgins
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Ñuble
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Biobío
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Araucanía
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Los Ríos
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Los Lagos
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Aysén
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-region1' className="container-checkbox">Magallanes
-                            <input  id='container-checkbox-region1' name='container-checkbox-region1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                </div> 
-                <div className='product-feed-filters-content-buttons'>
-                    <button className='button-clear'>Limpar</button>
-                    <button className='button-apply'>Aplicar</button>
                 </div>
-            </div>
 
-            <div className={`product-feed-filters-content position-02 ${state.filterPosition === 'position-02' ? 'show-filter' : 'hidden-filter'}`}  >
-                <div className='product-feed-filters-content-body'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-category1' className="container-checkbox">Categoria 1
-                            <input  id='container-checkbox-category1' name='container-checkbox-category1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
+                <div className={`product-feed-filters-content position-02 ${state.filterPosition === 'position-02' ? 'show-filter' : 'hidden-filter'}`}  >
+                    <div className='product-feed-filters-content-body'>
+                        {categoryListOptions}
+                    </div> 
+                    <div className='product-feed-filters-content-buttons'>
+                        <button className='button-clear'>Limpar</button>
+                        <button className='button-apply'>Aplicar</button>
                     </div>
-
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-category2' className="container-checkbox">Categoria 2
-                            <input  id='container-checkbox-category2' name='container-checkbox-category2' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-category3' className="container-checkbox">Categoria 3
-                            <input  id='container-checkbox-category3' name='container-checkbox-category3' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-category4' className="container-checkbox">Categoria 4
-                            <input  id='container-checkbox-category4' name='container-checkbox-category4' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-category5' className="container-checkbox">Categoria 5
-                            <input  id='container-checkbox-category5' name='container-checkbox-category5' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                </div> 
-                <div className='product-feed-filters-content-buttons'>
-                    <button className='button-clear'>Limpar</button>
-                    <button className='button-apply'>Aplicar</button>
                 </div>
-            </div>
 
-            <div className={`product-feed-filters-content position-03 ${state.filterPosition === 'position-03' ? 'show-filter' : 'hidden-filter'}`}  >
-                <div className='product-feed-filters-content-body'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-size1' className="container-checkbox">Tamaño 1
-                            <input  id='container-checkbox-size1' name='container-checkbox-size1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
+                <div className={`product-feed-filters-content position-03 ${state.filterPosition === 'position-03' ? 'show-filter' : 'hidden-filter'}`}  >
+                    <div className='product-feed-filters-content-body'>
+                        {sizeListOptions}
+                    </div> 
+                    <div className='product-feed-filters-content-buttons'>
+                        <button className='button-clear'>Limpar</button>
+                        <button className='button-apply'>Aplicar</button>
                     </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-size2' className="container-checkbox">Tamaño 2
-                            <input  id='container-checkbox-size2' name='container-checkbox-size2' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-size3' className="container-checkbox">Tamaño 3
-                            <input  id='container-checkbox-size3' name='container-checkbox-size3' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-size4' className="container-checkbox">Tamaño 4
-                            <input  id='container-checkbox-size4' name='container-checkbox-size4' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-size5' className="container-checkbox">Tamaño 5
-                            <input  id='container-checkbox-size5' name='container-checkbox-size5' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                </div> 
-                <div className='product-feed-filters-content-buttons'>
-                    <button className='button-clear'>Limpar</button>
-                    <button className='button-apply'>Aplicar</button>
                 </div>
-            </div>
 
-            <div className={`product-feed-filters-content position-04 ${state.filterPosition === 'position-04' ? 'show-filter' : 'hidden-filter'}`}  >
-                <div className='product-feed-filters-content-body'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-price1' className="container-checkbox">Precio 1
-                            <input  id='container-checkbox-price1' name='container-checkbox-price1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
+                <div className={`product-feed-filters-content position-04 ${state.filterPosition === 'position-04' ? 'show-filter' : 'hidden-filter'}`}  >
+                    <div className='product-feed-filters-content-body'>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label for='container-price1' name='container-price1' className="container-price">De</label>
+                            <input  id='container-price1' name='container-price1'  />
+                        </div>
 
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-price2' className="container-checkbox">Precio 2
-                            <input  id='container-checkbox-price2' name='container-checkbox-price2' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label for='container-price2' name='container-price2' className="container-price">Hasta</label>
+                            <input  id='container-price2' name='container-price2'  />
+                        </div>
+                    </div> 
+                    <div className='product-feed-filters-content-buttons'>
+                        <button className='button-clear'>Limpar</button>
+                        <button className='button-apply'>Aplicar</button>
                     </div>
-                </div> 
-                <div className='product-feed-filters-content-buttons'>
-                    <button className='button-clear'>Limpar</button>
-                    <button className='button-apply'>Aplicar</button>
                 </div>
-            </div>
 
-            <div className={`product-feed-filters-content position-05 ${state.filterPosition === 'position-05' ? 'show-filter' : 'hidden-filter'}`}  >
-                <div className='product-feed-filters-content-body'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-news1' className="container-checkbox">Ultimas 24h
-                            <input  id='container-checkbox-news1' name='container-checkbox-news1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
+                <div className={`product-feed-filters-content position-05 ${state.filterPosition === 'position-05' ? 'show-filter' : 'hidden-filter'}`}  >
+                    <div className='product-feed-filters-content-body'>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label name='container-checkbox-news1' className="container-checkbox">Ultimas 24h
+                                <input  id='container-checkbox-news1' name='container-checkbox-news1' type="checkbox" />
+                                <span className="check"></span>
+                            </label>
+                        </div>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label name='container-checkbox-news2' className="container-checkbox">Ultimas 24h
+                                <input  id='container-checkbox-news2' name='container-checkbox-news2' type="checkbox" />
+                                <span className="check"></span>
+                            </label>
+                        </div>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label name='container-checkbox-news3' className="container-checkbox">Ultimas 24h
+                                <input  id='container-checkbox-news3' name='container-checkbox-news3' type="checkbox" />
+                                <span className="check"></span>
+                            </label>
+                        </div>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label name='container-checkbox-news4' className="container-checkbox">Ultimas 24h
+                                <input  id='container-checkbox-news4' name='container-checkbox-news4' type="checkbox" />
+                                <span className="check"></span>
+                            </label>
+                        </div>
+                    </div> 
+                    <div className='product-feed-filters-content-buttons'>
+                        <button className='button-clear'>Limpar</button>
+                        <button className='button-apply'>Aplicar</button>
                     </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-news2' className="container-checkbox">Ultimas 24h
-                            <input  id='container-checkbox-news2' name='container-checkbox-news2' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-news3' className="container-checkbox">Ultimas 24h
-                            <input  id='container-checkbox-news3' name='container-checkbox-news3' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-news4' className="container-checkbox">Ultimas 24h
-                            <input  id='container-checkbox-news4' name='container-checkbox-news4' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                </div> 
-                <div className='product-feed-filters-content-buttons'>
-                    <button className='button-clear'>Limpar</button>
-                    <button className='button-apply'>Aplicar</button>
                 </div>
-            </div>
-            <div className={`product-feed-filters-content position-06 ${state.filterPosition === 'position-06' ? 'show-filter' : 'hidden-filter'}`}  >
-                <div className='product-feed-filters-content-body'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-condition1' className="container-checkbox">Nunca usado
-                            <input  id='container-checkbox-condition1' name='container-checkbox-condition1' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
+                <div className={`product-feed-filters-content position-06 ${state.filterPosition === 'position-06' ? 'show-filter' : 'hidden-filter'}`}  >
+                    <div className='product-feed-filters-content-body'>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label name='container-checkbox-condition1' className="container-checkbox">Nunca usado
+                                <input  id='container-checkbox-condition1' name='container-checkbox-condition1' type="checkbox" />
+                                <span className="check"></span>
+                            </label>
+                        </div>
+                        <div className='product-feed-filters-content-body-wrapper'>
+                            <label name='container-checkbox-condition2' className="container-checkbox">Nunca usado
+                                <input  id='container-checkbox-condition2' name='container-checkbox-condition2' type="checkbox" />
+                                <span className="check"></span>
+                            </label>
+                        </div>
+                    </div> 
+                    <div className='product-feed-filters-content-buttons'>
+                        <button className='button-clear'>Limpar</button>
+                        <button className='button-apply'>Aplicar</button>
                     </div>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='container-checkbox-condition2' className="container-checkbox">Nunca usado
-                            <input  id='container-checkbox-condition2' name='container-checkbox-condition2' type="checkbox" />
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                </div> 
-                <div className='product-feed-filters-content-buttons'>
-                    <button className='button-clear'>Limpar</button>
-                    <button className='button-apply'>Aplicar</button>
                 </div>
+
             </div>
 
         </div>

@@ -22,10 +22,11 @@ const UserStoreView = (props) => {
         console.log("UserStoreView useEffect 1: Behavior before the component is added to the DOM");
         console.log("UserStoreView.useEffect 1.props.user_store", props.match.params.user_store);
         actions.fetchUserStore(props.match.params.store_id);
-        actions.fetchRegionList();
+        //actions.fetchRegionList();
 		console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
 	}, []);
 
+    /*
     useEffect(() => {
 		console.log("UserStoreView useEffect 2: Behavior before the component is added to the DOM");
 		console.log("UserStoreView.useEffect 2.store.regionList", store.regionList);
@@ -34,7 +35,7 @@ const UserStoreView = (props) => {
         setState({...state, regionList: regionList});
 
     }, [store.regionList]);
-
+*/
 	useEffect(() => {
 		console.log("UserStoreView useEffect 3: Behavior before the component is added to the DOM");
 		console.log("UserStoreView.useEffect 3.store.userStore", store.contacts);
@@ -45,14 +46,10 @@ const UserStoreView = (props) => {
 
     }, [store.userStore]);
 
-
-    
-
     console.log('UserStoreView.state.userStore=', state.userStore)
 
     let products = store.userStore.products
     console.log("UserStoreView.products(1)=", products)
-
 
     if (products)
         products = products.map((p, i) => {

@@ -100,7 +100,6 @@ const AddProductView = (props) => {
         setState({...state, productStateList: productStateList});
     }, [store.productStateList]);
 
-   
     useEffect(() => {
 		console.log("useEffect 6-Behavior before the component is added to the DOM - categoryList")
         console.log("useEffect 6-props.match.params.id", props.match.params.id)
