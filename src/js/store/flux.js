@@ -34,7 +34,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: {
         id: '1',
         name: 'Juan Perez',
-        email: 'juan@gmail.com'  
+        email: 'juan@gmail.com',
+        userStoreId:1
       },
       userStore: {
         url: 'juan2020',
@@ -277,6 +278,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       product: {
         id: 1000,
         store: {
+          id: 1,
           url:'juan2020',
           userFirstName: 'Juania',
           storeName: 'Juan Store',
@@ -339,6 +341,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
+      regionList:[],
+      departmentList:[],
+      categoryList:[],
+      weightUnitList:[],
+      sizeList:[],
+      productStateList:[],
       products: [
         {
           id: 1001,
@@ -479,7 +487,158 @@ const getState = ({ getStore, getActions, setStore }) => {
       fetchUserMessages: (userId) => {
         const store = getStore();
         return store.userMessages
+      },
+
+      fetchRegionList: () => {
+        console.log("flux.fetchRegionList");
+        console.log("flux.fetchRegionList.env", process.env);
+        console.log("flux.fetchRegionList.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/region'
+        console.log("flux.fetchRegionList.url", url)
+        const store = getStore();
+        let regionList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchRegionList.data", data);
+            regionList = data;
+            setStore({ regionList: regionList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchRegionList.error", error);
+          });
+
+          console.log("flux.fetchRegionList.departmentList", regionList);
+        //if (ver == undefined) contacts = [];
+        
+      },
+      fetchDepartmentList: () => {
+        console.log("flux.fetchDepartmentList");
+        console.log("flux.fetchDepartmentList.env", process.env);
+        console.log("flux.fetchDepartmentList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/department'
+        console.log("flux.fetchDepartmentList.url", url)
+        const store = getStore();
+        let departmentList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchDepartmentList.data", data);
+            departmentList = data;
+            setStore({ departmentList: departmentList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchDepartmentList.error", error);
+          });
+
+        console.log("flux.fetchDepartmentList.departmentList", departmentList);
+        //if (ver == undefined) contacts = [];
+        
+      },
+      fetchCategoryList: () => {
+        console.log("flux.fetchCategoryList");
+        console.log("flux.fetchCategoryList.env", process.env);
+        console.log("flux.fetchCategoryList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/category'
+        console.log("flux.fetchDepartmentList.url", url)
+        const store = getStore();
+        let categoryList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchCategoryList.data", data);
+            categoryList = data;
+            setStore({ categoryList: categoryList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchCategoryList.error", error);
+          });
+
+        console.log("flux.fetchCategoryList.categoryList", categoryList);
+        //if (ver == undefined) contacts = [];
+        
+      },
+      fetchSizeList: () => {
+        console.log("flux.fetchSizeList");
+        console.log("flux.fetchSizeList.env", process.env);
+        console.log("flux.fetchSizeList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/size'
+        console.log("flux.fetchSizeList.url", url)
+        const store = getStore();
+        let sizeList = []    
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchSizeList.data", data);
+            sizeList = data;
+            setStore({ sizeList: sizeList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchSizeList.error", error);
+          });
+        console.log("flux.fetchSizeList.categoryList", sizeList);
+      },
+      fetchProductStateList: () => {
+        console.log("flux.fetchProductStateList");
+        console.log("flux.fetchProductStateList.env", process.env);
+        console.log("flux.fetchProductStateList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+
+        const url = process.env.REACT_APP_URL+'/product-state'
+        console.log("flux.fetchProductStateList.url", url)
+
+        const store = getStore();
+        let productStateList = []    
+        
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchProductStateList.data", data);
+            productStateList = data;
+            setStore({ productStateList: productStateList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchProductStateList.error", error);
+          });
+        console.log("flux.fetchProductStateList.productStateList", productStateList);
       }, 
+      fetchWeightUnitList: () => {
+        console.log("flux.fetchWeightUnitList");
+        console.log("flux.fetchWeightUnitList.env", process.env);
+        console.log("flux.fetchWeightUnitList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+
+        const url = process.env.REACT_APP_URL+'/weightunit'
+        console.log("flux.fetchProductStateList.url", url)
+
+        const store = getStore();
+        let weightUnitList = []    
+        
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchWeightUnitList.data", data);
+            weightUnitList = data;
+            setStore({ weightUnitList: weightUnitList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchWeightUnitList.error", error);
+          });
+        console.log("flux.fetchWeightUnitList.weightUnitList", weightUnitList);
+      },      
       fetchContacts: (url) => {
         console.log("flux.fetchContacts");
         console.log("flux.fetchContacts.url", url);

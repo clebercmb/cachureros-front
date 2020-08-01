@@ -13,6 +13,7 @@ const UserStoreView = (props) => {
     const [state, setState] = useState({
 		userName: "clebermb",
         userStore: {},
+        regionList:[],
         showAllFilter: true
 	});
 
@@ -21,19 +22,32 @@ const UserStoreView = (props) => {
         console.log("UserStoreView useEffect 1: Behavior before the component is added to the DOM");
         console.log("UserStoreView.useEffect 1.props.user_store", props.match.params.user_store);
         actions.fetchUserStore(props.match.params.store_id);
+        actions.fetchRegionList();
 		console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
 	}, []);
 
-	useEffect(() => {
+    useEffect(() => {
 		console.log("UserStoreView useEffect 2: Behavior before the component is added to the DOM");
-		console.log("UserStoreView.useEffect 2.store.userStore", store.contacts);
+		console.log("UserStoreView.useEffect 2.store.regionList", store.regionList);
+        //setState({...state, regionList: store.regionList});        
+        let regionList = store.regionList
+        setState({...state, regionList: regionList});
+
+    }, [store.regionList]);
+
+	useEffect(() => {
+		console.log("UserStoreView useEffect 3: Behavior before the component is added to the DOM");
+		console.log("UserStoreView.useEffect 3.store.userStore", store.contacts);
         setState({...state, userStore: store.userStore});
         actions.setInfoBar(true, 'Tendita', store.userStore.userName)
 		console.log("UserStoreView.useEffect 2.state.userStore", state.userStore);
         
 
     }, [store.userStore]);
+
+
     
+
     console.log('UserStoreView.state.userStore=', state.userStore)
 
     let products = store.userStore.products
