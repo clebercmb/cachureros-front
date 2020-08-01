@@ -11,6 +11,14 @@ const Filter = (props) => {
         categoryList:[],
         sizeList:[],
         productStateList:[],
+        filterList:{
+            filterRegion:[],
+            filterCategory:[],
+            filterSize:[],
+            filterPrice:[],
+            filterNews:[],
+            filterProductState:[],
+        },
         isOpen: 'hidden-filter',
         isOpen1: 'hidden-filter',
         isOpen2: 'hidden-filter',
@@ -74,12 +82,11 @@ const Filter = (props) => {
         console.log('Filter.changeFilterPositionstate.state.isOpen=', state.isOpen)
     }
 
-
     const regionListOptions = state.regionList.map((region, i) => {
         return (
             <div key={i} className='product-feed-filters-content-body-wrapper'>
                 <label name={'container-checkbox-region'+i} className="container-checkbox">{region.name}
-                    <input  value={region.id} id={'container-checkbox-region'+i} name={'container-checkbox-region'+i} type="checkbox" />
+                    <input  value={region.id} id={'container-checkbox-region'+i} name={'container-checkbox-region'+i} type="checkbox" onChange={(e)=>addFilter(e, 'filterRegion')}/>
                     <span className="check"></span>
                 </label>
             </div>
@@ -91,7 +98,7 @@ const Filter = (props) => {
         return(
             <div key={i} className='product-feed-filters-content-body-wrapper'>
                 <label name={'container-checkbox-category'+i} className="container-checkbox">{category.name}
-                    <input  value={category.id} id={'container-checkbox-category'+i} name={'container-checkbox-category'+i} type="checkbox" />
+                    <input  value={category.id} id={'container-checkbox-category'+i} name={'container-checkbox-category'+i} type="checkbox" onChange={(e)=>addFilter(e, 'filterCategory')}/>
                     <span className="check"></span>
                 </label>
             </div>
@@ -102,12 +109,46 @@ const Filter = (props) => {
         return(
             <div key={i} className='product-feed-filters-content-body-wrapper'>
                 <label name={'container-checkbox-size'+i} className="container-checkbox">{size.name}
-                    <input  id={'container-checkbox-size'+i} name={'container-checkbox-size'+i} type="checkbox" />
+                    <input value={size.id} id={'container-checkbox-size'+i} name={'container-checkbox-size'+i} type="checkbox" onChange={(e)=>addFilter(e, 'filterSize')} />
                     <span className="check"></span>
                 </label>
             </div>
         )
     })
+
+    const productStateListOptions = state.productStateList.map((productState, i) => {
+        return(
+            <div key={i} className='product-feed-filters-content-body-wrapper'>
+                <label name={'container-checkbox-condition'+i} className="container-checkbox">{productState.name}
+                    <input value={productState.id} id={'container-checkbox-condition'+i} name={'container-checkbox-condition'+i} type="checkbox" onChange={(e)=>addFilter(e, 'filterProductState')}/>
+                    <span className="check"></span>
+                </label>
+            </div>
+        )
+    })
+
+    const addFilter = (e, filterName) => {
+        console.log('**Filter.addFilterRegion')
+        console.log('**Filter.addFilterRegion.filterName=', filterName)
+
+        let value= e.target.value
+        console.log('**Filter.addFilterRegion.value=', value)
+
+        let filterList = state.filterList
+        let filter = filterList[filterName]
+        console.log('**Filter.addFilterRegion.before.filter=', filter)
+        var index = filter.indexOf(value);
+
+        if (index > -1) {
+            filter.splice(index, 1);
+        } else {
+            filter.push(value)
+        }
+
+        console.log('**Filter.addFilterRegion.after.filter=', filter)
+
+        setState({...state, filterList: filterList});
+    }
 
     return (
         <div className='filter'>
@@ -231,18 +272,7 @@ const Filter = (props) => {
                 </div>
                 <div className={`product-feed-filters-content position-06 ${state.filterPosition === 'position-06' ? 'show-filter' : 'hidden-filter'}`}  >
                     <div className='product-feed-filters-content-body'>
-                        <div className='product-feed-filters-content-body-wrapper'>
-                            <label name='container-checkbox-condition1' className="container-checkbox">Nunca usado
-                                <input  id='container-checkbox-condition1' name='container-checkbox-condition1' type="checkbox" />
-                                <span className="check"></span>
-                            </label>
-                        </div>
-                        <div className='product-feed-filters-content-body-wrapper'>
-                            <label name='container-checkbox-condition2' className="container-checkbox">Nunca usado
-                                <input  id='container-checkbox-condition2' name='container-checkbox-condition2' type="checkbox" />
-                                <span className="check"></span>
-                            </label>
-                        </div>
+                        {productStateListOptions}
                     </div> 
                     <div className='product-feed-filters-content-buttons'>
                         <button className='button-clear'>Limpar</button>

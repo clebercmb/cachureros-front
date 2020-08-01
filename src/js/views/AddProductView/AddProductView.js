@@ -171,7 +171,7 @@ const AddProductView = (props) => {
     } 
 
     return (
-        <div className='add-product-view-container'>
+        <form className='form-group add-product-view-container'>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
 
@@ -209,6 +209,7 @@ const AddProductView = (props) => {
                     value={state.product.name}
                     defaultValue=''
                     onChange={e => handleChange(e, 'name')}
+                    required
                 />
 
                 <label className='add-product-view-b-03'>Descripción</label>
@@ -430,15 +431,12 @@ const AddProductView = (props) => {
 
                 </div>
 
-                <div className='form-group add-product-view-b-07'>
+                <div className='add-product-view-b-07'>
 					<button className='button-green' onClick={e => handleSubmit(e)}>salvar</button>
                     <button className='button-blue'>foto de capa</button>
 				</div>
-
-
-
             </div>
-        </div>
+        </form>
     )
 }
 
