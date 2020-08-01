@@ -1,10 +1,12 @@
+
 .containerLogin{
     width: 387px;
     height: 521px;
     margin: 0px auto;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    display: block;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .logo1{

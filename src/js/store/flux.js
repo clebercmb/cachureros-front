@@ -341,29 +341,44 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       products: [
         {
-          id: "1000",
-          nombre_producto: "Arrimo",
-          precio: "$ 40.000",
+          id: 1001,
+          userStoreId: 101,
+          name: 'Product 1',
+          discount: 10000,
+          price: 12000,
+          photo: '/images/Hee79dcebf31a47f2b483 2.png'
         },
         {
-          id: "1001",
-          nombre_producto: "Bateria de Cocina",
-          precio: "$ 10.000",
+          id: 1002,
+          userStoreId: 101,
+          name: 'Product 2',
+          discount: 10000,
+          price: 12000,
+          photo: '/images/Hee79dcebf31a47f2b483 2.png'
         },
         {
-          id: "1002",
-          nombre_producto: "Reloj Hombre",
-          precio: "$ 5.000",
+          id: 1003,
+          userStoreId: 101,
+          name: 'Product 3',
+          discount: 10000,
+          price: 12000,
+          photo: '/images/Hee79dcebf31a47f2b483 2.png'
         },
         {
-          id: "1003",
-          nombre_producto: "Botas de Nieve",
-          precio: "$ 60.000",
+          id: 1004,
+          userStoreId: 101,
+          name: 'Product 4',
+          discount: 10000,
+          price: 12000,
+          photo: '/images/Hee79dcebf31a47f2b483 2.png'
         },
         {
-          id: "1004",
-          nombre_producto: "Botas de invierno",
-          precio: "$ 120.000",
+          id: 1005,
+          userStoreId: 101,
+          name: 'Product 5',
+          discount: 4000,
+          price: 6000,
+          photo: '/images/Hee79dcebf31a47f2b483 2.png'
         },
       ],
 
@@ -425,6 +440,37 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         return store.userCart
       },
+
+      fetchAddCart: (product) => {
+        console.log("fetchAddCart, product=", product)
+        const store = getStore();
+        let userCart = store.userCart
+        
+        
+
+        let data = {};
+        fetch("http://127.0.0.1:5000/cartproduct/1", {
+          method: "POST",
+          body: JSON.stringify(product),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((resp) => resp.json())
+          .then((data) => {
+            console.log("flux.addCart.data 1:", data);
+            userCart.products.push(data);
+            setStore({ userCart: userCart });
+          })
+          .catch((error) => {
+            console.log("flux.addCart.error", error);
+          });
+
+        return store.userCart
+      },
+
+
+
 
       fetchUserStore: (userName) => {
         const store = getStore();
