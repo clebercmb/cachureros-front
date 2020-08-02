@@ -37,6 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         email: 'juan@gmail.com',
         userStoreId:1
       },
+      login:{},
       userStore: {
         url: 'juan2020',
         userFirstName: 'Juan',
@@ -434,8 +435,70 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.userCart
       },
 
-      fetchUserStore: (userName) => {
+      fetchLogin: async (login, history) => {
+        console.log("****>flux.fetchLogin")
         const store = getStore();
+
+        console.log("****>flux.login.login=", login)
+
+
+        let url = process.env.REACT_APP_URL+'/login/'
+        let methodCall = 'POST'
+        console.log("flux.fetchLogin.url=", url)
+        console.log("flux.fetchLogin.methodCall=", methodCall)
+        await fetch(url, {
+            method: methodCall,
+            body: JSON.stringify(login),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("flux.fetchLogin.data", data);
+          localStorage.setItem("login", data);
+          let ver = localStorage.getItem("login");
+          console.log('flux.fetchLogin.ver=', ver.data)
+          setStore({ login: data });
+          console.log('flux.fetchLogin.store.login=', store.login)
+          history.push("/");
+
+        })
+        .catch((error) => {
+          console.log("flux.fetchUserStore.error", error);
+        });
+      },
+      getLogin:()=>{
+        let login=localStorage.getItem("login");
+        return login
+      },
+      fetchUserStore: (userName) => {
+
+        console.log("flux.fetchUserStore");
+        console.log("flux.fetchUserStore.env", process.env);
+        console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+`/user-store/${userName}`
+        console.log("flux.fetchUserStore.url", url)
+        const store = getStore();
+        let userStore = {}
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchRegionList.data", data);
+            userStore = data;
+            setStore({ userStore: userStore });
+          })
+          .catch((error) => {
+            console.log("flux.fetchUserStore.error", error);
+          });
+
+          console.log("flux.fetchUserStore.userStore", userStore);
+
         return store.userStore
       },
       fetchUserMessages: (userId) => {

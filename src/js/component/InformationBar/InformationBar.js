@@ -25,7 +25,7 @@ const InformationBar = (props) => {
 				<div className='infobar-container-01'> 
 					{infoBar.image && <img src={infoBar.image} alt="Juanita Photo" className="infobar-container-photo-perfil" />}
 					
-					{infoStore.storeName && <label className="infobar-container-store-name">{infoStore.storeName}</label>}
+					{infoStore.userName && <label className="infobar-container-store-name">{infoStore.userName}</label>}
 
 					{infoStore.storeName && <div className='infobar-container-separator'/>}
 

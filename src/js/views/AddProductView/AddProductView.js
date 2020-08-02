@@ -164,10 +164,7 @@ const AddProductView = (props) => {
             }
         })
         .then(resp => resp.json())
-        .then(data => console.log('AddProductView.handleSubmit.data=',data));
-        
-
-
+        .then(data => console.log('AddProductView.handleSubmit.data=',data));   
     } 
 
     return (
