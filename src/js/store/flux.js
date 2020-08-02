@@ -474,11 +474,16 @@ const getState = ({ getStore, getActions, setStore }) => {
         let login=localStorage.getItem("login");
         return login
       },
-      fetchUserStore: (userName) => {
+      fetchUserStore: (userName, id) => {
         console.log("flux.fetchUserStore");
         console.log("flux.fetchUserStore.env", process.env);
         console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
-        const url = process.env.REACT_APP_URL+`/user-store/${userName}`
+    
+        let url = process.env.REACT_APP_URL+`/user-store/${userName}`
+        
+        if(id)
+          url = process.env.REACT_APP_URL+`/my-store/${id}`
+
         console.log("flux.fetchUserStore.url", url)
         const store = getStore();
         let userStore = {}
