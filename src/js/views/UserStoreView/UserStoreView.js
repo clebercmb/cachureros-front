@@ -21,7 +21,8 @@ const UserStoreView = (props) => {
 	useEffect(() => {
         console.log("UserStoreView useEffect 1: Behavior before the component is added to the DOM");
         console.log("UserStoreView.useEffect 1.props.match.params.url", props.match.params.url);
-        actions.fetchUserStore(props.match.params.url);
+        console.log("UserStoreView.useEffect 1.props.match.params.id", props.match.params.id);
+        actions.fetchUserStore(props.match.params.url, props.match.params.id);
         //actions.fetchRegionList();
 		console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
 	}, []);

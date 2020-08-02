@@ -48,7 +48,7 @@ export const Layout = () => {
 	return (
 		<div className="container-level-00">
 			<BrowserRouter>
-				<Navbar />
+				<Navbar userStoreId={store.login}/>
 				{infobar}
 				<div className="container-level-01">
 					<ScrollToTop>

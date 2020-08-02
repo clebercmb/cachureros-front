@@ -83,7 +83,7 @@ const Navbar = (props) => {
                   <Link to="/user-profile" className="dropdown-item">
                     Configuración
                   </Link>
-                  <Link to= {`/user-store/${infoStore.userName}`} className="dropdown-item">
+                  <Link to= {`/my-store/${store.login && store.login.data && store.login.data.user &&  store.login.data.user.userStore.id}`} className="dropdown-item">
                     Mi tendita
                   </Link>
                 </div>
