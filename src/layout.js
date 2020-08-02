@@ -48,7 +48,7 @@ export const Layout = () => {
 	return (
 		<div className="container-level-00">
 			<BrowserRouter>
-				<Navbar/>
+				<Navbar />
 				{infobar}
 				<div className="container-level-01">
 					<ScrollToTop>
@@ -63,7 +63,7 @@ export const Layout = () => {
 							<PrivateRoute exact path="/user-profile" component={UserProfile} />
 							<Route exact path="/product-view/:id" component={ProductView} />
 							<Route exact path="/user-store/:url" component={UserStoreView} />
-							<Route exact path="/my-store/:" component={UserStoreView} />
+							<PrivateRoute exact path="/my-store/:id" component={UserStoreView} />
 							<PrivateRoute exact path="/add-product-view" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />

@@ -20,8 +20,8 @@ const UserStoreView = (props) => {
 
 	useEffect(() => {
         console.log("UserStoreView useEffect 1: Behavior before the component is added to the DOM");
-        console.log("UserStoreView.useEffect 1.props.user_store", props.match.params.user_store);
-        actions.fetchUserStore(props.match.params.store_id);
+        console.log("UserStoreView.useEffect 1.props.match.params.url", props.match.params.url);
+        actions.fetchUserStore(props.match.params.url);
         //actions.fetchRegionList();
 		console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
 	}, []);
