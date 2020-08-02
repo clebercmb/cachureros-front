@@ -475,7 +475,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         return login
       },
       fetchUserStore: (userName) => {
-
         console.log("flux.fetchUserStore");
         console.log("flux.fetchUserStore.env", process.env);
         console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
