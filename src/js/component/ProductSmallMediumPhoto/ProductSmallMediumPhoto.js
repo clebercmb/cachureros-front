@@ -13,6 +13,13 @@ const ProductSmallMediumPhoto = (props) => {
             </Link>
             <label className='product-small-medium-photo-price'>{props.price}</label>
             <label className='product-small-medium-photo-name'>{props.name}</label>
+            {
+                !!props.edit && (
+                    <Link to={`/add-product-view/${props.id}`} className="product-small-medium-photo-price">
+                        Modificar
+                    </Link>
+                )
+            }
         </div>
     )
 
