@@ -47,6 +47,7 @@ const UserStoreView = (props) => {
 
     }, [store.userStore]);
 
+    /*
 	useEffect(() => {
 		console.log("UserStoreView useEffect 4: Behavior before the component is added to the DOM");
 		console.log("UserStoreView.useEffect 4: state.userStore", state.userStore);
@@ -67,20 +68,31 @@ const UserStoreView = (props) => {
         actions.setInfoStore(name,storeName)
 
     }, [state.userStore]);
-
+*/
 
     console.log('UserStoreView.state.userStore=', state.userStore)
 
-    let products = store.userStore.products
+    //let products = store.userStore.products
+    let products = []
+    if (state.userStore.products)
+        products = state.userStore.products
     console.log("UserStoreView.products(1)=", products)
 
     if (products)
         products = products.map((p, i) => {
             console.log("UserStoreView.p=", p)
-            console.log("UserStoreView.p.photos=", p.photos)  
-            if(p.photos) {          
+            console.log("UserStoreView.p.photos=", p.photos)
+            console.log("UserStoreView.p.userStore=", p.userStore)
+            if(p.userStore) {
+
+                console.log("UserStoreView.p.userStore.id=", p.userStore.id)
+                console.log("UserStoreView.store.login.data=", store.login.data)
+                let edit = false
+                if(store.login.data)
+                    edit = store.login.data.user.id === p.userStore.id
+                console.log('UserStoreView.edit=', edit)
                 return (
-                    <ProductSmallMediumPhoto src={p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name}/>
+                    <ProductSmallMediumPhoto src={p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
                 )
             }
         })

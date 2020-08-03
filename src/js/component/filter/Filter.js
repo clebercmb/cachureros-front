@@ -226,12 +226,12 @@ const Filter = (props) => {
                             <div className='product-feed-filters-content-body'>
 
                                 <div className='product-feed-filters-content-body-wrapper'>
-                                    <label for='container-price1' name='container-price1' className="container-price">De</label>
+                                    <label htmlFor='container-price1' className="container-price">De</label>
                                     <input  id='container-price1' name='container-price1'  />
                                 </div>
 
                                 <div className='product-feed-filters-content-body-wrapper'>
-                                    <label for='container-price2' name='container-price2' className="container-price">Hasta</label>
+                                    <label htmlFor='container-price2' className="container-price">Hasta</label>
                                     <input  id='container-price2' name='container-price2'  />
                                 </div>
 
