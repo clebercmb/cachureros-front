@@ -34,9 +34,12 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: {
         id: '1',
         name: 'Juan Perez',
-        email: 'juan@gmail.com'  
+        email: 'juan@gmail.com',
+        userStoreId:1
       },
-      userStore: {
+      login:{},
+      userStore:undefined,
+/*       userStore: {
         url: 'juan2020',
         userFirstName: 'Juan',
         storeName:'Juan Store',
@@ -133,7 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         ]
       },
-      infobar: {
+ */   infobar: {
         show:false,
         info:'',
         info2:'',
@@ -275,8 +278,35 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       product: {
+        id: '',
+        name: '',
+        price: 0,
+        originalPrice: 0, 
+        hasBrand: false,
+        brand: "",
+        color: "",
+        model: "",
+        weight: 0,
+        flete:0,
+        weightUnitId: 1,
+        qty: 0,
+        photos: [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        departmentId: 1,
+        categoryId: 1,
+        sizeId: 1,
+        productStateId: 1,
+        userStoreId: ''
+      },
+/*       product: {
         id: 1000,
         store: {
+          id: 1,
           url:'juan2020',
           userFirstName: 'Juania',
           storeName: 'Juan Store',
@@ -339,6 +369,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
+ */      
+      regionList:[],
+      departmentList:[],
+      categoryList:[],
+      weightUnitList:[],
+      sizeList:[],
+      productStateList:[],
       products: [
         {
           id: "1000",
@@ -417,8 +454,36 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.user
       },
       fetchProduct: (id) => {
+        console.log("flux.fetchProduct");
+        console.log("flux.fetchProduct.env", process.env);
+        console.log("flux.fetchProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/product/`
+        
+        if(id)
+          url = process.env.REACT_APP_URL+`/product/${id}`
+
+        console.log("flux.fetchProduct.url", url)
         const store = getStore();
+        let product = {}
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchProduct.data", data);
+            product = data;
+            setStore({ product: product });
+          })
+          .catch((error) => {
+            console.log("flux.fetchProduct.error", error);
+          });
+
+          console.log("flux.fetchProduct.product", product);
+
         return store.product
+
       },
 
       fetchUserCart: (userId) => {
@@ -426,14 +491,233 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.userCart
       },
 
-      fetchUserStore: (userName) => {
+      fetchLogin: async (login, history) => {
+        console.log("****>flux.fetchLogin")
         const store = getStore();
+
+        console.log("****>flux.login.login=", login)
+
+
+        let url = process.env.REACT_APP_URL+'/login/'
+        console.log("flux.fetchLogin.url="+url)
+
+        let methodCall = 'POST'
+
+        console.log("flux.fetchLogin.methodCall=", methodCall)
+        await fetch(url, {
+            method: methodCall,
+            body: JSON.stringify(login),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("flux.fetchLogin.data", data);
+          localStorage.setItem("login", data);
+          let ver = localStorage.getItem("login");
+          console.log('flux.fetchLogin.ver=', ver.data)
+          setStore({ login: data });
+          console.log('flux.fetchLogin.store.login=', store.login)
+          history.push("/");
+
+        })
+        .catch((error) => {
+          console.log("flux.fetchUserStore.error", error);
+        });
+      },
+      getLogin:()=>{
+        let login=localStorage.getItem("login");
+        return login
+      },
+      fetchUserStore: async (userName, id) => {
+        console.log("flux.fetchUserStore");
+        console.log("flux.fetchUserStore.env", process.env);
+        console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/user-store/${userName}`
+        
+        if(id)
+          url = process.env.REACT_APP_URL+`/my-store/${id}`
+
+        console.log("flux.fetchUserStore.url", url)
+        const store = getStore();
+        let userStore = {}
+      
+        await fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchRegionList.data", data);
+            userStore = data;
+            setStore({ userStore: userStore });
+          })
+          .catch((error) => {
+            console.log("flux.fetchUserStore.error", error);
+          });
+
+          console.log("flux.fetchUserStore.userStore", userStore);
+
         return store.userStore
       },
       fetchUserMessages: (userId) => {
         const store = getStore();
         return store.userMessages
+      },
+
+      fetchRegionList: () => {
+        console.log("flux.fetchRegionList");
+        console.log("flux.fetchRegionList.env", process.env);
+        console.log("flux.fetchRegionList.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/region'
+        console.log("flux.fetchRegionList.url", url)
+        const store = getStore();
+        let regionList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchRegionList.data", data);
+            regionList = data;
+            setStore({ regionList: regionList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchRegionList.error", error);
+          });
+
+          console.log("flux.fetchRegionList.departmentList", regionList);
+        //if (ver == undefined) contacts = [];
+        
+      },
+      fetchDepartmentList: () => {
+        console.log("flux.fetchDepartmentList");
+        console.log("flux.fetchDepartmentList.env", process.env);
+        console.log("flux.fetchDepartmentList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/department'
+        console.log("flux.fetchDepartmentList.url", url)
+        const store = getStore();
+        let departmentList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchDepartmentList.data", data);
+            departmentList = data;
+            setStore({ departmentList: departmentList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchDepartmentList.error", error);
+          });
+
+        console.log("flux.fetchDepartmentList.departmentList", departmentList);
+        //if (ver == undefined) contacts = [];
+        
+      },
+      fetchCategoryList: () => {
+        console.log("flux.fetchCategoryList");
+        console.log("flux.fetchCategoryList.env", process.env);
+        console.log("flux.fetchCategoryList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/category'
+        console.log("flux.fetchDepartmentList.url", url)
+        const store = getStore();
+        let categoryList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchCategoryList.data", data);
+            categoryList = data;
+            setStore({ categoryList: categoryList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchCategoryList.error", error);
+          });
+
+        console.log("flux.fetchCategoryList.categoryList", categoryList);
+        //if (ver == undefined) contacts = [];
+        
+      },
+      fetchSizeList: () => {
+        console.log("flux.fetchSizeList");
+        console.log("flux.fetchSizeList.env", process.env);
+        console.log("flux.fetchSizeList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/size'
+        console.log("flux.fetchSizeList.url", url)
+        const store = getStore();
+        let sizeList = []    
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchSizeList.data", data);
+            sizeList = data;
+            setStore({ sizeList: sizeList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchSizeList.error", error);
+          });
+        console.log("flux.fetchSizeList.categoryList", sizeList);
+      },
+      fetchProductStateList: () => {
+        console.log("flux.fetchProductStateList");
+        console.log("flux.fetchProductStateList.env", process.env);
+        console.log("flux.fetchProductStateList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+
+        const url = process.env.REACT_APP_URL+'/product-state'
+        console.log("flux.fetchProductStateList.url", url)
+
+        const store = getStore();
+        let productStateList = []    
+        
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchProductStateList.data", data);
+            productStateList = data;
+            setStore({ productStateList: productStateList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchProductStateList.error", error);
+          });
+        console.log("flux.fetchProductStateList.productStateList", productStateList);
       }, 
+      fetchWeightUnitList: () => {
+        console.log("flux.fetchWeightUnitList");
+        console.log("flux.fetchWeightUnitList.env", process.env);
+        console.log("flux.fetchWeightUnitList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+
+        const url = process.env.REACT_APP_URL+'/weightunit'
+        console.log("flux.fetchProductStateList.url", url)
+
+        const store = getStore();
+        let weightUnitList = []    
+        
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchWeightUnitList.data", data);
+            weightUnitList = data;
+            setStore({ weightUnitList: weightUnitList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchWeightUnitList.error", error);
+          });
+        console.log("flux.fetchWeightUnitList.weightUnitList", weightUnitList);
+      },      
       fetchContacts: (url) => {
         console.log("flux.fetchContacts");
         console.log("flux.fetchContacts.url", url);

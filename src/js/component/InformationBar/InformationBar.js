@@ -23,14 +23,15 @@ const InformationBar = (props) => {
 			<div className="container-level-01">
 
 				<div className='infobar-container-01'> 
+				{/* 
 					{infoBar.image && <img src={infoBar.image} alt="Juanita Photo" className="infobar-container-photo-perfil" />}
 					
-					{infoStore.storeName && <label className="infobar-container-store-name">{infoStore.storeName}</label>}
+					{infoStore.userName && <label className="infobar-container-store-name">{infoStore.userName && infoStore.userName}</label>}
 
 					{infoStore.storeName && <div className='infobar-container-separator'/>}
-
-					<label className="infobar-container-info">{infoBar.info}</label>
-					<label className="infobar-container-info2">{infoBar.info2}</label>
+ */}
+					<label className="infobar-container-info">{infoBar.info && infoBar.info}</label>
+					<label className="infobar-container-info2">{infoBar.info2 && infoBar.info2}</label>
 					
 				</div>
 
