@@ -64,8 +64,8 @@ export const Layout = () => {
 							<Route exact path="/product-view/:id" component={ProductView} />
 							<Route exact path="/user-store/:url" component={UserStoreView} />
 							<PrivateRoute exact path="/my-store/:id" component={UserStoreView} />
-							<PrivateRoute exact path="/add-product-view/:id" component={AddProductView} />
 							<PrivateRoute exact path="/add-product-view" component={AddProductView} />
+							<PrivateRoute exact path="/add-product-view/:id" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
 							<PrivateRoute exact path="/message/:user_id" component={Message} />	
