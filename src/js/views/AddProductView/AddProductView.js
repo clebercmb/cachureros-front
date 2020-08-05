@@ -2,20 +2,49 @@ import React, { useState, useEffect, useContext } from "react"
 import './AddProductView.css'
 
 import { Context } from "../../store/appContext";
+import { updateInferTypeNode } from "typescript";
+import DraggableUploader from "../../component/DraggableUploader/DraggableUploader"
 
 const AddProductView = (props) => {
 
     const { store, actions } = useContext(Context);
 
+    let productInitialSetup= {
+        id: '',
+        name:'',
+        price: 0,
+        originalPrice: 0, 
+        hasBrand: false,
+        brand: "",
+        color: "",
+        model: "",
+        weight: 0,
+        flete:0,
+        weightUnitId: 1,
+        qty: 0,
+        photos: [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        departmentId: 1,
+        categoryId: 1,
+        sizeId: 1,
+        productStateId: 1,
+        userStoreId: ''
+    }
     const [state, setState] = useState({
+        type:'',
         departmentList:[],
         categoryList:[],
         sizeList:[],
         productStateList:[],
         weightUnitList:[],
         product: {
-            id: null,
-            name: "",
+            id: '',
+            name: '',
             price: 0,
             originalPrice: 0, 
             hasBrand: false,
@@ -27,19 +56,35 @@ const AddProductView = (props) => {
             weightUnitId: 1,
             qty: 0,
             photos: [
-                "/images/Imagen Muestra.png",
-                "/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 6.png",
-                "/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 7.png",
-                "/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 8.png",
-                "/images/Zapatillas-deportivas-transpirables-a-la-moda-para-hombre-y-mujer 9.png"
+                "",
+                "",
+                "",
+                "",
+                ""
             ],
             departmentId: 1,
             categoryId: 1,
             sizeId: 1,
             productStateId: 1,
-            userStoreId: store.user.userStoreId
-        }	
-	});
+            userStoreId: ''
+        },
+        photos:[
+            '',
+            '',
+            '',
+            '',
+            ''
+        ]
+    });
+    
+    function handleFilePhotoProduct(file, index) {
+        console.log('AddProductView.handleFile.file=', file)
+        console.log('AddProductView.handleFile.index=', index)
+        let photos = state.photos
+        photos[index] = file
+        setState({...state, photos: photos});
+        console.log('AddProductView.handleFilePhotoProduct.state.photos=', state.photos)
+    }
 
     function handleChange(e, field) {
         console.log("***AddProductView.handleChange=",field)
@@ -62,15 +107,40 @@ const AddProductView = (props) => {
     }
 
     useEffect(() => {
-		console.log("useEffect 1-Behavior before the component is added to the DOM")
-        console.log("useEffect 1-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 1-Behavior before the component is added to the DOM")
+        console.log("AddProductView.useEffect 1-props.match.params.id", props.match.params.id)
         actions.fetchDepartmentList()
         actions.fetchCategoryList()
         actions.fetchWeightUnitList()
         actions.fetchSizeList()
         actions.fetchProductStateList()
-        actions.setInfoBar(true, 'Registro del producto')
-    }, []);
+
+        let type = 'Nuevo'
+        let product = state.product_inital_state
+        
+        if(props.match.params.id) {
+            type = 'Modificar'
+            actions.fetchProduct(props.match.params.id)
+        }
+
+        console.log('AddProductView.useEffect 1-type=', type)
+        setState({...state, type: type});
+        console.log('AddProductView.useEffect 1-state.type=', state.type)
+        actions.setInfoBar(true, `Registro del producto - ${type}`)
+
+        if (props.match.params.id ===  undefined) {
+            setState({...state, product: productInitialSetup});
+            let photos=[
+                '',
+                '',
+                '',
+                '',
+                ''
+            ]
+            setState({...state, photos: photos});
+        }
+            
+    }, [props.match.params.id]);
     
     useEffect(() => {
 		console.log("useEffect 2-Behavior before the component is added to the DOM - departmentList")
@@ -106,6 +176,18 @@ const AddProductView = (props) => {
         let weightUnitList = store.weightUnitList
         setState({...state, weightUnitList: weightUnitList});
     }, [store.weightUnitList]);
+
+    useEffect(() => {
+		console.log("useEffect 7-Behavior before the component is added to the DOM - departmentList")
+        console.log("useEffect 7-props.match.params.id", props.match.params.id)
+        let product = store.product
+        setState({...state, product: product});
+        setState({...state, photos: product.photos});
+
+    }, [store.product]);
+
+
+
 
     let addProduct = () => {
         let i = true
@@ -164,31 +246,32 @@ const AddProductView = (props) => {
             }
         })
         .then(resp => resp.json())
-        .then(data => console.log('AddProductView.handleSubmit.data=',data));   
+        .then(data => console.log('AddProductView.handleSubmit.data=',data));
+        setState({...state, product: productInitialSetup});
     } 
 
     return (
         <form className='form-group add-product-view-container'>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
-
+                    <DraggableUploader src={state.photos[0]} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
                 </div>            
                 <div className='add-product-view-a-02'>
                     <div className='add-product-view-a-02-01'>
-
+                        <DraggableUploader src={state.photos[1]} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-
+                        <DraggableUploader src={state.photos[2]} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
                     </div>
 
                 </div>  
                 <div className='add-product-view-a-02'>
 
                     <div className='add-product-view-a-02-01'>
-
+                        <DraggableUploader src={state.photos[3]} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-
+                        <DraggableUploader src={state.photos[4]} handleFile= {handleFilePhotoProduct} index={4} type=''/>
                     </div>
                 </div>
             </div>
@@ -196,7 +279,7 @@ const AddProductView = (props) => {
                 <p className='add-product-view-b-01'>¡Vender es bueno y a todos les gusta!</p>
                 <p className='add-product-view-b-02'>Luce genial en tus fotos y descripción del producto</p>
 
-                <label for='name' className='add-product-view-b-03'>Nome</label>
+                <label htmlFor='name' className='add-product-view-b-03'>Nome</label>
                 <input
                     type="text"
                     className="form-control"
@@ -204,7 +287,6 @@ const AddProductView = (props) => {
                     id='name'
                     name='name'
                     value={state.product.name}
-                    defaultValue=''
                     onChange={e => handleChange(e, 'name')}
                     required
                 />
@@ -214,7 +296,7 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='brand'>Marca</label></p>
+                        <p><label htmlFor='brand'>Marca</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
@@ -222,19 +304,17 @@ const AddProductView = (props) => {
                             id='brand'
                             name='brand'
                             value={state.product.brand}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'brand')}
                         />
                     </div>
                     <div>
-                        <p><label for='model'>Modelo</label></p>
+                        <p><label htmlFor='model'>Modelo</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
                             placeholder="Model"
                             id='model'
                             name='model'
-                            defaultValue=''
                             value={state.product.model}
                             onChange={e => handleChange(e, 'model')}
                         />
@@ -244,14 +324,13 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='price'>Precio</label></p>
+                        <p><label htmlFor='price'>Precio</label></p>
                         <input
                             type="input"
                             className="add-product-view-b-04-01"
                             placeholder="Price"
                             id='price'
                             name='price'
-                            defaultValue=''
                             value={state.product.price}
                             onChange={e => handleChange(e, 'price')}
                         />
@@ -261,7 +340,7 @@ const AddProductView = (props) => {
                 <div className='add-product-view-b-05'>
                     <div className='product-feed-filters-content-body-wrapper'>
                         <label name='hasBrand' className="container-checkbox">Sin Marca
-                            <input  value={state.product.hasBrand} defaultValue={state.product.hasBrand} id='hasBrand' name='hasBrand' type="checkbox" onChange={e => handleChange(e, 'hasBrand')}/>
+                            <input  value={state.product.hasBrand} id='hasBrand' name='hasBrand' type="checkbox" onChange={e => handleChange(e, 'hasBrand')}/>
                             <span className="check"></span>
                         </label>
                     </div>
@@ -272,14 +351,13 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='department'>Departamento</label></p>
+                        <p><label htmlFor='department'>Departamento</label></p>
                         <select
                             type="text"
                             className="add-product-view-b-04-01"
                             placeholder="Departamento"
                             id='department'
                             name='department'
-                            defaultValue='1'
                             value={state.product.departmentId}
                             onChange={e => handleChange(e, 'departmentId')}
                         >
@@ -287,7 +365,7 @@ const AddProductView = (props) => {
                         </select>
                     </div>
                     <div>
-                        <p><label for='category'>Categoria</label></p>
+                        <p><label htmlFor='category'>Categoria</label></p>
                         <select
                             type="text"
                             className="add-product-view-b-04-01"
@@ -295,7 +373,6 @@ const AddProductView = (props) => {
                             id='category'
                             name='category'
                             value={state.product.categoryId}
-                            defaultValue='1'
                             onChange={e => handleChange(e, 'categoryId')}
                         >
                             {categoryListOptions}
@@ -305,7 +382,7 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='size'>Tamaño</label></p>
+                        <p><label htmlFor='size'>Tamaño</label></p>
                         <select
                             type="text"
                             className="add-product-view-b-04-01"
@@ -313,14 +390,13 @@ const AddProductView = (props) => {
                             id='size'
                             name='size'
                             value={state.product.sizeId}
-                            defaultValue='1'
                             onChange={e => handleChange(e, 'sizeId')}
                         >
                             {sizeListOptions}
                         </select>
                     </div>
                     <div>
-                        <p><label for='productState'>Estado del producto</label></p>
+                        <p><label htmlFor='productState'>Estado del producto</label></p>
                         <select
                             type="text"
                             className="add-product-view-b-04-01"
@@ -328,7 +404,6 @@ const AddProductView = (props) => {
                             id='productState'
                             name='productState'
                             value={state.product.productStateId}
-                            defaultValue='1'
                             onChange={e => handleChange(e, 'productStateId')}
                         >
                             {productStateListOptions}                         
@@ -339,7 +414,7 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='amount'>Cantidad</label></p>
+                        <p><label htmlFor='amount'>Cantidad</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
@@ -347,12 +422,11 @@ const AddProductView = (props) => {
                             id='amount'
                             name='amount'
                             value={state.product.qty}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'qty')}
                         />
                     </div>
                     <div>
-                        <p><label for='weight'>Peso del producto</label></p>
+                        <p><label htmlFor='weight'>Peso del producto</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
@@ -360,7 +434,6 @@ const AddProductView = (props) => {
                             id='weight'
                             name='weight'
                             value={state.product.weight}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'weight')}
                         />
                     </div>
@@ -368,7 +441,7 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='weightUnit'>Unid Peso producto</label></p>
+                        <p><label htmlFor='weightUnit'>Unid Peso producto</label></p>
                         <select
                             type="text"
                             className="add-product-view-b-04-01"
@@ -376,14 +449,13 @@ const AddProductView = (props) => {
                             id='weightUnit'
                             name='weightUnit'
                             value={state.product.weightId}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'weightUnitId')}
                         >
                             {weightUnitListOptions}                         
                         </select>
                     </div>
                     <div>
-                        <p><label for='flete'>Frete</label></p>
+                        <p><label htmlFor='flete'>Frete</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
@@ -391,7 +463,6 @@ const AddProductView = (props) => {
                             id='flete'
                             name='flete'
                             value={state.product.flete}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'flete')}
                         />
                     </div>
@@ -400,7 +471,7 @@ const AddProductView = (props) => {
 
                 <div className='add-product-view-b-04'>
                     <div>
-                        <p><label for='originalPrice'>Precio original</label></p>
+                        <p><label htmlFor='originalPrice'>Precio original</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
@@ -408,12 +479,11 @@ const AddProductView = (props) => {
                             id='originalPrice'
                             name='originalPrice'
                             value={state.product.originalPrice}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'originalPrice')}
                         />
                     </div>
                     <div>
-                        <p><label for='color'>Color</label></p>
+                        <p><label htmlFor='color'>Color</label></p>
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
@@ -421,7 +491,6 @@ const AddProductView = (props) => {
                             id='color'
                             name='color'
                             value={state.product.color}
-                            defaultValue=''
                             onChange={e => handleChange(e, 'color')}
                         />
                     </div>

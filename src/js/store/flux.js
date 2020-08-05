@@ -38,7 +38,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         userStoreId:1
       },
       login:{},
-      userStore: {
+      userStore:undefined,
+/*       userStore: {
         url: 'juan2020',
         userFirstName: 'Juan',
         storeName:'Juan Store',
@@ -135,7 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         ]
       },
-      infobar: {
+ */   infobar: {
         show:false,
         info:'',
         info2:'',
@@ -277,6 +278,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       product: {
+        id: '',
+        name: '',
+        price: 0,
+        originalPrice: 0, 
+        hasBrand: false,
+        brand: "",
+        color: "",
+        model: "",
+        weight: 0,
+        flete:0,
+        weightUnitId: 1,
+        qty: 0,
+        photos: [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        departmentId: 1,
+        categoryId: 1,
+        sizeId: 1,
+        productStateId: 1,
+        userStoreId: ''
+      },
+/*       product: {
         id: 1000,
         store: {
           id: 1,
@@ -342,6 +369,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
+ */      
       regionList:[],
       departmentList:[],
       categoryList:[],
@@ -426,8 +454,36 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.user
       },
       fetchProduct: (id) => {
+        console.log("flux.fetchProduct");
+        console.log("flux.fetchProduct.env", process.env);
+        console.log("flux.fetchProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/product/`
+        
+        if(id)
+          url = process.env.REACT_APP_URL+`/product/${id}`
+
+        console.log("flux.fetchProduct.url", url)
         const store = getStore();
+        let product = {}
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchProduct.data", data);
+            product = data;
+            setStore({ product: product });
+          })
+          .catch((error) => {
+            console.log("flux.fetchProduct.error", error);
+          });
+
+          console.log("flux.fetchProduct.product", product);
+
         return store.product
+
       },
 
       fetchUserCart: (userId) => {
@@ -443,8 +499,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
         let url = process.env.REACT_APP_URL+'/login/'
+        console.log("flux.fetchLogin.url="+url)
+
         let methodCall = 'POST'
-        console.log("flux.fetchLogin.url=", url)
+
         console.log("flux.fetchLogin.methodCall=", methodCall)
         await fetch(url, {
             method: methodCall,
@@ -474,7 +532,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let login=localStorage.getItem("login");
         return login
       },
-      fetchUserStore: (userName, id) => {
+      fetchUserStore: async (userName, id) => {
         console.log("flux.fetchUserStore");
         console.log("flux.fetchUserStore.env", process.env);
         console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
@@ -488,7 +546,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         let userStore = {}
       
-        fetch(url)
+        await fetch(url)
           .then((response) => {
             return response.json();
           })

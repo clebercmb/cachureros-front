@@ -11,8 +11,8 @@ const UserStoreView = (props) => {
 
 
     const [state, setState] = useState({
-		userName: "clebermb",
-        userStore: {},
+		userName: '',
+        userStore: undefined ,
         regionList:[],
         showAllFilter: true
 	});
@@ -24,8 +24,9 @@ const UserStoreView = (props) => {
         console.log("UserStoreView.useEffect 1.props.match.params.id", props.match.params.id);
         actions.fetchUserStore(props.match.params.url, props.match.params.id);
         //actions.fetchRegionList();
-		console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
-	}, []);
+        console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
+        
+	}, [props.match.params.id]);
 
     /*
     useEffect(() => {
@@ -44,11 +45,16 @@ const UserStoreView = (props) => {
         console.log("UserStoreView.useEffect 3: state", state);
         console.log("UserStoreView.useEffect 3: state.userStore", state.userStore);
 
-
+        console.log("UserStoreView.useEffect 3: store.userStore is ?=", store.userStore === undefined)
+        console.log("UserStoreView.useEffect 3: state.userStore is ?=", state.userStore === undefined)
+        if (store.userStore) {
+            actions.setInfoBar(true, `Tendita ${store.userStore.name}`)
+        }
+        
     }, [store.userStore]);
 
-    /*
-	useEffect(() => {
+    
+/* 	useEffect(() => {
 		console.log("UserStoreView useEffect 4: Behavior before the component is added to the DOM");
 		console.log("UserStoreView.useEffect 4: state.userStore", state.userStore);
 		console.log("UserStoreView.useEffect 4: state.userStore[user]", state.userStore['user']);
@@ -64,17 +70,21 @@ const UserStoreView = (props) => {
         
         console.log("UserStoreView.useEffect 4: storeName", storeName);
     
-        actions.setInfoBar(true, storeName)
-        actions.setInfoStore(name,storeName)
+
 
     }, [state.userStore]);
-*/
+ */
 
     console.log('UserStoreView.state.userStore=', state.userStore)
 
+    if(state.userStore) {
+//        actions.setInfoBar(true, state.userStore.user.name)
+//        actions.setInfoStore('Tendita', 'q')
+    }
+
     //let products = store.userStore.products
     let products = []
-    if (state.userStore.products)
+    if (state.userStore && state.userStore.products)
         products = state.userStore.products
     console.log("UserStoreView.products(1)=", products)
 
@@ -104,26 +114,26 @@ const UserStoreView = (props) => {
             <div className='user-store-view'>
                 <div className='user-store-view-01'>
                     <div className='user-store-view-01-a'>
-                        <img className='user-store-view-01-a-01'  src={state.userStore.user && state.userStore.user.photoUrl}/>
+                        <img className='user-store-view-01-a-01'  src={state.userStore && state.userStore.user.photoUrl}/>
                         <div className='user-store-view-01-a-02'>
-                            <label className='user-store-view-01-a-02-1'>{state.userStore.user && state.userStore.user.name}</label>
-                            <label>{state.userStore.cityStore}, {state.userStore.district}</label>
+                            <label className='user-store-view-01-a-02-1'>{state.userStore && state.userStore.url}</label>
+                            <label>{state.userStore && state.userStore.district}</label>
                         </div>
                         <div className='user-store-view-01-a-03'>
-                            <label>En Chachurero desde {state.userStore.createdAt}</label>
+                            <label>En Chachurero desde {state.userStore && state.userStore.createdAt}</label>
                         </div>
                         </div> 
                     <div className='user-store-view-01-b'>
-                        <img src={state.userStore.photoUrl}></img>
+                        <img src={state.userStore && state.userStore.photoUrl}></img>
                     </div>
                 </div>
                 <div className='user-store-view-02'>
                     <div className='user-store-view-02-a'>
-                        <label>{state.userStore.sells} a venta</label>
-                        <label>{state.userStore.solds} venditos</label>
-                        <label>{state.userStore.likes} cachurada</label>
-                        <label>{state.userStore.followers} seguidores</label>
-                        <label>{state.userStore.followeds} seguindo</label>
+                        <label>{state.userStore && state.userStore.sells} a venta</label>
+                        <label>{state.userStore && state.userStore.solds} venditos</label>
+                        <label>{state.userStore && state.userStore.likes} cachurada</label>
+                        <label>{state.userStore && state.userStore.followers} seguidores</label>
+                        <label>{state.userStore && state.userStore.followeds} seguindo</label>
                     </div>
                     <div className='user-store-view-02-b'>
                         <label>Busqueda en esta tendita</label>

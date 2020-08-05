@@ -1,0 +1,44 @@
+.container-draggable-uploader {
+    /*background: rgb(235, 235, 235) url('/images/camera.png') no-repeat center;*/
+    background: rgb(235, 235, 235);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-draggable-uploader input {
+    visibility: hidden;
+    margin-left: 30px;    
+    position: absolute;
+    
+}
+
+.container-draggable-uploader-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px; 
+}
+
+
+.container-draggable-uploader-img-default {
+    border-radius: 10px; 
+}
+
+.large-camera {
+    width: 70px;
+    height: 70px;
+}
+
+.small-camera {
+    width: 45px;
+    height: 45px;
+}
+
+.container-draggable-uploade  label {
+    color: red;
+}
+
+
