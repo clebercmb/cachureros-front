@@ -9,7 +9,7 @@ const AddProductView = (props) => {
 
     const { store, actions } = useContext(Context);
 
-    let productInitialSetup= {
+ /*    let productInitialSetup= {
         id: '',
         name:'',
         price: 0,
@@ -34,9 +34,38 @@ const AddProductView = (props) => {
         sizeId: 1,
         productStateId: 1,
         userStoreId: ''
+    } */
+
+    let productInitialSetup= {
+        id: '',
+        name:'produto cleber',
+        price: 10,
+        originalPrice: 20, 
+        hasBrand: false,
+        brand: "brand",
+        color: "azul",
+        model: "modelo",
+        weight: 2,
+        flete:0,
+        weightUnitId: 1,
+        qty: 2,
+        photos: [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        departmentId: 1,
+        categoryId: 1,
+        sizeId: 1,
+        productStateId: 1,
+        userStoreId: ''
     }
+
     const [state, setState] = useState({
         type:'',
+        sucess: null,
         departmentList:[],
         categoryList:[],
         sizeList:[],
@@ -229,10 +258,35 @@ const AddProductView = (props) => {
         e.preventDefault();
 
         console.log("****>AddProductView.state.product=", state.product)
+        let formData = new FormData();
+        formData.append("name", state.product.name);
+        formData.append("price", state.product.price);
+        formData.append("originalPrice", state.product.originalPrice);
+        formData.append("hasBrand", state.product.hasBrand);
+        formData.append("brand", state.product.brand);
+        formData.append("color", state.product.color);
+        formData.append("model", state.product.model);
+        formData.append("weight", state.product.weight);
+        formData.append("flete", state.product.flete);
+        formData.append("weightUnitId", state.product.weightUnitId);
+        formData.append("qty", state.product.qty);
+        formData.append("photo0", state.photos[0]);
+        formData.append("photo1", state.photos[1]);
+        formData.append("photo2", state.photos[2]);
+        formData.append("photo3", state.photos[3]);
+        formData.append("photo4", state.photos[4]);
+        formData.append("departmentId", state.product.departmentId);
+        formData.append("categoryId", state.product.categoryId);
+        formData.append("sizeId", state.product.sizeId);
+        formData.append("productStateId", state.product.productStateId);
+
+        console.log('AddProductView.handleSubmit.store.login.data.user.userStore', store.login.data.user.userStore)
+        formData.append("userStoreId", store.login.data.user.userStore.id);
 
         let url = process.env.REACT_APP_URL+'/product/'+state.product.userStoreId
         let methodCall = 'POST'
-        if (state.product.id !== null) {
+        console.log("AddProductView.handleSubmit.state.product.id=", state.product.id, state.product.id !== null, state.product.id!=='')
+        if ( state.product.id !== null &&  state.product.id!=='' ) {
             url = url + '/' + state.product.id
             methodCall = 'PUT'
         }
@@ -240,14 +294,14 @@ const AddProductView = (props) => {
         console.log("AddProductView.handleSubmit.methodCall=", methodCall)
         fetch(url, {
             method: methodCall,
-            body: JSON.stringify(state.product),
-            headers: {
-                "Content-Type": "application/json"
-            }
+            body: formData, //JSON.stringify(state.product),
+           // headers: {
+           //     "Content-Type": "application/json"
+           // }
         })
         .then(resp => resp.json())
         .then(data => console.log('AddProductView.handleSubmit.data=',data));
-        setState({...state, product: productInitialSetup});
+        //setState({...state, product: productInitialSetup});
     } 
 
     return (
