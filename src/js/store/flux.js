@@ -32,14 +32,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} */
       ],
       user: {
-        id: '1',
-        name: 'Juan Perez',
-        email: 'juan@gmail.com',
-        userStoreId:1
+        id: "1",
+        name: "Juan Perez",
+        email: "juan@gmail.com",
+        userStoreId: 1,
       },
-      login:{},
-      userStore:undefined,
-/*       userStore: {
+      login: {},
+      userStore: undefined,
+      /*       userStore: {
         url: 'juan2020',
         userFirstName: 'Juan',
         storeName:'Juan Store',
@@ -136,174 +136,165 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         ]
       },
- */   infobar: {
-        show:false,
-        info:'',
-        info2:'',
-        image: null
-        
+ */ infobar: {
+        show: false,
+        info: "",
+        info2: "",
+        image: null,
       },
       infoStore: {
-        userName:"juanita",
-        storeName:'Juanita',
-        photoShopper_src:'/images/juanita.jpg',
-        photoStore_src: '/images/tendita-ejuanita.jpg'
-        
+        userName: "juanita",
+        storeName: "Juanita",
+        photoShopper_src: "/images/juanita.jpg",
+        photoStore_src: "/images/tendita-ejuanita.jpg",
       },
-      userCart:{
+      userCart: {
         id: 1,
         user: {
-          id: 10
+          id: 10,
         },
         products: [
           {
             id: 1001,
-            name: 'Product 1',
+            name: "Product 1",
             discount: 10000,
             price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+            photo: "/images/Hee79dcebf31a47f2b483 2.png",
           },
           {
             id: 1002,
-            name: 'Product 2',
+            name: "Product 2",
             discount: 10000,
             price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+            photo: "/images/Hee79dcebf31a47f2b483 2.png",
           },
           {
             id: 1003,
-            name: 'Product 3',
+            name: "Product 3",
             discount: 10000,
             price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+            photo: "/images/Hee79dcebf31a47f2b483 2.png",
           },
           {
             id: 1004,
-            name: 'Product 4',
+            name: "Product 4",
             discount: 10000,
             price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+            photo: "/images/Hee79dcebf31a47f2b483 2.png",
           },
-        ]
-
+        ],
       },
       userMessages: [
         {
-          id:1,
-          user_id:1,
-          type: 'duda',
-          message:'message 1',
-          status:'nueva',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'      
+          id: 1,
+          user_id: 1,
+          type: "duda",
+          message: "message 1",
+          status: "nueva",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:2,
-          user_id:1,
-          type: 'oferta',
-          message:'message 2',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'
+          id: 2,
+          user_id: 1,
+          type: "oferta",
+          message: "message 2",
+          status: "leido",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:3,
-          user_id:1,
-          type: 'venta',
-          message:'message 3',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
+          id: 3,
+          user_id: 1,
+          type: "venta",
+          message: "message 3",
+          status: "leido",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:4,
-          user_id:1,
-          type: 'duda',
-          message:'message 4',
-          status:'nuevo',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
+          id: 4,
+          user_id: 1,
+          type: "duda",
+          message: "message 4",
+          status: "nuevo",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:5,
-          user_id:1,
-          type: 'oferta',
-          message:'message 5',
-          status:'nueva',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'
+          id: 5,
+          user_id: 1,
+          type: "oferta",
+          message: "message 5",
+          status: "nueva",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:6,
-          user_id:1,
-          type: 'venta',
-          message:'message 6',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
+          id: 6,
+          user_id: 1,
+          type: "venta",
+          message: "message 6",
+          status: "leido",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:7,
-          user_id:1,
-          type: 'duda',
-          message:'message 7',
-          status:'nueva',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
+          id: 7,
+          user_id: 1,
+          type: "duda",
+          message: "message 7",
+          status: "nueva",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
         {
-          id:8,
-          user_id:1,
-          type: 'oferta',
-          message:'message 8',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
+          id: 8,
+          user_id: 1,
+          type: "oferta",
+          message: "message 8",
+          status: "leido",
+          user_from: 2,
+          user_from_photo: "/images/juanita.jpg",
+          link: "/product-view/12",
+          date: "17-07-2020 13:10:01",
         },
       ],
       product: {
-        id: '',
-        name: '',
+        id: "",
+        name: "",
         price: 0,
-        originalPrice: 0, 
+        originalPrice: 0,
         hasBrand: false,
         brand: "",
         color: "",
         model: "",
         weight: 0,
-        flete:0,
+        flete: 0,
         weightUnitId: 1,
         qty: 0,
-        photos: [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
+        photos: ["", "", "", "", ""],
         departmentId: 1,
         categoryId: 1,
         sizeId: 1,
         productStateId: 1,
-        userStoreId: ''
-      },  
-/*       product: {
+        userStoreId: "",
+      },
+      /*       product: {
         id: 1000,
         store: {
           id: 1,
@@ -369,53 +360,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
- */      
-      regionList:[],
-      departmentList:[],
-      categoryList:[],
-      weightUnitList:[],
-      sizeList:[],
-      productStateList:[],
+ */
+
+      regionList: [],
+      departmentList: [],
+      categoryList: [],
+      weightUnitList: [],
+      sizeList: [],
+      productStateList: [],
       products: [
         {
-          id: 1001,
-          userStoreId: 101,
-          name: 'Product 1',
-          discount: 10000,
-          price: 12000,
-          photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          id: "1000",
+          nombre_producto: "Arrimo",
+          precio: "$ 40.000",
         },
         {
-          id: 1002,
-          userStoreId: 101,
-          name: 'Product 2',
-          discount: 10000,
-          price: 12000,
-          photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          id: "1001",
+          nombre_producto: "Bateria de Cocina",
+          precio: "$ 10.000",
         },
         {
-          id: 1003,
-          userStoreId: 101,
-          name: 'Product 3',
-          discount: 10000,
-          price: 12000,
-          photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          id: "1002",
+          nombre_producto: "Reloj Hombre",
+          precio: "$ 5.000",
         },
         {
-          id: 1004,
-          userStoreId: 101,
-          name: 'Product 4',
-          discount: 10000,
-          price: 12000,
-          photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          id: "1003",
+          nombre_producto: "Botas de Nieve",
+          precio: "$ 60.000",
         },
         {
-          id: 1005,
-          userStoreId: 101,
-          name: 'Product 5',
-          discount: 4000,
-          price: 6000,
-          photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          id: "1004",
+          nombre_producto: "Botas de invierno",
+          precio: "$ 120.000",
         },
       ],
 
@@ -425,63 +402,65 @@ const getState = ({ getStore, getActions, setStore }) => {
       //(Arrow) Functions that update the Store
       // Remember to use the scope: scope.state.store & scope.setState()
       setInfoBar: (show, info, info2, image) => {
-        console.log('flux.setInfoBar')
+        console.log("flux.setInfoBar");
         //const store = getStore()
-        let infobar =  {
-          show:show,
-          info:info,
+        let infobar = {
+          show: show,
+          info: info,
           info2: info2,
-          image: image
-        }
+          image: image,
+        };
         setStore({ infobar: infobar });
       },
 
-      setInfoStore: (userName,storeName, photoShopper_src, photoStore_src ) => {
-        console.log('flux.setInfoStore')
+      setInfoStore: (userName, storeName, photoShopper_src, photoStore_src) => {
+        console.log("flux.setInfoStore");
         //const store = getStore()
-        let infoStore =  {
-          userName:userName,
-          storeName:storeName,
+        let infoStore = {
+          userName: userName,
+          storeName: storeName,
           photoShopper_src: photoShopper_src,
-          photoStore_src: photoStore_src
-        }
+          photoStore_src: photoStore_src,
+        };
         setStore({ infoStore: infoStore });
       },
 
       getInfoBar: () => {
-        console.log('flux.setInfoBar')
-        const store = getStore()
+        console.log("flux.setInfoBar");
+        const store = getStore();
 
         return store.infobar;
       },
-      
+
       getInfoStore: () => {
-        console.log('flux.getInfoStore')
-        const store = getStore()
+        console.log("flux.getInfoStore");
+        const store = getStore();
 
         return store.infoStore;
       },
 
       getUser() {
-        console.log('flux.getUser()')
-        const store = getStore()
+        console.log("flux.getUser()");
+        const store = getStore();
 
-        return store.user
+        return store.user;
       },
       fetchProduct: (id) => {
         console.log("flux.fetchProduct");
         console.log("flux.fetchProduct.env", process.env);
-        console.log("flux.fetchProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
-    
-        let url = process.env.REACT_APP_URL+`/product/`
-        
-        if(id)
-          url = process.env.REACT_APP_URL+`/product/${id}`
+        console.log(
+          "flux.fetchProduct.process.env.REACT_APP_URL2",
+          process.env.REACT_APP_URL
+        );
 
-        console.log("flux.fetchProduct.url", url)
+        let url = process.env.REACT_APP_URL + `/product/`;
+
+        if (id) url = process.env.REACT_APP_URL + `/product/${id}`;
+
+        console.log("flux.fetchProduct.url", url);
         const store = getStore();
-        let product = {}
-      
+        let product = {};
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -495,22 +474,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("flux.fetchProduct.error", error);
           });
 
-          console.log("flux.fetchProduct.product", product);
+        console.log("flux.fetchProduct.product", product);
 
-        return store.product
-
+        return store.product;
       },
 
       fetchUserCart: (userId) => {
         const store = getStore();
-        return store.userCart
+        return store.userCart;
       },
 
       fetchAddCart: (product) => {
-        console.log("fetchAddCart, product=", product)
+        console.log("fetchAddCart, product=", product);
         const store = getStore();
-        let userCart = store.userCart
-        
+        let userCart = store.userCart;
+
         let data = {};
         fetch("http://127.0.0.1:5000/cartproduct/1", {
           method: "POST",
@@ -529,70 +507,64 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("flux.addCart.error", error);
           });
 
-        return store.userCart
+        return store.userCart;
       },
-
-
-
-
-      fetchUserStore: (userName) => {
 
       fetchLogin: async (login, history) => {
-        console.log("****>flux.fetchLogin")
+        console.log("****>flux.fetchLogin");
         const store = getStore();
 
-        console.log("****>flux.login.login=", login)
+        console.log("****>flux.login.login=", login);
 
+        let url = process.env.REACT_APP_URL + "/login/";
+        console.log("flux.fetchLogin.url=" + url);
 
-        let url = process.env.REACT_APP_URL+'/login/'
-        console.log("flux.fetchLogin.url="+url)
+        let methodCall = "POST";
 
-        let methodCall = 'POST'
-
-        console.log("flux.fetchLogin.methodCall=", methodCall)
+        console.log("flux.fetchLogin.methodCall=", methodCall);
         await fetch(url, {
-            method: methodCall,
-            body: JSON.stringify(login),
-            headers: {
-                "Content-Type": "application/json"
-            }
+          method: methodCall,
+          body: JSON.stringify(login),
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log("flux.fetchLogin.data", data);
-          localStorage.setItem("login", data);
-          let ver = localStorage.getItem("login");
-          console.log('flux.fetchLogin.ver=', ver.data)
-          setStore({ login: data });
-          console.log('flux.fetchLogin.store.login=', store.login)
-          history.push("/");
-
-        })
-        .catch((error) => {
-          console.log("flux.fetchUserStore.error", error);
-        });
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchLogin.data", data);
+            localStorage.setItem("login", data);
+            let ver = localStorage.getItem("login");
+            console.log("flux.fetchLogin.ver=", ver.data);
+            setStore({ login: data });
+            console.log("flux.fetchLogin.store.login=", store.login);
+            history.push("/");
+          })
+          .catch((error) => {
+            console.log("flux.fetchUserStore.error", error);
+          });
       },
-      getLogin:()=>{
-        let login=localStorage.getItem("login");
-        return login
+      getLogin: () => {
+        let login = localStorage.getItem("login");
+        return login;
       },
       fetchUserStore: async (userName, id) => {
         console.log("flux.fetchUserStore");
         console.log("flux.fetchUserStore.env", process.env);
-        console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
-    
-        let url = process.env.REACT_APP_URL+`/user-store/${userName}`
-        
-        if(id)
-          url = process.env.REACT_APP_URL+`/my-store/${id}`
+        console.log(
+          "flux.fetchUserStore.process.env.REACT_APP_URL2",
+          process.env.REACT_APP_URL
+        );
 
-        console.log("flux.fetchUserStore.url", url)
-        cc624787cbb55fa2d758d748fb662471977c3352
+        let url = process.env.REACT_APP_URL + `/user-store/${userName}`;
+
+        if (id) url = process.env.REACT_APP_URL + `/my-store/${id}`;
+
+        console.log("flux.fetchUserStore.url", url);
         const store = getStore();
-        let userStore = {}
-      
+        let userStore = {};
+
         await fetch(url)
           .then((response) => {
             return response.json();
@@ -606,24 +578,27 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("flux.fetchUserStore.error", error);
           });
 
-          console.log("flux.fetchUserStore.userStore", userStore);
+        console.log("flux.fetchUserStore.userStore", userStore);
 
-        return store.userStore
+        return store.userStore;
       },
       fetchUserMessages: (userId) => {
         const store = getStore();
-        return store.userMessages
+        return store.userMessages;
       },
 
       fetchRegionList: () => {
         console.log("flux.fetchRegionList");
         console.log("flux.fetchRegionList.env", process.env);
-        console.log("flux.fetchRegionList.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
-        const url = process.env.REACT_APP_URL+'/region'
-        console.log("flux.fetchRegionList.url", url)
+        console.log(
+          "flux.fetchRegionList.process.env.REACT_APP_URL2",
+          process.env.REACT_APP_URL
+        );
+        const url = process.env.REACT_APP_URL + "/region";
+        console.log("flux.fetchRegionList.url", url);
         const store = getStore();
-        let regionList = []
-      
+        let regionList = [];
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -637,19 +612,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("flux.fetchRegionList.error", error);
           });
 
-          console.log("flux.fetchRegionList.departmentList", regionList);
+        console.log("flux.fetchRegionList.departmentList", regionList);
         //if (ver == undefined) contacts = [];
-        
       },
       fetchDepartmentList: () => {
         console.log("flux.fetchDepartmentList");
         console.log("flux.fetchDepartmentList.env", process.env);
-        console.log("flux.fetchDepartmentList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
-        const url = process.env.REACT_APP_URL+'/department'
-        console.log("flux.fetchDepartmentList.url", url)
+        console.log(
+          "flux.fetchDepartmentList.process.env.REACT_APP_URL",
+          process.env.REACT_APP_URL
+        );
+        const url = process.env.REACT_APP_URL + "/department";
+        console.log("flux.fetchDepartmentList.url", url);
         const store = getStore();
-        let departmentList = []
-      
+        let departmentList = [];
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -665,17 +642,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         console.log("flux.fetchDepartmentList.departmentList", departmentList);
         //if (ver == undefined) contacts = [];
-        
       },
       fetchCategoryList: () => {
         console.log("flux.fetchCategoryList");
         console.log("flux.fetchCategoryList.env", process.env);
-        console.log("flux.fetchCategoryList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
-        const url = process.env.REACT_APP_URL+'/category'
-        console.log("flux.fetchDepartmentList.url", url)
+        console.log(
+          "flux.fetchCategoryList.process.env.REACT_APP_URL",
+          process.env.REACT_APP_URL
+        );
+        const url = process.env.REACT_APP_URL + "/category";
+        console.log("flux.fetchDepartmentList.url", url);
         const store = getStore();
-        let categoryList = []
-      
+        let categoryList = [];
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -691,16 +670,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         console.log("flux.fetchCategoryList.categoryList", categoryList);
         //if (ver == undefined) contacts = [];
-        
       },
       fetchSizeList: () => {
         console.log("flux.fetchSizeList");
         console.log("flux.fetchSizeList.env", process.env);
-        console.log("flux.fetchSizeList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
-        const url = process.env.REACT_APP_URL+'/size'
-        console.log("flux.fetchSizeList.url", url)
+        console.log(
+          "flux.fetchSizeList.process.env.REACT_APP_URL",
+          process.env.REACT_APP_URL
+        );
+        const url = process.env.REACT_APP_URL + "/size";
+        console.log("flux.fetchSizeList.url", url);
         const store = getStore();
-        let sizeList = []    
+        let sizeList = [];
         fetch(url)
           .then((response) => {
             return response.json();
@@ -718,14 +699,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       fetchProductStateList: () => {
         console.log("flux.fetchProductStateList");
         console.log("flux.fetchProductStateList.env", process.env);
-        console.log("flux.fetchProductStateList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        console.log(
+          "flux.fetchProductStateList.process.env.REACT_APP_URL",
+          process.env.REACT_APP_URL
+        );
 
-        const url = process.env.REACT_APP_URL+'/product-state'
-        console.log("flux.fetchProductStateList.url", url)
+        const url = process.env.REACT_APP_URL + "/product-state";
+        console.log("flux.fetchProductStateList.url", url);
 
         const store = getStore();
-        let productStateList = []    
-        
+        let productStateList = [];
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -738,19 +722,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => {
             console.log("flux.fetchProductStateList.error", error);
           });
-        console.log("flux.fetchProductStateList.productStateList", productStateList);
-      }, 
+        console.log(
+          "flux.fetchProductStateList.productStateList",
+          productStateList
+        );
+      },
       fetchWeightUnitList: () => {
         console.log("flux.fetchWeightUnitList");
         console.log("flux.fetchWeightUnitList.env", process.env);
-        console.log("flux.fetchWeightUnitList.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+        console.log(
+          "flux.fetchWeightUnitList.process.env.REACT_APP_URL",
+          process.env.REACT_APP_URL
+        );
 
-        const url = process.env.REACT_APP_URL+'/weightunit'
-        console.log("flux.fetchProductStateList.url", url)
+        const url = process.env.REACT_APP_URL + "/weightunit";
+        console.log("flux.fetchProductStateList.url", url);
 
         const store = getStore();
-        let weightUnitList = []    
-        
+        let weightUnitList = [];
+
         fetch(url)
           .then((response) => {
             return response.json();
@@ -764,7 +754,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("flux.fetchWeightUnitList.error", error);
           });
         console.log("flux.fetchWeightUnitList.weightUnitList", weightUnitList);
-      },      
+      },
       fetchContacts: (url) => {
         console.log("flux.fetchContacts");
         console.log("flux.fetchContacts.url", url);
