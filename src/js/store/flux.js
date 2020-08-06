@@ -302,7 +302,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         sizeId: 1,
         productStateId: 1,
         userStoreId: ''
-      }, 
+      },  
 /*       product: {
         id: 1000,
         store: {
