@@ -9,11 +9,27 @@ const Navbar = (props) => {
 
   console.log("==>Layout.actions.getInfoBar()", actions.getInfoBar());
 
+  const [state, setState] = useState({
+    login: {}
+	});
+
+
+	useEffect(() => {
+		console.log("Navbar.useEffect 1: Behavior before the component is added to the DOM");
+		console.log("Navbar.useEffect 1: store.login", store.login);
+    setState({...state, login: store.login});
+    console.log("Navbar.useEffect 1: state", state);
+    console.log("Navbar.useEffect 1: state.login", state.login);
+
+
+  }, [store.login]);
+
+
   let infoBar = actions.getInfoBar().info
   let infoStore = actions.getInfoStore()
 
-  let user = actions.getUser();
-
+  let user = state.login.data ? state.login.data.user : undefined;
+  console.log('Navbar.user=', user)
 
   return (
     <div className="container-level-01">
@@ -45,7 +61,7 @@ const Navbar = (props) => {
                 </Link>
               </li>
               <li>
-                <Link to={`/message/${user.id}`}>
+                <Link to={`/message/${user && user.id}`}>
                   <img src="/images/notification.png" alt="Notification" />
                 </Link>
               </li>
@@ -77,15 +93,30 @@ const Navbar = (props) => {
                     Product
                   </Link>
 
-                  <Link to="/add-product-view" className="dropdown-item">
-                    Nuevo Producto
-                  </Link>
-                  <Link to="/user-profile" className="dropdown-item">
-                    Configuración
-                  </Link>
-                  <Link to= {`/user-store/${infoStore.userName}`} className="dropdown-item">
-                    Mi tendita
-                  </Link>
+                  {
+                    !!user && (
+                      <Link to="/add-product-view" className="dropdown-item">
+                        Nuevo Producto
+                      </Link>
+                    )
+                  }
+                  
+                  {
+                    !!user && (
+                      <Link to="/user-profile" className="dropdown-item">
+                        Configuración
+                      </Link>
+                    )
+                  }
+
+                  {
+                    !!user && (
+                      <Link to= {`/my-store/${user.userStore && user.userStore.id}`} className="dropdown-item">
+                        Mi tendita
+                      </Link>
+                    )
+                  }
+
                 </div>
               </li>
             </ul>

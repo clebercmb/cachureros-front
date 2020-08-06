@@ -154,10 +154,170 @@ const Filter = (props) => {
         <div className='filter'>
             <label>Filtros de busquedas</label>
             <div className='filter-01'>   
-                <button className='button-filter' onClick={()=>changeFilterPosition('position-01')}>
-                    <label>Región</label>
-                    <img src={state.filterPosition === 'position-01' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
-                </button>
+                <div className={`filter-01-01 ${state.filterPosition === 'position-01' ? 'index' : ''}`}>
+                    <div className="filter-01-01-01">
+                        <div className="filter-01-01-a">
+                            <button className='button-filter' onClick={()=>changeFilterPosition('position-01')}>
+                                <label>Región</label>
+                                <img src={state.filterPosition === 'position-01' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
+                            </button>               
+                        </div>
+                        <div className={`product-feed-filters-content  ${state.filterPosition === 'position-01' ? 'show-filter' : 'hidden-filter'}`}  >
+                            <div className='product-feed-filters-content-body'>
+                                {regionListOptions}
+                            </div> 
+                            <div className='product-feed-filters-content-buttons'>
+                                <button className='button-clear'>Limpar</button>
+                                <button className='button-apply'>Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                <div className={`filter-01-01 ${state.filterPosition === 'position-02' ? 'index' : ''}`}>
+                    <div className="filter-01-01-01">
+                        <div className="filter-01-01-a">
+                            <button className='button-filter' onClick={e=>changeFilterPosition('position-02')}>
+                                <label>Categorias</label>
+                                <img src={state.filterPosition === 'position-02' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
+                            </button>
+                        </div>
+                        <div className={`product-feed-filters-content  ${state.filterPosition === 'position-02' ? 'show-filter' : 'hidden-filter'}`}  >
+                            <div className='product-feed-filters-content-body'>
+                                {categoryListOptions}
+                            </div> 
+                            <div className='product-feed-filters-content-buttons'>
+                                <button className='button-clear'>Limpar</button>
+                                <button className='button-apply'>Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div className={`filter-01-01 ${state.filterPosition === 'position-03' ? 'index' : ''}`}>
+                    <div className="filter-01-01-01">
+                        <div className="filter-01-01-a">
+                            <button className='button-filter' onClick={e=>changeFilterPosition('position-03')}>
+                                <label>Categorias</label>
+                                <img src={state.filterPosition === 'position-03' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
+                            </button>
+                        </div>
+                        <div className={`product-feed-filters-content  ${state.filterPosition === 'position-03' ? 'show-filter' : 'hidden-filter'}`}  >
+                            <div className='product-feed-filters-content-body'>
+                                {sizeListOptions}
+                            </div> 
+                            <div className='product-feed-filters-content-buttons'>
+                                <button className='button-clear'>Limpar</button>
+                                <button className='button-apply'>Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div className={`filter-01-01 ${state.filterPosition === 'position-04' ? 'index' : ''}`}>
+                    <div className="filter-01-01-01">
+                        <div className="filter-01-01-a">
+                            <button className='button-filter' onClick={e=>changeFilterPosition('position-04')}>
+                                <label>Precio</label>
+                                <img src={state.filterPosition === 'position-04' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
+                            </button>
+                        </div>
+                        <div className={`product-feed-filters-content  ${state.filterPosition === 'position-04' ? 'show-filter' : 'hidden-filter'}`}  >
+                            <div className='product-feed-filters-content-body'>
+
+                                <div className='product-feed-filters-content-body-wrapper'>
+                                    <label htmlFor='container-price1' className="container-price">De</label>
+                                    <input  id='container-price1' name='container-price1'  />
+                                </div>
+
+                                <div className='product-feed-filters-content-body-wrapper'>
+                                    <label htmlFor='container-price2' className="container-price">Hasta</label>
+                                    <input  id='container-price2' name='container-price2'  />
+                                </div>
+
+                            </div> 
+                            <div className='product-feed-filters-content-buttons'>
+                                <button className='button-clear'>Limpar</button>
+                                <button className='button-apply'>Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div className={`filter-01-01 ${state.filterPosition === 'position-05' ? 'index' : ''}`}>
+                    <div className="filter-01-01-01">
+                        <div className="filter-01-01-a">
+                            <button className='button-filter' onClick={e=>changeFilterPosition('position-05')}>
+                                <label>Novedades</label>
+                                <img src={state.filterPosition === 'position-05' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
+                            </button>
+                        </div>
+                        <div className={`product-feed-filters-content  ${state.filterPosition === 'position-05' ? 'show-filter' : 'hidden-filter'}`}  >
+                            <div className='product-feed-filters-content-body'>
+
+                                <div className='product-feed-filters-content-body-wrapper'>
+                                    <label name='container-checkbox-news1' className="container-checkbox">Las últimas 24h
+                                        <input  id='container-checkbox-news1' name='container-checkbox-news1' type="checkbox" />
+                                        <span className="check"></span>
+                                    </label>
+                                </div>
+                                <div className='product-feed-filters-content-body-wrapper'>
+                                    <label name='container-checkbox-news2' className="container-checkbox">Los últimos 7 días
+                                        <input  id='container-checkbox-news2' name='container-checkbox-news2' type="checkbox" />
+                                        <span className="check"></span>
+                                    </label>
+                                </div>
+                                <div className='product-feed-filters-content-body-wrapper'>
+                                    <label name='container-checkbox-news3' className="container-checkbox">Los últimos 14 días
+                                        <input  id='container-checkbox-news3' name='container-checkbox-news3' type="checkbox" />
+                                        <span className="check"></span>
+                                    </label>
+                                </div>
+                                <div className='product-feed-filters-content-body-wrapper'>
+                                    <label name='container-checkbox-news4' className="container-checkbox">Los últimos 30 días
+                                        <input  id='container-checkbox-news4' name='container-checkbox-news4' type="checkbox" />
+                                        <span className="check"></span>
+                                    </label>
+                                </div>
+
+                            </div> 
+                            <div className='product-feed-filters-content-buttons'>
+                                <button className='button-clear'>Limpar</button>
+                                <button className='button-apply'>Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+                <div className={`filter-01-01 ${state.filterPosition === 'position-06' ? 'index' : ''}`}>
+                    <div className="filter-01-01-01">
+                        <div className="filter-01-01-a">
+                            <button className='button-filter' onClick={()=>changeFilterPosition('position-06')}>
+                                <label>Condiciones</label>
+                                <img src={state.filterPosition === 'position-06' ? '/images/arrow-up.png' : '/images/arrow-down.png'}/>
+                            </button>               
+                        </div>
+                        <div className={`product-feed-filters-content  ${state.filterPosition === 'position-06' ? 'show-filter' : 'hidden-filter'}`}  >
+                            <div className='product-feed-filters-content-body'>
+                                {productStateListOptions}
+                            </div> 
+                            <div className='product-feed-filters-content-buttons'>
+                                <button className='button-clear'>Limpar</button>
+                                <button className='button-apply'>Aplicar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                <div className="filter-01-01">
+                    <div className="filter-01-01-clean-filter">
+                        <button className='clean-filter'>
+                            Limpar Filtros
+                        </button>
+                    </div>
+                </div>  
+
+{/* 
 
                 <button className='button-filter' onClick={e=>changeFilterPosition('position-02')}>
                     <label>Categorias</label>
@@ -186,19 +346,11 @@ const Filter = (props) => {
 
                 <button className='clean-filter'>
                     Limpar Filtros
-                </button>
+                </button> */}
             </div>
-
+{/* 
             <div className='filter-02'>
-                <div className={`product-feed-filters-content position-01 ${state.filterPosition === 'position-01' ? 'show-filter' : 'hidden-filter'}`}  >
-                    <div className='product-feed-filters-content-body'>
-                        {regionListOptions}
-                    </div> 
-                    <div className='product-feed-filters-content-buttons'>
-                        <button className='button-clear'>Limpar</button>
-                        <button className='button-apply'>Aplicar</button>
-                    </div>
-                </div>
+
 
                 <div className={`product-feed-filters-content position-02 ${state.filterPosition === 'position-02' ? 'show-filter' : 'hidden-filter'}`}  >
                     <div className='product-feed-filters-content-body'>
@@ -281,7 +433,7 @@ const Filter = (props) => {
                 </div>
 
             </div>
-
+ */}
         </div>
     )
 }

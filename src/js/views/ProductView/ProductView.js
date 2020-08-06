@@ -38,7 +38,11 @@ const ProductView = props => {
             principalPhoto: product.largePhoto
         })
 
-        actions.setInfoBar(true, 'Comentarios', 'Valoraciones', product.store.userPhoto)
+        let userPhoto = ''
+
+
+        //actions.setInfoBar(true, 'Comentarios', 'Valoraciones', product.store.userPhoto)
+        actions.setInfoBar(true, 'Comentarios', 'Valoraciones')
         
 		console.log("ProductView.useEffect 2.state.product", product);
         console.log("ProductView.useEffect 2.state.product", state.product)
@@ -127,7 +131,7 @@ const ProductView = props => {
                                         Modelo: {state.product.model}
                                     </label>
                                     <label className='productview-a-02-01-c-01-a'>
-                                        Talla: {state.product.size}
+                                        Talla: {state.product && state.product.size && state.product.size.name && state.product.size.name}
                                     </label>
                                 </div>
                                 <div className='productview-a-02-01-c-01'>
