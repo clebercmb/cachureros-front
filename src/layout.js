@@ -37,7 +37,9 @@ export const Layout = () => {
 
 	const { store, actions } = useContext(Context);
 
-	console.log('==>Layout.actions.getInfoBar()', actions.getInfoBar())
+	//let login = localStorage.getItem("login");
+	console.log('layout.store.login=', store.login)
+	//console.log('==>Layout.actions.getInfoBar()', actions.getInfoBar())
 	let infoBarShow = actions.getInfoBar().show
 
 	let infobar = null
@@ -46,12 +48,12 @@ export const Layout = () => {
 	return (
 		<div className="container-level-00">
 			<BrowserRouter>
-				<Navbar/>
+				<Navbar userStoreId={store.login}/>
 				{infobar}
 				<div className="container-level-01">
 					<ScrollToTop>
 						<Switch>
-						    <Route exact path="/resumen-pedidos" component={ResumenPedidos} />
+							<Route exact path="/resumen-pedidos" component={ResumenPedidos} />
 							<Route exact path="/login" component={Login} />
 							<Route exact path="/registro" component={RegistroUsuario} />
 							<Route exact path="/carritodecompra" component={Carrito} />
@@ -60,8 +62,10 @@ export const Layout = () => {
 							<Route exact path="/contacts" component={Contacts} />
 							<PrivateRoute exact path="/user-profile" component={UserProfile} />
 							<Route exact path="/product-view/:id" component={ProductView} />
-							<Route exact path="/user-store/:store_id" component={UserStoreView} />
+							<Route exact path="/user-store/:url" component={UserStoreView} />
+							<PrivateRoute exact path="/my-store/:id" component={UserStoreView} />
 							<PrivateRoute exact path="/add-product-view" component={AddProductView} />
+							<PrivateRoute exact path="/add-product-view/:id" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
 							<PrivateRoute exact path="/message/:user_id" component={Message} />	

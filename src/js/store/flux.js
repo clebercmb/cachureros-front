@@ -37,7 +37,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         email: 'juan@gmail.com',
         userStoreId:1
       },
-      userStore: {
+      login:{},
+      userStore:undefined,
+/*       userStore: {
         url: 'juan2020',
         userFirstName: 'Juan',
         storeName:'Juan Store',
@@ -134,7 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           }
         ]
       },
-      infobar: {
+ */   infobar: {
         show:false,
         info:'',
         info2:'',
@@ -276,6 +278,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       product: {
+        id: '',
+        name: '',
+        price: 0,
+        originalPrice: 0, 
+        hasBrand: false,
+        brand: "",
+        color: "",
+        model: "",
+        weight: 0,
+        flete:0,
+        weightUnitId: 1,
+        qty: 0,
+        photos: [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        departmentId: 1,
+        categoryId: 1,
+        sizeId: 1,
+        productStateId: 1,
+        userStoreId: ''
+      },
+/*       product: {
         id: 1000,
         store: {
           id: 1,
@@ -341,6 +369,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
+ */      
       regionList:[],
       departmentList:[],
       categoryList:[],
@@ -440,8 +469,36 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.user
       },
       fetchProduct: (id) => {
+        console.log("flux.fetchProduct");
+        console.log("flux.fetchProduct.env", process.env);
+        console.log("flux.fetchProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/product/`
+        
+        if(id)
+          url = process.env.REACT_APP_URL+`/product/${id}`
+
+        console.log("flux.fetchProduct.url", url)
         const store = getStore();
+        let product = {}
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchProduct.data", data);
+            product = data;
+            setStore({ product: product });
+          })
+          .catch((error) => {
+            console.log("flux.fetchProduct.error", error);
+          });
+
+          console.log("flux.fetchProduct.product", product);
+
         return store.product
+
       },
 
       fetchUserCart: (userId) => {
@@ -454,8 +511,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         let userCart = store.userCart
         
-        
-
         let data = {};
         fetch("http://127.0.0.1:5000/cartproduct/1", {
           method: "POST",
@@ -481,7 +536,78 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
       fetchUserStore: (userName) => {
+
+      fetchLogin: async (login, history) => {
+        console.log("****>flux.fetchLogin")
         const store = getStore();
+
+        console.log("****>flux.login.login=", login)
+
+
+        let url = process.env.REACT_APP_URL+'/login/'
+        console.log("flux.fetchLogin.url="+url)
+
+        let methodCall = 'POST'
+
+        console.log("flux.fetchLogin.methodCall=", methodCall)
+        await fetch(url, {
+            method: methodCall,
+            body: JSON.stringify(login),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("flux.fetchLogin.data", data);
+          localStorage.setItem("login", data);
+          let ver = localStorage.getItem("login");
+          console.log('flux.fetchLogin.ver=', ver.data)
+          setStore({ login: data });
+          console.log('flux.fetchLogin.store.login=', store.login)
+          history.push("/");
+
+        })
+        .catch((error) => {
+          console.log("flux.fetchUserStore.error", error);
+        });
+      },
+      getLogin:()=>{
+        let login=localStorage.getItem("login");
+        return login
+      },
+      fetchUserStore: async (userName, id) => {
+        console.log("flux.fetchUserStore");
+        console.log("flux.fetchUserStore.env", process.env);
+        console.log("flux.fetchUserStore.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/user-store/${userName}`
+        
+        if(id)
+          url = process.env.REACT_APP_URL+`/my-store/${id}`
+
+        console.log("flux.fetchUserStore.url", url)
+        cc624787cbb55fa2d758d748fb662471977c3352
+        const store = getStore();
+        let userStore = {}
+      
+        await fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchRegionList.data", data);
+            userStore = data;
+            setStore({ userStore: userStore });
+          })
+          .catch((error) => {
+            console.log("flux.fetchUserStore.error", error);
+          });
+
+          console.log("flux.fetchUserStore.userStore", userStore);
+
         return store.userStore
       },
       fetchUserMessages: (userId) => {
