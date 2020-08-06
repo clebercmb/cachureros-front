@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react"
-import { Context } from '../store/appContext';
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import InformationBar from "../component/InformationBar/InformationBar";
 import ShoppingCart from "../component/carrito/Shoppingcart";
 import ResumenCompra from "../component/carrito/resumenCompra";
@@ -7,18 +7,14 @@ import InfoPago from "../component/carrito/InfoPago";
 import ProductSmallMediumPhotos from "../component/ProductSmallMediumPhoto/ProductSmallMediumPhoto";
 import "../../styles/carrito.css";
 
-
-
-
 function Carrito() {
-
   const { store, actions } = useContext(Context);
 
   const [state, setState] = useState({
-		userName: "clebermb",
-        userStore: {},
-        showAllFilter: true
-	});
+    userName: "clebermb",
+    userStore: {},
+    showAllFilter: true,
+  });
 
   useEffect(() => {
     console.log(
@@ -31,8 +27,7 @@ function Carrito() {
   }, [store.userStore]);
 
   return (
-    <>
-   
+    <div className="containerCarrito">
       <div className="carrito">
         <ShoppingCart />
         <ResumenCompra />
@@ -87,7 +82,7 @@ function Carrito() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 export default Carrito;
