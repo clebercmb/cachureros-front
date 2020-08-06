@@ -101,8 +101,9 @@ const UserStoreView = (props) => {
                 if(store.login.data)
                     edit = store.login.data.user.id === p.userStore.id
                 console.log('UserStoreView.edit=', edit)
+                let url = process.env.REACT_APP_URL+'/images-products/'
                 return (
-                    <ProductSmallMediumPhoto src={p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
+                    <ProductSmallMediumPhoto src={url+p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
                 )
             }
         })
