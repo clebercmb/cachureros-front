@@ -9,7 +9,7 @@ const DraggableUploader = (props) => {
             size: 0
         },
         fileInput:undefined,
-        imageDefault:'/images/camera.png',
+        imageDefault:'camera.png',
         image: ''
 
     })
@@ -41,11 +41,12 @@ const DraggableUploader = (props) => {
         reader.readAsDataURL(e.target.files[0])
     }
 
-    console.log('DraggableUploader.props.src=', props.src)
+    console.log('DraggableUploader.props.src=%s, index=%s', props.src, props.index)
     console.log('DraggableUploader.state', state)
+    let url = process.env.REACT_APP_URL+'/images-products/'
     return (
         <div className='container-draggable-uploader' onClick={() => state.fileInput.click()}>
-            <img className={state.image === '' ? 'container-draggable-uploader-img-default' : 'container-draggable-uploader-img'} src={state.image === '' ? state.imageDefault: state.image} />
+            <img className={state.image === '' ? 'container-draggable-uploader-img-default' : 'container-draggable-uploader-img'} src={state.image === '' ? url+state.imageDefault: url+state.image} />
 
             <input type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInput = input} onChange={ (e) => handleFile(e)} />
 

@@ -151,42 +151,19 @@ const getState = ({ getStore, getActions, setStore }) => {
         
       },
       userCart:{
-        id: 1,
-        user: {
-          id: 10
-        },
+        id: null,
+        user: null,
         products: [
           {
             id: 1001,
             name: 'Product 1',
             discount: 10000,
             price: 12000,
+            qty: 10,
             photo: '/images/Hee79dcebf31a47f2b483 2.png'
-          },
-          {
-            id: 1002,
-            name: 'Product 2',
-            discount: 10000,
-            price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
-          },
-          {
-            id: 1003,
-            name: 'Product 3',
-            discount: 10000,
-            price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
-          },
-          {
-            id: 1004,
-            name: 'Product 4',
-            discount: 10000,
-            price: 12000,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
-          },
+          }
         ]
-
-      },
+      },   
       userMessages: [
         {
           id:1,
@@ -453,7 +430,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         return store.user
       },
-      fetchProduct: (id) => {
+      fetchProduct: async (id) => {
         console.log("flux.fetchProduct");
         console.log("flux.fetchProduct.env", process.env);
         console.log("flux.fetchProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
@@ -467,7 +444,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         let product = {}
       
-        fetch(url)
+        await fetch(url)
           .then((response) => {
             return response.json();
           })

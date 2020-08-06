@@ -95,7 +95,7 @@ const Navbar = (props) => {
 
                   {
                     !!user && (
-                      <Link to="/add-product-view" className="dropdown-item">
+                      <Link to="/product" className="dropdown-item">
                         Nuevo Producto
                       </Link>
                     )

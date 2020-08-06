@@ -9,7 +9,7 @@ const AddProductView = (props) => {
 
     const { store, actions } = useContext(Context);
 
- /*    let productInitialSetup= {
+    let productInitialSetup= {
         id: '',
         name:'',
         price: 0,
@@ -34,34 +34,7 @@ const AddProductView = (props) => {
         sizeId: 1,
         productStateId: 1,
         userStoreId: ''
-    } */
-
-    let productInitialSetup= {
-        id: '',
-        name:'produto cleber',
-        price: 10,
-        originalPrice: 20, 
-        hasBrand: false,
-        brand: "brand",
-        color: "azul",
-        model: "modelo",
-        weight: 2,
-        flete:0,
-        weightUnitId: 1,
-        qty: 2,
-        photos: [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
-        departmentId: 1,
-        categoryId: 1,
-        sizeId: 1,
-        productStateId: 1,
-        userStoreId: ''
-    }
+    } 
 
     const [state, setState] = useState({
         type:'',
@@ -85,11 +58,11 @@ const AddProductView = (props) => {
             weightUnitId: 1,
             qty: 0,
             photos: [
-                "",
-                "",
-                "",
-                "",
-                ""
+                '',
+                '',
+                '',
+                '',
+                ''
             ],
             departmentId: 1,
             categoryId: 1,
@@ -166,57 +139,63 @@ const AddProductView = (props) => {
                 '',
                 ''
             ]
-            setState({...state, photos: photos});
+            //setState({...state, photos: photos});
+        } else {
+            setState({...state, product: store.product});
         }
             
     }, [props.match.params.id]);
     
     useEffect(() => {
-		console.log("useEffect 2-Behavior before the component is added to the DOM - departmentList")
+		console.log("AddProductView.useEffect 2-Behavior before the component is added to the DOM - departmentList")
         console.log("useEffect 2-props.match.params.id", props.match.params.id)
         let departmentList = store.departmentList
         setState({...state, departmentList: departmentList});
     }, [store.departmentList]);
 
     useEffect(() => {
-		console.log("useEffect 3-Behavior before the component is added to the DOM - categoryList")
-        console.log("useEffect 3-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 3-Behavior before the component is added to the DOM - categoryList")
+        console.log("AddProductView.useEffect 3-props.match.params.id", props.match.params.id)
         let categoryList = store.categoryList
         setState({...state, categoryList: categoryList});
     }, [store.categoryList]);  // 
 
     useEffect(() => {
-		console.log("useEffect 4-Behavior before the component is added to the DOM - sizeList")
-        console.log("useEffect 4-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 4-Behavior before the component is added to the DOM - sizeList")
+        console.log("AddProductView.useEffect 4-props.match.params.id", props.match.params.id)
         let sizeList = store.sizeList
         setState({...state, sizeList: sizeList});
     }, [store.sizeList]);
 
     useEffect(() => {
-		console.log("useEffect 5-Behavior before the component is added to the DOM - productStateList")
-        console.log("useEffect 5-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 5-Behavior before the component is added to the DOM - productStateList")
+        console.log("AddProductView.useEffect 5-props.match.params.id", props.match.params.id)
         let productStateList = store.productStateList
         setState({...state, productStateList: productStateList});
     }, [store.productStateList]);
 
     useEffect(() => {
-		console.log("useEffect 6-Behavior before the component is added to the DOM - categoryList")
-        console.log("useEffect 6-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 6-Behavior before the component is added to the DOM - categoryList")
+        console.log("AddProductView.useEffect 6-props.match.params.id", props.match.params.id)
         let weightUnitList = store.weightUnitList
         setState({...state, weightUnitList: weightUnitList});
     }, [store.weightUnitList]);
 
     useEffect(() => {
-		console.log("useEffect 7-Behavior before the component is added to the DOM - departmentList")
-        console.log("useEffect 7-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 7-Behavior before the component is added to the DOM - departmentList")
+        console.log("AddProductView.useEffect 7-props.match.params.id", props.match.params.id)
+        console.log("AddProductView.useEffect 7-state.photos(1)", state.photos)
         let product = store.product
         setState({...state, product: product});
-        setState({...state, photos: product.photos});
+        //setState({...state, photos: store.product.photos});
 
+        console.log('AddProductView.useEffect 7-store.product', store.product)
+        console.log('AddProductView.useEffect 7-product', product)
+        console.log('AddProductView.useEffect 7-state.product', state.product)
+        console.log("AddProductView.useEffect 7-state.photos(2)", state.photos)
     }, [store.product]);
 
-
-
+    console.log("AddProductView.state.product(1)=", state.product)
 
     let addProduct = () => {
         let i = true
@@ -301,31 +280,33 @@ const AddProductView = (props) => {
         })
         .then(resp => resp.json())
         .then(data => console.log('AddProductView.handleSubmit.data=',data));
-        //setState({...state, product: productInitialSetup});
+        setState({...state, product: productInitialSetup});
     } 
+
+    console.log("AddProductView.state.product(2)=", state.product)
 
     return (
         <form className='form-group add-product-view-container'>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
-                    <DraggableUploader src={state.photos[0]} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
+                    <DraggableUploader src={state.product.photos[0]} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
                 </div>            
                 <div className='add-product-view-a-02'>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[1]} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
+                        <DraggableUploader src={state.product.photos[1]} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[2]} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
+                        <DraggableUploader src={state.product.photos[2]} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
                     </div>
 
                 </div>  
                 <div className='add-product-view-a-02'>
 
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[3]} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
+                        <DraggableUploader src={state.product.photos[3]} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[4]} handleFile= {handleFilePhotoProduct} index={4} type=''/>
+                        <DraggableUploader src={state.product.photos[4]} handleFile= {handleFilePhotoProduct} index={4} type=''/>
                     </div>
                 </div>
             </div>
