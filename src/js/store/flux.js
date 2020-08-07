@@ -256,7 +256,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
       product: {
         id: '',
-        name: '',
+        name:'',
         price: 0,
         originalPrice: 0, 
         hasBrand: false,
@@ -279,7 +279,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         sizeId: 1,
         productStateId: 1,
         userStoreId: ''
-      },  
+    } ,  
 /*       product: {
         id: 1000,
         store: {
@@ -346,7 +346,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
- */      
+ */   
       regionList:[],
       departmentList:[],
       categoryList:[],
@@ -422,6 +422,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore()
 
         return store.infoStore;
+      },
+
+      setProduct: (product) => {
+        console.log('flux.setProduct')
+  
+        setStore({ product: product });
       },
 
       getUser() {
@@ -509,6 +515,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         let login=localStorage.getItem("login");
         return login
       },
+      resetUserStore: async () => {
+        await setStore({ userStore: null });
+      },
       fetchUserStore: async (userName, id) => {
         console.log("flux.fetchUserStore");
         console.log("flux.fetchUserStore.env", process.env);
@@ -528,7 +537,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then((data) => {
-            console.log("flux.fetchRegionList.data", data);
+            console.log("flux.fetchUserStore.data", data);
             userStore = data;
             setStore({ userStore: userStore });
           })
