@@ -7,7 +7,7 @@ import DraggableUploader from "../../component/DraggableUploader/DraggableUpload
 
 const AddProductView = (props) => {
 
-    const { store, actions, setStore } = useContext(Context);
+    const { store, actions} = useContext(Context);
     const {history} = props;
 
     let productInitialSetup= {

@@ -103,7 +103,7 @@ const Navbar = (props) => {
                   
                   {
                     !!user && (
-                      <Link to="/user-profile" className="dropdown-item">
+                      <Link to={`/user-profile/${user.userStore && user.userStore.id}`} className="dropdown-item">
                         Configuración
                       </Link>
                     )
