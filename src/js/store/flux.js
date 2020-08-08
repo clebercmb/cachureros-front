@@ -148,42 +148,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         photoShopper_src: "/images/juanita.jpg",
         photoStore_src: "/images/tendita-ejuanita.jpg",
       },
-      userCart: {
-        id: 1,
-        user: {
-          id: 10,
-        },
+      userCart:{
+        id: null,
+        user: null,
         products: [
           {
             id: 1001,
             name: "Product 1",
             discount: 10000,
             price: 12000,
-            photo: "/images/Hee79dcebf31a47f2b483 2.png",
-          },
-          {
-            id: 1002,
-            name: "Product 2",
-            discount: 10000,
-            price: 12000,
-            photo: "/images/Hee79dcebf31a47f2b483 2.png",
-          },
-          {
-            id: 1003,
-            name: "Product 3",
-            discount: 10000,
-            price: 12000,
-            photo: "/images/Hee79dcebf31a47f2b483 2.png",
-          },
-          {
-            id: 1004,
-            name: "Product 4",
-            discount: 10000,
-            price: 12000,
-            photo: "/images/Hee79dcebf31a47f2b483 2.png",
-          },
-        ],
-      },
+            qty: 10,
+            photo: '/images/Hee79dcebf31a47f2b483 2.png'
+          }
+        ]
+      },   
       userMessages: [
         {
           id: 1,
@@ -275,8 +253,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       product: {
-        id: "",
-        name: "",
+        id: '',
+        name:'',
         price: 0,
         originalPrice: 0,
         hasBrand: false,
@@ -292,9 +270,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         categoryId: 1,
         sizeId: 1,
         productStateId: 1,
-        userStoreId: "",
-      },
-      /*       product: {
+        userStoreId: ''
+    } ,  
+/*       product: {
         id: 1000,
         store: {
           id: 1,
@@ -360,14 +338,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         ]
       },
- */
-
-      regionList: [],
-      departmentList: [],
-      categoryList: [],
-      weightUnitList: [],
-      sizeList: [],
-      productStateList: [],
+ */   
+      regionList:[],
+      departmentList:[],
+      categoryList:[],
+      weightUnitList:[],
+      sizeList:[],
+      productStateList:[],
       products: [
         {
           id: "1000",
@@ -439,13 +416,19 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.infoStore;
       },
 
+      setProduct: (product) => {
+        console.log('flux.setProduct')
+  
+        setStore({ product: product });
+      },
+
       getUser() {
         console.log("flux.getUser()");
         const store = getStore();
 
         return store.user;
       },
-      fetchProduct: (id) => {
+      fetchProduct: async (id) => {
         console.log("flux.fetchProduct");
         console.log("flux.fetchProduct.env", process.env);
         console.log(
@@ -459,9 +442,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         console.log("flux.fetchProduct.url", url);
         const store = getStore();
-        let product = {};
-
-        fetch(url)
+        let product = {}
+      
+        await fetch(url)
           .then((response) => {
             return response.json();
           })
@@ -487,25 +470,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       fetchAddCart: (product) => {
         console.log("fetchAddCart, product=", product);
         const store = getStore();
-        let userCart = store.userCart;
-
-        let data = {};
-        fetch("http://127.0.0.1:5000/cartproduct/1", {
-          method: "POST",
-          body: JSON.stringify(product),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((resp) => resp.json())
-          .then((data) => {
-            console.log("flux.addCart.data 1:", data);
-            userCart.products.push(data);
-            setStore({ userCart: userCart });
-          })
-          .catch((error) => {
-            console.log("flux.addCart.error", error);
-          });
+        const actions = getActions();
 
         return store.userCart;
       },
@@ -519,7 +484,25 @@ const getState = ({ getStore, getActions, setStore }) => {
         let url = process.env.REACT_APP_URL + "/login/";
         console.log("flux.fetchLogin.url=" + url);
 
-        let methodCall = "POST";
+        console.log("flux.fetchLogin.methodCall=", methodCall)
+        await fetch(url, {
+            method: methodCall,
+            body: JSON.stringify(login),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("flux.fetchLogin.data", data);
+          localStorage.setItem("login", data);
+          let ver = localStorage.getItem("login");
+          console.log('flux.fetchLogin.ver=', ver.data)
+          actions.setLogin(data);
+          console.log('flux.fetchLogin.store.login=', store.login)
+          history.push("/");
 
         console.log("flux.fetchLogin.methodCall=", methodCall);
         await fetch(url, {
@@ -545,9 +528,22 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log("flux.fetchUserStore.error", error);
           });
       },
-      getLogin: () => {
-        let login = localStorage.getItem("login");
-        return login;
+      getLogin:()=>{
+        const store = getStore();
+  
+        let login=localStorage.getItem("login");
+
+        return store.login
+      },
+      setLogin:(loginData)=>{
+        const store = getStore();
+
+        setStore({ login: loginData });
+        let login=localStorage.getItem("login");
+        return store.login
+      },      
+      resetUserStore: async () => {
+        await setStore({ userStore: null });
       },
       fetchUserStore: async (userName, id) => {
         console.log("flux.fetchUserStore");
@@ -570,7 +566,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             return response.json();
           })
           .then((data) => {
-            console.log("flux.fetchRegionList.data", data);
+            console.log("flux.fetchUserStore.data", data);
             userStore = data;
             setStore({ userStore: userStore });
           })

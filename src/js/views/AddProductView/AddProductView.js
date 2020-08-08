@@ -7,9 +7,10 @@ import DraggableUploader from "../../component/DraggableUploader/DraggableUpload
 
 const AddProductView = (props) => {
 
-    const { store, actions } = useContext(Context);
+    const { store, actions} = useContext(Context);
+    const {history} = props;
 
- /*    let productInitialSetup= {
+    let productInitialSetup= {
         id: '',
         name:'',
         price: 0,
@@ -34,34 +35,7 @@ const AddProductView = (props) => {
         sizeId: 1,
         productStateId: 1,
         userStoreId: ''
-    } */
-
-    let productInitialSetup= {
-        id: '',
-        name:'produto cleber',
-        price: 10,
-        originalPrice: 20, 
-        hasBrand: false,
-        brand: "brand",
-        color: "azul",
-        model: "modelo",
-        weight: 2,
-        flete:0,
-        weightUnitId: 1,
-        qty: 2,
-        photos: [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
-        departmentId: 1,
-        categoryId: 1,
-        sizeId: 1,
-        productStateId: 1,
-        userStoreId: ''
-    }
+    } 
 
     const [state, setState] = useState({
         type:'',
@@ -71,32 +45,7 @@ const AddProductView = (props) => {
         sizeList:[],
         productStateList:[],
         weightUnitList:[],
-        product: {
-            id: '',
-            name: '',
-            price: 0,
-            originalPrice: 0, 
-            hasBrand: false,
-            brand: "",
-            color: "",
-            model: "",
-            weight: 0,
-            flete:0,
-            weightUnitId: 1,
-            qty: 0,
-            photos: [
-                "",
-                "",
-                "",
-                "",
-                ""
-            ],
-            departmentId: 1,
-            categoryId: 1,
-            sizeId: 1,
-            productStateId: 1,
-            userStoreId: ''
-        },
+
         photos:[
             '',
             '',
@@ -125,13 +74,12 @@ const AddProductView = (props) => {
         console.log("***AddProductView.handleChange.type=", e.target.type)
 
         console.log(e.target.id,":",value);
-        let product = state.product
+        let product = store.product
         product[field] = value
         if(e.target.type === 'checkbox')
             product[field] = e.target.checked
     
-
-        setState({...state, product: product});
+        actions.setProduct(product); 
 
     }
 
@@ -143,7 +91,10 @@ const AddProductView = (props) => {
         actions.fetchWeightUnitList()
         actions.fetchSizeList()
         actions.fetchProductStateList()
-
+            
+    }, []);
+    
+    useEffect(() => {
         let type = 'Nuevo'
         let product = state.product_inital_state
         
@@ -153,70 +104,57 @@ const AddProductView = (props) => {
         }
 
         console.log('AddProductView.useEffect 1-type=', type)
-        setState({...state, type: type});
+        //setState({...state, type: type});
+
         console.log('AddProductView.useEffect 1-state.type=', state.type)
         actions.setInfoBar(true, `Registro del producto - ${type}`)
 
         if (props.match.params.id ===  undefined) {
             setState({...state, product: productInitialSetup});
-            let photos=[
-                '',
-                '',
-                '',
-                '',
-                ''
-            ]
-            setState({...state, photos: photos});
-        }
+            
+        } 
             
     }, [props.match.params.id]);
-    
+
+
+
     useEffect(() => {
-		console.log("useEffect 2-Behavior before the component is added to the DOM - departmentList")
+		console.log("AddProductView.useEffect 2-Behavior before the component is added to the DOM - departmentList")
         console.log("useEffect 2-props.match.params.id", props.match.params.id)
         let departmentList = store.departmentList
         setState({...state, departmentList: departmentList});
     }, [store.departmentList]);
 
     useEffect(() => {
-		console.log("useEffect 3-Behavior before the component is added to the DOM - categoryList")
-        console.log("useEffect 3-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 3-Behavior before the component is added to the DOM - categoryList")
+        console.log("AddProductView.useEffect 3-props.match.params.id", props.match.params.id)
         let categoryList = store.categoryList
         setState({...state, categoryList: categoryList});
     }, [store.categoryList]);  // 
 
     useEffect(() => {
-		console.log("useEffect 4-Behavior before the component is added to the DOM - sizeList")
-        console.log("useEffect 4-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 4-Behavior before the component is added to the DOM - sizeList")
+        console.log("AddProductView.useEffect 4-props.match.params.id", props.match.params.id)
         let sizeList = store.sizeList
         setState({...state, sizeList: sizeList});
     }, [store.sizeList]);
 
     useEffect(() => {
-		console.log("useEffect 5-Behavior before the component is added to the DOM - productStateList")
-        console.log("useEffect 5-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 5-Behavior before the component is added to the DOM - productStateList")
+        console.log("AddProductView.useEffect 5-props.match.params.id", props.match.params.id)
         let productStateList = store.productStateList
         setState({...state, productStateList: productStateList});
     }, [store.productStateList]);
 
     useEffect(() => {
-		console.log("useEffect 6-Behavior before the component is added to the DOM - categoryList")
-        console.log("useEffect 6-props.match.params.id", props.match.params.id)
+		console.log("AddProductView.useEffect 6-Behavior before the component is added to the DOM - categoryList")
+        console.log("AddProductView.useEffect 6-props.match.params.id", props.match.params.id)
         let weightUnitList = store.weightUnitList
         setState({...state, weightUnitList: weightUnitList});
     }, [store.weightUnitList]);
 
-    useEffect(() => {
-		console.log("useEffect 7-Behavior before the component is added to the DOM - departmentList")
-        console.log("useEffect 7-props.match.params.id", props.match.params.id)
-        let product = store.product
-        setState({...state, product: product});
-        setState({...state, photos: product.photos});
 
-    }, [store.product]);
-
-
-
+    console.log("AddProductView.state.product(1)=", state.product)
 
     let addProduct = () => {
         let i = true
@@ -257,37 +195,40 @@ const AddProductView = (props) => {
         console.log("****>AddProductView.handleSubmit!")
         e.preventDefault();
 
-        console.log("****>AddProductView.state.product=", state.product)
+        console.log("****>AddProductView.handleSubmit.state.product=", state.product)
         let formData = new FormData();
-        formData.append("name", state.product.name);
-        formData.append("price", state.product.price);
-        formData.append("originalPrice", state.product.originalPrice);
-        formData.append("hasBrand", state.product.hasBrand);
-        formData.append("brand", state.product.brand);
-        formData.append("color", state.product.color);
-        formData.append("model", state.product.model);
-        formData.append("weight", state.product.weight);
-        formData.append("flete", state.product.flete);
-        formData.append("weightUnitId", state.product.weightUnitId);
-        formData.append("qty", state.product.qty);
+
+        formData.append("name", store.product.name);
+        formData.append("price", store.product.price);
+        formData.append("originalPrice", store.product.originalPrice);
+        formData.append("hasBrand", store.product.hasBrand);
+        formData.append("brand", store.product.brand);
+        formData.append("color", store.product.color);
+        formData.append("model", store.product.model);
+        formData.append("weight", store.product.weight);
+        formData.append("flete", store.product.flete);
+        formData.append("weightUnitId", store.product.weightUnitId);
+        formData.append("qty", store.product.qty);
         formData.append("photo0", state.photos[0]);
         formData.append("photo1", state.photos[1]);
         formData.append("photo2", state.photos[2]);
         formData.append("photo3", state.photos[3]);
         formData.append("photo4", state.photos[4]);
-        formData.append("departmentId", state.product.departmentId);
-        formData.append("categoryId", state.product.categoryId);
-        formData.append("sizeId", state.product.sizeId);
-        formData.append("productStateId", state.product.productStateId);
+        formData.append("hasUpLoadPhotos", [state.photos[0]!= '', state.photos[1]!= '', state.photos[2]!= '', state.photos[3]!= '', state.photos[4]!= ''] )
+        
+        formData.append("departmentId", store.product.departmentId);
+        formData.append("categoryId", store.product.categoryId);
+        formData.append("sizeId", store.product.sizeId);
+        formData.append("productStateId", store.product.productStateId);
 
         console.log('AddProductView.handleSubmit.store.login.data.user.userStore', store.login.data.user.userStore)
         formData.append("userStoreId", store.login.data.user.userStore.id);
 
-        let url = process.env.REACT_APP_URL+'/product/'+state.product.userStoreId
+        let url = process.env.REACT_APP_URL+'/product/'
         let methodCall = 'POST'
-        console.log("AddProductView.handleSubmit.state.product.id=", state.product.id, state.product.id !== null, state.product.id!=='')
-        if ( state.product.id !== null &&  state.product.id!=='' ) {
-            url = url + '/' + state.product.id
+        console.log("AddProductView.handleSubmit.state.product.id=", store.product.id, store.product.id !== null, store.product.id!=='')
+        if ( store.product.id !== null &&  store.product.id!=='' ) {
+            url = process.env.REACT_APP_URL+'/product/'+ store.product.id
             methodCall = 'PUT'
         }
         console.log("AddProductView.handleSubmit.url=", url)
@@ -301,31 +242,38 @@ const AddProductView = (props) => {
         })
         .then(resp => resp.json())
         .then(data => console.log('AddProductView.handleSubmit.data=',data));
-        //setState({...state, product: productInitialSetup});
+        actions.setProduct(productInitialSetup);
+        actions.resetUserStore();
+        console.log("AddProductView.userStore (after reset)=", store.userStore)
+        history.push('/my-store/'+store.login.data.user.userStore.id);
+        //history.push('/');
+
     } 
+
+    console.log("AddProductView.state.product(2)=", store.product)
 
     return (
         <form className='form-group add-product-view-container'>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
-                    <DraggableUploader src={state.photos[0]} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
+                    <DraggableUploader src={store.product.photos[0]} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
                 </div>            
                 <div className='add-product-view-a-02'>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[1]} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
+                        <DraggableUploader src={store.product.photos[1]} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[2]} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
+                        <DraggableUploader src={store.product.photos[2]} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
                     </div>
 
                 </div>  
                 <div className='add-product-view-a-02'>
 
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[3]} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
+                        <DraggableUploader src={store.product.photos[3]} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.photos[4]} handleFile= {handleFilePhotoProduct} index={4} type=''/>
+                        <DraggableUploader src={store.product.photos[4]} handleFile= {handleFilePhotoProduct} index={4} type=''/>
                     </div>
                 </div>
             </div>
@@ -339,8 +287,8 @@ const AddProductView = (props) => {
                     className="form-control"
                     placeholder="Nome"
                     id='name'
-                    name='name'
-                    value={state.product.name}
+                    name='name' 
+                    value={store.product && store.product.name}
                     onChange={e => handleChange(e, 'name')}
                     required
                 />
@@ -357,7 +305,7 @@ const AddProductView = (props) => {
                             placeholder="Marca"
                             id='brand'
                             name='brand'
-                            value={state.product.brand}
+                            value={store.product.brand}
                             onChange={e => handleChange(e, 'brand')}
                         />
                     </div>
@@ -369,7 +317,7 @@ const AddProductView = (props) => {
                             placeholder="Model"
                             id='model'
                             name='model'
-                            value={state.product.model}
+                            value={store.product.model}
                             onChange={e => handleChange(e, 'model')}
                         />
                     </div>
@@ -385,7 +333,7 @@ const AddProductView = (props) => {
                             placeholder="Price"
                             id='price'
                             name='price'
-                            value={state.product.price}
+                            value={store.product.price}
                             onChange={e => handleChange(e, 'price')}
                         />
                     </div>
@@ -394,7 +342,7 @@ const AddProductView = (props) => {
                 <div className='add-product-view-b-05'>
                     <div className='product-feed-filters-content-body-wrapper'>
                         <label name='hasBrand' className="container-checkbox">Sin Marca
-                            <input  value={state.product.hasBrand} id='hasBrand' name='hasBrand' type="checkbox" onChange={e => handleChange(e, 'hasBrand')}/>
+                            <input  value={store.product.hasBrand} id='hasBrand' name='hasBrand' type="checkbox" onChange={e => handleChange(e, 'hasBrand')}/>
                             <span className="check"></span>
                         </label>
                     </div>
@@ -412,7 +360,7 @@ const AddProductView = (props) => {
                             placeholder="Departamento"
                             id='department'
                             name='department'
-                            value={state.product.departmentId}
+                            value={store.product.departmentId}
                             onChange={e => handleChange(e, 'departmentId')}
                         >
                             {departmentListOptions}
@@ -426,7 +374,7 @@ const AddProductView = (props) => {
                             placeholder="Categoria"
                             id='category'
                             name='category'
-                            value={state.product.categoryId}
+                            value={store.product.categoryId}
                             onChange={e => handleChange(e, 'categoryId')}
                         >
                             {categoryListOptions}
@@ -443,7 +391,7 @@ const AddProductView = (props) => {
                             placeholder="Tamaño"
                             id='size'
                             name='size'
-                            value={state.product.sizeId}
+                            value={store.product.sizeId}
                             onChange={e => handleChange(e, 'sizeId')}
                         >
                             {sizeListOptions}
@@ -457,7 +405,7 @@ const AddProductView = (props) => {
                             placeholder="Estado del producto"
                             id='productState'
                             name='productState'
-                            value={state.product.productStateId}
+                            value={store.product.productStateId}
                             onChange={e => handleChange(e, 'productStateId')}
                         >
                             {productStateListOptions}                         
@@ -475,7 +423,7 @@ const AddProductView = (props) => {
                             placeholder="Cantidad"
                             id='amount'
                             name='amount'
-                            value={state.product.qty}
+                            value={store.product.qty}
                             onChange={e => handleChange(e, 'qty')}
                         />
                     </div>
@@ -487,7 +435,7 @@ const AddProductView = (props) => {
                             placeholder="Peso del producto"
                             id='weight'
                             name='weight'
-                            value={state.product.weight}
+                            value={store.product.weight}
                             onChange={e => handleChange(e, 'weight')}
                         />
                     </div>
@@ -502,7 +450,7 @@ const AddProductView = (props) => {
                             placeholder="Product weight unit"
                             id='weightUnit'
                             name='weightUnit'
-                            value={state.product.weightId}
+                            value={store.product.weightUnitId}
                             onChange={e => handleChange(e, 'weightUnitId')}
                         >
                             {weightUnitListOptions}                         
@@ -516,7 +464,7 @@ const AddProductView = (props) => {
                             placeholder="Frete"
                             id='flete'
                             name='flete'
-                            value={state.product.flete}
+                            value={store.product.flete}
                             onChange={e => handleChange(e, 'flete')}
                         />
                     </div>
@@ -532,7 +480,7 @@ const AddProductView = (props) => {
                             placeholder="Original Price"
                             id='originalPrice'
                             name='originalPrice'
-                            value={state.product.originalPrice}
+                            value={store.product.originalPrice}
                             onChange={e => handleChange(e, 'originalPrice')}
                         />
                     </div>
@@ -544,7 +492,7 @@ const AddProductView = (props) => {
                             placeholder="Color"
                             id='color'
                             name='color'
-                            value={state.product.color}
+                            value={store.product.color}
                             onChange={e => handleChange(e, 'color')}
                         />
                     </div>

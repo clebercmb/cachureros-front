@@ -4,7 +4,7 @@
 
 .userProfile-container {
 
-    height: 1100px;
+    height: 1250px;
     display: flex;
     justify-content: space-between;
 
@@ -185,4 +185,10 @@
     }
     
 
+}
+
+.add-product-view-b-04-01 {
+    width: 269px;
+    height: 38px;
+    border-radius: 4px;
 }
