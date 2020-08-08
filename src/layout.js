@@ -16,6 +16,7 @@ import UserProfile from "./js/views/UserProfile/UserProfile"
 import Navbar from "./js/component/navbar/navbar";
 import Carrito from "./js/views/carrito"
 import RegistroUsuario from "./js/component/registros/registroUser";
+import Register from "./js/component/registros/register";
 import Login from "./js/component/registros/login";
 import ProductView from "./js/views/ProductView/ProductView"
 import AddProductView from "./js/views/AddProductView/AddProductView"
@@ -55,12 +56,12 @@ export const Layout = () => {
 						<Switch>
 							<Route exact path="/resumen-pedidos" component={ResumenPedidos} />
 							<Route exact path="/login" component={Login} />
-							<Route exact path="/registro" component={RegistroUsuario} />
+							<Route exact path="/registro" component={Register} />
 							<Route exact path="/carritodecompra" component={Carrito} />
 							<Route exact path="/index.html" component={Contacts} />
 							<Route exact path="/" component={Home} />
 							<Route exact path="/contacts" component={Contacts} />
-							<PrivateRoute exact path="/user-profile" component={UserProfile} />
+							<PrivateRoute exact path="/user-profile/:id" component={UserProfile} />
 							<Route exact path="/product-view/:id" component={ProductView} />
 							<Route exact path="/user-store/:url" component={UserStoreView} />
 							<PrivateRoute exact path="/my-store/:id" component={UserStoreView} />

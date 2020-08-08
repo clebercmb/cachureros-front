@@ -477,6 +477,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       fetchLogin: async (login, history) => {
         console.log("****>flux.fetchLogin")
         const store = getStore();
+        const actions = getActions();
 
         console.log("****>flux.login.login=", login)
 
@@ -502,7 +503,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           localStorage.setItem("login", data);
           let ver = localStorage.getItem("login");
           console.log('flux.fetchLogin.ver=', ver.data)
-          setStore({ login: data });
+          actions.setLogin(data);
           console.log('flux.fetchLogin.store.login=', store.login)
           history.push("/");
 
@@ -512,9 +513,19 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
       },
       getLogin:()=>{
+        const store = getStore();
+  
         let login=localStorage.getItem("login");
-        return login
+
+        return store.login
       },
+      setLogin:(loginData)=>{
+        const store = getStore();
+
+        setStore({ login: loginData });
+        let login=localStorage.getItem("login");
+        return store.login
+      },      
       resetUserStore: async () => {
         await setStore({ userStore: null });
       },
