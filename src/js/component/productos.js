@@ -64,24 +64,12 @@ function Productos() {
     
   ]);
 
-  const addProductToCart = (productId, cartId) =>{
-
-    console.log("products.addProductToCart")
-    console.log(productId, cartId)
-
-    let product = {
-      "price": 10000,
-	    "amount": 1,
-      "productId": productId,
-      "cartId": cartId
-    }
-
-    actions.fetchAddCart(product)
-
+  const addProductToCart= (prod) =>{
+    var data = prod;
+    console.log(data)
   }
-
+  
   let listProduct 
-  console.log(product)
   
   if(product){
 
@@ -93,7 +81,7 @@ function Productos() {
             <div className="card-body">
       <h5 className="card-title mt-1">{prod.title}</h5>
               <p className="card-text">{prod.precio}</p>
-              <a href="#" className="btn btn-primary mt-3" onClick={() => addProductToCart(prod.id, store.userCart.id)}>
+              <a href="#" className="btn btn-primary mt-3" onClick={() => addProductToCart(prod)}>
                 Agregar
               </a>
             </div>

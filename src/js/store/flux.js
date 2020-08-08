@@ -343,7 +343,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             price: 12000,
             photo: '/images/15kg-Conjunto- 7.png'
           }
-
         ]
       },
  */   
