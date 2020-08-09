@@ -343,7 +343,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             price: 12000,
             photo: '/images/15kg-Conjunto- 7.png'
           }
-
         ]
       },
  */   
@@ -527,8 +526,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.login
       },      
       resetUserStore: async () => {
-        await setStore({ userStore: null });
+        const actions = getActions();
+        await actions.setUserStore(null);
       },
+      setUserStore: async (userStore) => {
+        await setStore({ userStore: userStore });
+      },
+
       fetchUserStore: async (userName, id) => {
         console.log("flux.fetchUserStore");
         console.log("flux.fetchUserStore.env", process.env);

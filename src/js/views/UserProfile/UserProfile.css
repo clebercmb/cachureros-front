@@ -121,11 +121,16 @@
 }
 
 .userProfile-item-right * label {
-    width: 50px
+    width: 50px;
+    
 }
 
 
 .userProfile-item-right * input {
+    width: 300px;
+}
+
+.region {
     width: 300px;
 }
 
@@ -165,8 +170,14 @@
     justify-content: flex-end;
 }
 
-
-
+.error_message {
+    width: 100px;
+    background:  red;  /*var(--color-secundary);*/
+    color: red;
+    padding: 0;
+    margin: 0;
+    
+}
 
 @media(max-width: 768px) {
 

@@ -22,7 +22,7 @@ function Carrito() {
     );
     console.log("UserStoreView.useEffect 2.store.userStore", store.contacts);
     setState({ ...state, userStore: store.userStore });
-    actions.setInfoBar(true, "Carrito de compra", store.userStore.userName);
+   // actions.setInfoBar(store.userStore.userName);
     console.log("UserStoreView.useEffect 2.state.userStore", state.userStore);
   }, [store.userStore]);
 
