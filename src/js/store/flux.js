@@ -524,7 +524,43 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ login: loginData });
         let login=localStorage.getItem("login");
         return store.login
+      },
+      resetProduct: async () => {
+        console.log('***flux.resetProduct')
+        const actions = getActions();
+        
+        let productInitialSetup= {
+          id: '',
+          name:'',
+          price: 0,
+          originalPrice: 0, 
+          hasBrand: false,
+          brand: "",
+          color: "",
+          model: "",
+          weight: 0,
+          flete:0,
+          weightUnitId: 1,
+          qty: 0,
+          photos: [
+              "",
+              "",
+              "",
+              "",
+              ""
+          ],        
+          departmentId: 1,
+          categoryId: 1,
+          sizeId: 1,
+          productStateId: 1,
+          userStoreId: ''
+        } 
+
+        await actions.setProduct(productInitialSetup);
       },      
+      setProduct: async (product) => {
+        await setStore({ product: product });
+      },
       resetUserStore: async () => {
         const actions = getActions();
         await actions.setUserStore(null);

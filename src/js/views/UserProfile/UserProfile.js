@@ -19,6 +19,8 @@ const UserProfile = props => {
 		phone: "",
 		address: "",
 		mode: "Add",
+		fileInputUserPhoto:undefined,
+		fileInputUserStorePhoto:undefined,
 		userStore: null,
 		userPhotoUrl:null,
 		userStorePhotoUrl:null,
@@ -196,20 +198,18 @@ const UserProfile = props => {
         formData.append("regionId", store.userStore.region.id);
         formData.append("bio", store.userStore.bio);
         formData.append("url", store.userStore.url);
-		formData.append("userStorePhotoUrl", ''	);
-		formData.append("hasUserStorePhotoUrl", false);
-		formData.append("userPhotoUrl", ''	);
-		formData.append("hasUserPhotoUrl", false);
-		
-
-//		userStorePhotoUrl 
+		formData.append("userStorePhotoUrl", state.userStorePhotoUrl);
+		formData.append("hasUserStorePhotoUrl", state.userStorePhotoUrl !== null );
+		formData.append("userPhoto", state.userPhotoUrl);
+		formData.append("hasUserPhotoUrl", state.userPhotoUrl !== null );	
 	
-
         let url = process.env.REACT_APP_URL+'/my-store/'+store.userStore.id
         let methodCall = 'PUT'
         
         console.log("UserProfile.handleSubmit.url=", url)
-        console.log("UserProfile.handleSubmit.methodCall=", methodCall)
+		console.log("UserProfile.handleSubmit.methodCall=", methodCall)
+		console.log("UserProfile.handleSubmit.formData=", formData)
+
         await fetch(url, {
             method: methodCall,
             body: formData, //JSON.stringify(state.product),
@@ -233,11 +233,43 @@ const UserProfile = props => {
         //history.push('/my-store/'+store.login.data.user.userStore.id);
         //history.push('/');
 
+	}
+
+	function handleUserStoreFile (e) {
+        console.log('UserProfile.handleFile')
+        const {name, files} = e.target;
+        console.log('UserProfile.handleFile.name=', name)
+        console.log('UserProfile.handleFile.files=', files) 
+        let image = files[0]
+
+        const reader = new FileReader();
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                setState({...state, userStorePhotoUrl: reader.result});
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
+	
+    function handleUserFile (e) {
+        console.log('UserProfile.handleFile')
+        const {name, files} = e.target;
+        console.log('UserProfile.handleFile.name=', name)
+        console.log('UserProfile.handleFile.files=', files) 
+        let image = files[0]
+
+        const reader = new FileReader();
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                setState({...state, userPhotoUrl: reader.result});
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
     }
 
-	console.log(">>>>>>UserProfile.userStore=", store.userStore)
-	
 	console.log(">>>>>>UserProfile.state=", state)
+
+	const urlImages = process.env.REACT_APP_URL+'/images/'
 	
 	return (
 		<div>
@@ -246,9 +278,8 @@ const UserProfile = props => {
 					<div className="userProfile-container">
 
 						<div className='userProfile-item-left'>
-
 							<div className='userProfile-item-left-item-01'>
-								<img src='/images/juanita.jpg' alt="Juanita Photo" className="photo-perfil" />
+								<img className='photo-perfil' src={urlImages+store.userStore.user.photoUrl} />								
 								<p>{store.userStore.user.name}</p>
 							</div>
 
@@ -276,8 +307,6 @@ const UserProfile = props => {
 								<div className='userProfile-item-left-item-02-02'>
 									<p><b>mi compras</b></p>
 								</div>
-
-
 							</div>
 
 						</div>
@@ -288,12 +317,15 @@ const UserProfile = props => {
 									<p>perfil</p>
 									<div className='userProfile-item-right-item2-perfil-photo'>
 										<div className='userProfile-item-right-item2-perfil-photo-item1'>
-											<img src='/images/juanita.jpg' alt="Juanita Photo" className="photo-perfil" />
+											<img className='photo-perfil' src={state.userPhotoUrl === null ? urlImages+store.userStore.user.photoUrl: state.userPhotoUrl} />
 											<label>foto</label>
 										</div>
-										<button className='button-blue .userProfile-item-right-item2-perfil-photo-item2'>cambiar foto</button>
-									</div>
 
+										<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserPhoto = input} onChange={ (e) => handleUserFile(e)} />
+
+										<button className='button-blue' onClick={() => state.fileInputUserPhoto.click()}>cambiar foto</button>
+
+									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
 										<label htmlFor='titulo'>título</label>
@@ -438,8 +470,13 @@ const UserProfile = props => {
 
 							<div className='userProfile-item-right-item2'>
 								<div className='userProfile-item-left-item-01'>
-									<img src='/images/tendita-juanita.png' alt="Juanita Photo" className="photo-tendita" />
-									<button className='button-blue'>foto de capa</button>
+
+									<img className='photo-tendita' src={state.userStorePhotoUrl === null ? urlImages+store.userStore.photoUrl: state.userStorePhotoUrl} />
+
+									<button className='button-blue userProfile-item-left-item-01-button' onClick={() => state.fileInputUserStorePhoto.click()}>foto de capa</button>
+
+									<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserStorePhoto = input} onChange={ (e) => handleUserStoreFile(e)} />
+
 								</div>
 							</div>
 						</div>
