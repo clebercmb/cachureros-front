@@ -4,7 +4,7 @@ import { Context } from "../../store/appContext";
 //import history from "../component/history";
 import PropTypes from "prop-types";
 import './UserProfile.css'
-
+import '../../../styles/general.css'
 
 
 
@@ -13,15 +13,19 @@ const UserProfile = props => {
 	const { store, actions } = useContext(Context);
 	console.log("props.history", props.history);
 
-
-	let [state, setState] = useState({
-		agendaSlug: "clebermb",
+	const [state, setState] = useState({
 		fullName: "",
 		email: "",
 		phone: "",
 		address: "",
 		mode: "Add",
-		userStore: null
+		userStore: null,
+		userPhotoUrl:null,
+		userStorePhotoUrl:null,
+		responseMessage: {
+			msg:''
+		}
+
 	});
 
 	const saveValue = e => {
@@ -53,13 +57,6 @@ const UserProfile = props => {
 		//props.history.push("/");
 	}, [store.userStore]);
 
-	useEffect(() => {
-		console.log("UserProfile.userEffect (2):Behavior before the component is added to the DOM");
-		console.log("UserProfile.userEffect (2):props.match.params.id", props.match.params.id);
-		console.log("UserProfile.userEffect (2):store.userStore", store.userStore);
-
-		//props.history.push("/");
-	}, [store.userStore]);
 
 	console.log(">>UserProfile.store.useStore", store.useStore);
 	let url = process.env.REACT_APP_URL + '/images-products/'
@@ -73,6 +70,175 @@ const UserProfile = props => {
     })  
 	console.log(">>UserProfile.regionListOptions=", regionListOptions);
 
+	function handleName(e) {
+        console.log("***UserProfile.handleName")
+        console.log('UserProfile.handleName.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleName.value=',value)
+
+        let userStore = store.userStore
+        userStore.name = value
+		actions.setUserStore(userStore); 
+    }
+
+	function handleBio(e) {
+        console.log("***UserProfile.handleBio")
+        console.log('UserProfile.handleBio.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleBio.value=',value)
+
+        let userStore = store.userStore
+        userStore.bio = value
+		actions.setUserStore(userStore); 
+	}
+	
+	function handleUrl(e) {
+        console.log("***UserProfile.handleUrl")
+        console.log('UserProfile.handleUrl.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleUrl.value=',value)
+
+        let userStore = store.userStore
+        userStore.url = value
+		actions.setUserStore(userStore); 
+    }
+
+	function handleRegion(e) {
+        console.log("***UserProfile.handleRegion")
+        console.log('UserProfile.handleRegion.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleRegion.value=',value)
+
+		let region = {
+			id: parseInt(value)
+		}
+
+        let userStore = store.userStore
+        userStore.region= region
+		actions.setUserStore(userStore); 
+	}
+	
+	function handleUserName(e) {
+        console.log("***UserProfile.handleUserName")
+        console.log('UserProfile.handleUserName.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleUserName.value=',value)
+        let userStore = store.userStore
+        userStore.user.name = value
+		actions.setUserStore(userStore); 
+	}
+	
+	function handleEmail(e) {
+        console.log("***UserProfile.handleLogin")
+        console.log('UserProfile.handleLogin.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleLogin.value=',value)
+        let userStore = store.userStore
+        userStore.user.login.email = value
+		actions.setUserStore(userStore); 
+	}
+	
+	function handlePassword(e) {
+        console.log("***UserProfile.handlePassword")
+        console.log('UserProfile.handlePassword.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handlePassword.value=',value)
+        let userStore = store.userStore
+        userStore.user.login.password = value
+		actions.setUserStore(userStore); 
+	}
+
+	function handleBirthDate(e) {
+        console.log("***UserProfile.handlePassword")
+        console.log('UserProfile.handlePassword.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handlePassword.value=',value)
+        let userStore = store.userStore
+        userStore.user.birthDate = value
+		actions.setUserStore(userStore); 
+	}
+
+	function handleNationalId(e) {
+        console.log("***UserProfile.handleNationalId")
+        console.log('UserProfile.handleNationalId.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleNationalId.value=',value)
+        let userStore = store.userStore
+        userStore.user.nationalId = value
+		actions.setUserStore(userStore); 
+	}
+
+	function handlePhone(e) {
+        console.log("***UserProfile.handlePhone")
+        console.log('UserProfile.handlePhone.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handlePhone.value=',value)
+        let userStore = store.userStore
+        userStore.user.phone = value
+		actions.setUserStore(userStore); 
+	}
+
+    async function handleSubmit (e)  {
+        console.log("****>UserProfile.handleSubmit!")
+        e.preventDefault();
+
+		console.log("****>UserProfile.handleSubmit.state=", state)
+		console.log("****>UserProfile.handleSubmit.userStore=", store.userStore)
+		let formData = new FormData();
+
+        formData.append("email", store.userStore.user.login.email);
+        formData.append("password", store.userStore.user.login.password);
+        formData.append("userName", store.userStore.user.name);
+        formData.append("birthDate", store.userStore.user.birthDate);
+        formData.append("nationalId", store.userStore.user.nationalId);
+        formData.append("phone", store.userStore.user.phone);
+        formData.append("userStoreName", store.userStore.name);
+        formData.append("regionId", store.userStore.region.id);
+        formData.append("bio", store.userStore.bio);
+        formData.append("url", store.userStore.url);
+		formData.append("userStorePhotoUrl", ''	);
+		formData.append("hasUserStorePhotoUrl", false);
+		formData.append("userPhotoUrl", ''	);
+		formData.append("hasUserPhotoUrl", false);
+		
+
+//		userStorePhotoUrl 
+	
+
+        let url = process.env.REACT_APP_URL+'/my-store/'+store.userStore.id
+        let methodCall = 'PUT'
+        
+        console.log("UserProfile.handleSubmit.url=", url)
+        console.log("UserProfile.handleSubmit.methodCall=", methodCall)
+        await fetch(url, {
+            method: methodCall,
+            body: formData, //JSON.stringify(state.product),
+           // headers: {
+           //     "Content-Type": "application/json"
+           // }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+			console.log('#####UserProfile.handleSubmit.data=',data)
+			let newState = state
+			newState.responseMessage = data
+			setState({...state, responseMessage:data})
+	
+			console.log(">>>>>>UserProfile.state=", state)
+		})
+
+        //actions.resetUserStore();
+		console.log("UserProfile.userStore (after reset)=", store.userStore)
+		console.log("UserProfile.state (after reset)=", state)
+        //history.push('/my-store/'+store.login.data.user.userStore.id);
+        //history.push('/');
+
+    }
+
+	console.log(">>>>>>UserProfile.userStore=", store.userStore)
+	
+	console.log(">>>>>>UserProfile.state=", state)
+	
 	return (
 		<div>
 			{
@@ -137,14 +303,14 @@ const UserProfile = props => {
 											placeholder="título"
 											id='titulo'
 											name="titulo"
-											value={store.userStore.user.name}
-
+											onChange={e => handleName(e)}
+											value={store.userStore.name}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-bio'>
 										<label htmlFor='bio'>bio</label>
-										<textarea id="bio" name="bio" className="form-control" placeholder="bio" value={store.userStore.user.bio} />
+										<textarea id="bio" name="bio" className="form-control" placeholder="bio" value={store.userStore.bio} onChange={e => handleBio(e)}/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
@@ -157,17 +323,19 @@ const UserProfile = props => {
 												placeholder="url"
 												id='url'
 												name="url"
+												value={store.userStore.url}
+												onChange={e => handleUrl(e)}
 											/>
 										</div>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
 										<label htmlFor='region'>Region</label>
-										<select name="region" id="region" className="form-control">
+										<select name="region" id="region" defaultValue={1} value={store.userStore.region.id} className="form-control region" onChange={e => handleRegion(e)}>
 											{regionListOptions}
 										</select>
+									
 									</div>
-
 
 								</div>
 								<div className='userProfile-item-right-item2-datos-personales'>
@@ -181,8 +349,8 @@ const UserProfile = props => {
 											placeholder="nombre"
 											id='name'
 											name="name"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.name} 
+											onChange={e => handleUserName(e)}
 										/>
 									</div>
 
@@ -194,21 +362,21 @@ const UserProfile = props => {
 											placeholder="email"
 											id='email'
 											name="email"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.login.email}
+											onChange={e => handleEmail(e)}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
 										<label>contraseña</label>
 										<input
-											type="text"
+											type="password"
 											className="form-control"
 											placeholder="contraseña"
 											id='password'
 											name="password"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.login.password}
+											onChange={e => handlePassword(e)}
 										/>
 									</div>
 
@@ -220,8 +388,8 @@ const UserProfile = props => {
 											placeholder="cumpleaños"
 											id='birthdate'
 											name="birthadate"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.birthDate}
+											onChange={e => handleBirthDate(e)}
 										/>
 									</div>
 
@@ -234,8 +402,8 @@ const UserProfile = props => {
 											placeholder="rut"
 											id='rut'
 											name="rut"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.nationalId}
+											onChange={e => handleNationalId(e)}
 										/>
 									</div>
 
@@ -247,31 +415,41 @@ const UserProfile = props => {
 											placeholder="teléfono"
 											id='phone'
 											name="phone"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.phone}
+											onChange={e => handlePhone(e)}
 										/>
 									</div>
 
+									<div className='error-message'>
+										{
+											state.responseMessage.msg && (
+												<div className='error-message'>{state.responseMessage.msg}</div>
+											) 
+										}
+									</div>
+
 									<div className='form-group userProfile-item-right-item2-datos-salvar'>
-										<button className='button-green'>salvar</button>
+										<button className='button-green' onClick={e => handleSubmit(e)}>salvar</button>
 									</div>
 
 								</div>
+								
 							</div>
 
 							<div className='userProfile-item-right-item2'>
-
 								<div className='userProfile-item-left-item-01'>
 									<img src='/images/tendita-juanita.png' alt="Juanita Photo" className="photo-tendita" />
 									<button className='button-blue'>foto de capa</button>
 								</div>
-
 							</div>
 						</div>
 
 					</div>
 				)
 			}
+
+
+
 		</div>
 	);
 };
