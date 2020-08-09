@@ -95,7 +95,7 @@ const Navbar = (props) => {
 
                   {
                     !!user && (
-                      <Link to="/product" className="dropdown-item">
+                      <Link to="/product" className="dropdown-item" onClick={()=>actions.resetProduct()}>
                         Nuevo Producto
                       </Link>
                     )

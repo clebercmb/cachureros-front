@@ -179,6 +179,20 @@
     
 }
 
+.upload-file {
+    visibility: hidden;
+    position: aboslute;
+}
+
+.photo-tendita {
+    width: 225px;
+    height: 215px;;
+}
+
+.userProfile-item-left-item-01-button {
+    margin-top: 60px;
+}
+
 @media(max-width: 768px) {
 
     .userProfile-container {
