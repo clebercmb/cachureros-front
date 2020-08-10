@@ -96,13 +96,20 @@ const Navbar = (props) => {
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <Link to="/login" className="dropdown-item">
-                    Iniciar Sesión
-                  </Link>
-                  <Link to="/registro" className="dropdown-item">
-                    Nueva Cuenta
-                  </Link>
-
+                  {
+                    !actions.getLogin().data &&(
+                      <Link to="/login" className="dropdown-item">
+                        Iniciar Sesión
+                      </Link>
+                    )
+                  }
+                  {
+                    !actions.getLogin().data &&(
+                      <Link to="/registro" className="dropdown-item">
+                        Nueva Cuenta
+                      </Link>
+                    )
+                  }
                   {
                     !!actions.getLogin().data && actions.getLogin().data.user && (
                       <Link to="/product" className="dropdown-item" onClick={()=>actions.resetProduct()}>
