@@ -320,18 +320,19 @@ const UserProfile = props => {
 											<img className='photo-perfil' src={state.userPhotoUrl === null ? urlImages+store.userStore.user.photoUrl: state.userPhotoUrl} />
 											<label>foto</label>
 										</div>
+							
+										<div className='userProfile-item-right-item2-perfil-photo-item2'> 
+											<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserPhoto = input} onChange={ (e) => handleUserFile(e)} />
 
-										<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserPhoto = input} onChange={ (e) => handleUserFile(e)} />
-
-										<button className='button-blue' onClick={() => state.fileInputUserPhoto.click()}>cambiar foto</button>
-
+											<button className='button-blue' onClick={() => state.fileInputUserPhoto.click()}>cambiar foto</button>
+										</div>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
-										<label htmlFor='titulo'>título</label>
+										<label htmlFor='titulo' className='userProfile-label'>título</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="título"
 											id='titulo'
 											name="titulo"
@@ -341,17 +342,17 @@ const UserProfile = props => {
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-bio'>
-										<label htmlFor='bio'>bio</label>
-										<textarea id="bio" name="bio" className="form-control" placeholder="bio" value={store.userStore.bio} onChange={e => handleBio(e)}/>
+										<label htmlFor='bio' className='userProfile-label'>bio</label>
+										<textarea id="bio" name="bio" className="form-control userProfile-input" placeholder="bio" value={store.userStore.bio} onChange={e => handleBio(e)}/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
-										<label htmlFor='url'>url</label>
+										<label htmlFor='url' className='userProfile-label'>url</label>
 										<div className='user-profile-url'>
-											<label htmlFor='url'>cachurero.cl/</label>
+											<label htmlFor='url' className='url-label'>cachurero.cl/</label>
 											<input
 												type="text"
-												className="form-control"
+												className="form-control url-input"
 												placeholder="url"
 												id='url'
 												name="url"
@@ -362,8 +363,8 @@ const UserProfile = props => {
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
-										<label htmlFor='region'>Region</label>
-										<select name="region" id="region" defaultValue={1} value={store.userStore.region.id} className="form-control region" onChange={e => handleRegion(e)}>
+										<label htmlFor='region' className='userProfile-label'>Region</label>
+										<select name="region" id="region" defaultValue={1} value={store.userStore.region.id} className="form-control userProfile-input" onChange={e => handleRegion(e)}>
 											{regionListOptions}
 										</select>
 									
@@ -374,10 +375,10 @@ const UserProfile = props => {
 									<p>datos personales</p>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>nombre</label>
+										<label className='userProfile-label'>nombre</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="nombre"
 											id='name'
 											name="name"
@@ -387,10 +388,10 @@ const UserProfile = props => {
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>email</label>
+										<label className='userProfile-label'>email</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="email"
 											id='email'
 											name="email"
@@ -400,10 +401,10 @@ const UserProfile = props => {
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>contraseña</label>
+										<label className='userProfile-label'>contraseña</label>
 										<input
 											type="password"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="contraseña"
 											id='password'
 											name="password"
@@ -413,10 +414,10 @@ const UserProfile = props => {
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>cumpleaños</label>
+										<label className='userProfile-label'>cumpleaños</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="cumpleaños"
 											id='birthdate'
 											name="birthadate"
@@ -427,10 +428,10 @@ const UserProfile = props => {
 
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>rut</label>
+										<label className='userProfile-label'>rut</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="rut"
 											id='rut'
 											name="rut"
@@ -440,10 +441,10 @@ const UserProfile = props => {
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>teléfono</label>
+										<label className='userProfile-label'>teléfono</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="teléfono"
 											id='phone'
 											name="phone"
