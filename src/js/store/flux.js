@@ -525,6 +525,11 @@ const getState = ({ getStore, getActions, setStore }) => {
         let login=localStorage.getItem("login");
         return store.login
       },
+      resetLogin:() => {
+        let login={}
+        const actions = getActions();
+        actions.setLogin(login)
+      },
       resetProduct: async () => {
         console.log('***flux.resetProduct')
         const actions = getActions();
