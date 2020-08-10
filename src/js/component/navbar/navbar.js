@@ -134,6 +134,15 @@ const Navbar = (props) => {
                     )
                   }
 
+                  {
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to= '/' className="dropdown-item" onClick={()=>actions.resetLogin()}>
+                        Logout
+                      </Link>
+                    )
+                  }
+
+
                 </div>
               </li>
             </ul>
