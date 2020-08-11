@@ -23,13 +23,9 @@ const UserMessage = (props) => {
             <div className="container-user-message-04">
                 <label className='container-user-message-04-a'>{props.type}</label>
             </div>
-
-            <div className="container-user-message-02">
-                <label className='container-user-message-02-a'>{props.status}</label>
-            </div>
             
             <div className="container-user-message-03">
-                <button className="btn" onClick={() => props.onDelete(props.data)}>
+                <button className="btn" onClick={() => props.onDelete(props.id)}>
                     <i className="fas fa-trash-alt" />
                 </button>
             </div>

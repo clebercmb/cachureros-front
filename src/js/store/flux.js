@@ -163,97 +163,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             photo: '/images/Hee79dcebf31a47f2b483 2.png'
           }
         ]
-      },   
-      userMessages: [
-        {
-          id:1,
-          user_id:1,
-          type: 'duda',
-          message:'message 1',
-          status:'nueva',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'      
-        },
-        {
-          id:2,
-          user_id:1,
-          type: 'oferta',
-          message:'message 2',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'
-        },
-        {
-          id:3,
-          user_id:1,
-          type: 'venta',
-          message:'message 3',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
-        },
-        {
-          id:4,
-          user_id:1,
-          type: 'duda',
-          message:'message 4',
-          status:'nuevo',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
-        },
-        {
-          id:5,
-          user_id:1,
-          type: 'oferta',
-          message:'message 5',
-          status:'nueva',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'
-        },
-        {
-          id:6,
-          user_id:1,
-          type: 'venta',
-          message:'message 6',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
-        },
-        {
-          id:7,
-          user_id:1,
-          type: 'duda',
-          message:'message 7',
-          status:'nueva',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
-        },
-        {
-          id:8,
-          user_id:1,
-          type: 'oferta',
-          message:'message 8',
-          status:'leido',
-          user_from:2,
-          user_from_photo: '/images/juanita.jpg',
-          link:'/product-view/12',
-          date:'17-07-2020 13:10:01'        
-        },
-      ],
+      },
+      userMessages: null,
       product: {
         id: '',
         name:'',
@@ -605,11 +516,73 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         return store.userStore
       },
-      fetchUserMessages: (userId) => {
-        const store = getStore();
-        return store.userMessages
-      },
+      fetchUserMessages: async (userId) => {  
+        console.log("flux.fetchUserMessages");
+        console.log("flux.fetchUserMessages.env", process.env);
+        console.log("flux.fetchUserMessages.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/user-message/user/${userId}`
 
+        console.log("flux.fetchUserMessages.url", url)
+        const store = getStore();
+      
+        await fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchUserMessages.data", data);
+
+            setStore({ userMessages: data });
+          })
+          .catch((error) => {
+            console.log("flux.fetchUserMessages.error", error);
+          });
+
+          console.log("flux.fetchUserMessages.userMessages", store.userMessages);
+
+        return store.userMessages
+
+      },
+      deleteUserMessages: async (id) => {  
+        console.log("flux.deleteUserMessages.id=", id);
+        console.log("flux.deleteUserMessages.env", process.env);
+        console.log("flux.deleteUserMessages.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
+    
+        let url = process.env.REACT_APP_URL+`/user-message/${id}`
+
+        console.log("flux.deleteUserMessages.url", url)
+        const store = getStore();
+        const actions = getActions();   
+        
+        
+				fetch(url, {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+        .then(resp => {
+          console.log("flux.deleteUserMessages.resp.status=", resp.status);
+          //setStore({ userMessages: []});
+          console.log("flux.deleteUserMessages.store.userMessages (1):", store.userMessages);
+          return resp.json();
+        })
+        .then((data) => {
+          console.log("flux.deleteUserMessages.data", data);
+          let userMessages = data;
+          setStore({ userMessages: userMessages });
+        })
+        .catch(error => {
+          //error handling
+          console.log('>>error:', error);
+        });
+
+        console.log("flux.fetchUserMessages.userMessages (2):", store.userMessages);
+
+        //return store.userMessages
+
+      },
       fetchRegionList: () => {
         console.log("flux.fetchRegionList");
         console.log("flux.fetchRegionList.env", process.env);
@@ -835,19 +808,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             "Content-Type": "application/json",
           },
         })
-          .then((resp) => {
-            console.log(resp.status);
+        .then((resp) => {
+          console.log(resp.status);
 
-            let contacts = store.contacts;
-            let newContacts = contacts.filter((c) => c !== contact);
-            console.log("newContacts", newContacts);
-            setStore({ contacts: newContacts });
-            console.log("store.contacts", store.contacts);
-          })
-          .catch((error) => {
-            //error handling
-            console.log(error);
-          });
+          let contacts = store.contacts;
+          let newContacts = contacts.filter((c) => c !== contact);
+          console.log("newContacts", newContacts);
+          setStore({ contacts: newContacts });
+          console.log("store.contacts", store.contacts);
+        })
+        .catch((error) => {
+          //error handling
+          console.log(error);
+        });
       },
 
       editContact: (contact) => {

@@ -78,7 +78,6 @@ const UserStoreView = (props) => {
     }
     console.log("UserStoreView.products(2)=", products)
     
-
     return (
         <div>
 
