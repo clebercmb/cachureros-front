@@ -75,9 +75,16 @@ const Navbar = (props) => {
                 </Link>
               </li>
               <li>
-                <Link to={`/message/${user && user.id}`}>
-                  <img src="/images/notification.png" alt="Notification" />
-                </Link>
+
+                {
+                  !!actions.getLogin().data && actions.getLogin().data.user && (
+                    <Link to={`/messages/${actions.getLogin().data.user.id}`}>
+                      <img src="/images/notification.png" alt="Notification" />
+                    </Link>
+                  )
+                }
+
+
               </li>
 
               <li className="nav-item dropdown">

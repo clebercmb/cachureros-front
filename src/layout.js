@@ -27,7 +27,7 @@ import InformationBar from "./js/component/InformationBar/InformationBar"
 import { Context } from "./js/store/appContext";
 import ResumenPedidos from "./js/views/resumenPedidos";
 import UserStoreView from "./js/views/UserStoreView/UserStoreView"
-import Message from './js/views/Message/Message'
+import Messages from './js/views/Message/Message'
 import NotAllowed from './js/component/NotAllowed/NotAllowed'
 
 
@@ -69,7 +69,7 @@ export const Layout = () => {
 							<PrivateRoute exact path="/product/:id" component={AddProductView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
-							<PrivateRoute exact path="/message/:user_id" component={Message} />	
+							<PrivateRoute exact path="/messages/:user_id" component={Messages} />	
 							<Route exact path="/not-allowed/" component={NotAllowed} />
 							<Route render={() => <h1 className="notfound">Not found!</h1>} />
 						</Switch>
