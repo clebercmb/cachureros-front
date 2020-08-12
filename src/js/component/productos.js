@@ -1,11 +1,13 @@
 import React, { useState, Component, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import ShoppingCart from '../component/carrito/Shoppingcart'
 
 import "../../styles/productos.css";
 
 function Productos() {
   const { store, actions } = useContext(Context);
+  const [boxAdd, setboxAdd] = useState([])
   const [product, setproduct] = useState([
     {
       id: 1,
@@ -65,8 +67,9 @@ function Productos() {
   ]);
 
   const addProductToCart= (prod) =>{
-    var data = prod;
-    console.log(data)
+    var datas = prod;
+    boxAdd.push(prod)
+    console.log(boxAdd)
   }
   
   let listProduct 
