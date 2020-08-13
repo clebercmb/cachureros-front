@@ -263,6 +263,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       weightUnitList:[],
       sizeList:[],
       productStateList:[],
+      ordersList:[],
       products: [
         {
           id: "1000",
@@ -583,6 +584,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         //return store.userMessages
 
       },
+      fetchOrderList: (userId) => {
+        console.log("flux.fetchOrderList");
+        console.log("flux.fetchOrderList.env", process.env);
+        console.log("flux.fetchOrderList.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+        const url = process.env.REACT_APP_URL+'/order/user/' + userId
+        console.log("flux.fetchOrderList.url", url)
+        const store = getStore();
+        let regionList = []
+      
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log("flux.fetchOrderList.data", data);
+            let ordersList = data;
+            setStore({ ordersList: ordersList });
+          })
+          .catch((error) => {
+            console.log("flux.fetchRegionList.error", error);
+          });
+
+          console.log("flux.fetchRegionList.departmentList", regionList);
+        //if (ver == undefined) contacts = [];
+        
+      },      
       fetchRegionList: () => {
         console.log("flux.fetchRegionList");
         console.log("flux.fetchRegionList.env", process.env);

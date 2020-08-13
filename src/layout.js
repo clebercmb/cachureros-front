@@ -29,6 +29,7 @@ import ResumenPedidos from "./js/views/resumenPedidos";
 import UserStoreView from "./js/views/UserStoreView/UserStoreView"
 import Messages from './js/views/Message/Message'
 import NotAllowed from './js/component/NotAllowed/NotAllowed'
+import OrdersListView from './js/views/OrdersListView/OrdersListView'
 
 
 
@@ -64,6 +65,7 @@ export const Layout = () => {
 							<PrivateRoute exact path="/user-profile/:id" component={UserProfile} />
 							<Route exact path="/product-view/:id" component={ProductView} />
 							<Route exact path="/user-store/:url" component={UserStoreView} />
+							<PrivateRoute exact path="/order/user/:id" component={OrdersListView} />
 							<PrivateRoute exact path="/my-store/:id" component={UserStoreView} />
 							<PrivateRoute exact path="/product" component={AddProductView} />
 							<PrivateRoute exact path="/product/:id" component={AddProductView} />
