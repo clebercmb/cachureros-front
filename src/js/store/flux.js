@@ -429,6 +429,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ product: product });
       },
 
+      
       getUser() {
         console.log('flux.getUser()')
         const store = getStore()
