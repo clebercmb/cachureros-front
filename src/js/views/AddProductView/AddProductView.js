@@ -281,7 +281,7 @@ const AddProductView = (props) => {
     return (
         <>
         {store.product && (
-        <form className='form-group add-product-view-container'>
+        <form className='form-group add-product-view-container' onSubmit={e => handleSubmit(e)}>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
                     <DraggableUploader src={state.images[0].src} small={state.images[0].small} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
@@ -363,6 +363,7 @@ const AddProductView = (props) => {
                             name='price'
                             value={store.product.price}
                             onChange={e => handleChange(e, 'price')}
+                            pattern='[0-9]+'
                         />
                     </div>
                 </div>
@@ -535,7 +536,7 @@ const AddProductView = (props) => {
 
 
                 <div className='add-product-view-b-07'>
-					<button className='button-green' onClick={e => handleSubmit(e)}>salvar</button>
+					<button className='button-green'>salvar</button>
                     <button className='button-blue'>foto de capa</button>
 				</div>
             </div>
