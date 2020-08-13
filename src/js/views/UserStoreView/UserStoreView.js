@@ -44,13 +44,19 @@ const UserStoreView = (props) => {
 
     console.log('UserStoreView.store.userStore=', store.userStore)
 
+    console.log(">>>>UserStoreView.process.env=", process.env)
+    console.log(">>>>UserStoreView.process.env.REACT_APP_BACK_IMAGES=", process.env.REACT_APP_BACK_IMAGES)
+    
+    const urlImages = process.env.REACT_APP_BACK_IMAGES
+    console.log("%%%%%%%%% >>>>UserStoreView.urlImages=", urlImages)
+
     //let products = store.userStore.products
     let products = []
     if (store.userStore && store.userStore.products)
         products = store.userStore.products
     console.log("UserStoreView.products(1)=", products)
 
-    if (products)
+    if (products) {
         products = products.map((p, i) => {
             console.log("UserStoreView.p=", p)
             console.log("UserStoreView.p.photos=", p.photos)
@@ -63,21 +69,22 @@ const UserStoreView = (props) => {
                 if(store.login.data)
                     edit = store.login.data.user.id === p.userStore.id
                 console.log('UserStoreView.edit=', edit)
-                let url = process.env.REACT_APP_URL+'/images-products/'
+                let url = process.env.REACT_APP_URL+'/images/'
                 return (
-                    <ProductSmallMediumPhoto src={url+p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
+                    <ProductSmallMediumPhoto src={urlImages+p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
                 )
             }
         })
-
+    }
     console.log("UserStoreView.products(2)=", products)
-
+    
     return (
         <div>
+
             <div className='user-store-view'>
                 <div className='user-store-view-01'>
                     <div className='user-store-view-01-a'>
-                        <img className='user-store-view-01-a-01'  src={store.userStore && store.userStore.user.photoUrl}/>
+                        <img className='user-store-view-01-a-01'  src={store.userStore && urlImages+store.userStore.user.photoUrl}/>
                         <div className='user-store-view-01-a-02'>
                             <label className='user-store-view-01-a-02-1'>{store.userStore && store.userStore.url}</label>
                             <label>{store.userStore && store.userStore.district}</label>
@@ -87,7 +94,7 @@ const UserStoreView = (props) => {
                         </div>
                         </div> 
                     <div className='user-store-view-01-b'>
-                        <img src={store.userStore && store.userStore.photoUrl}></img>
+                        <img src={store.userStore && urlImages+store.userStore.photoUrl}></img>
                     </div>
                 </div>
                 <div className='user-store-view-02'>

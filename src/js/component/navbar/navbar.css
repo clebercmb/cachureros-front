@@ -23,6 +23,12 @@
 
 }
 
+.user {
+    
+    width: 2rem;
+    height: 2rem;
+}
+
 .right * {
 
     padding-top: 5px;

@@ -10,33 +10,6 @@ const AddProductView = (props) => {
     const { store, actions} = useContext(Context);
     const {history} = props;
 
-    let productInitialSetup= {
-        id: '',
-        name:'',
-        price: 0,
-        originalPrice: 0, 
-        hasBrand: false,
-        brand: "",
-        color: "",
-        model: "",
-        weight: 0,
-        flete:0,
-        weightUnitId: 1,
-        qty: 0,
-        photos: [
-            "",
-            "",
-            "",
-            "",
-            ""
-        ],
-        departmentId: 1,
-        categoryId: 1,
-        sizeId: 1,
-        productStateId: 1,
-        userStoreId: ''
-    } 
-
     const [state, setState] = useState({
         type:'',
         sucess: null,
@@ -45,22 +18,35 @@ const AddProductView = (props) => {
         sizeList:[],
         productStateList:[],
         weightUnitList:[],
-
+        respondMessage: '',
         photos:[
             '',
             '',
             '',
             '',
             ''
+        ],
+        images:[
+            {src:'/images/camera.png', small:true},
+            {src:'/images/camera.png', small:true},
+            {src:'/images/camera.png', small:true},
+            {src:'/images/camera.png', small:true},
+            {src:'/images/camera.png', small:true},
         ]
+
+
     });
     
-    function handleFilePhotoProduct(file, index) {
+    function handleFilePhotoProduct(file, image, index) {
         console.log('AddProductView.handleFile.file=', file)
         console.log('AddProductView.handleFile.index=', index)
-        let photos = state.photos
-        photos[index] = file
-        setState({...state, photos: photos});
+
+        //let photos = state.photos
+        let newState = state
+        newState.photos[index] = file
+        newState.images[index].src = image
+        newState.images[index].small = false
+        setState({...state, state: newState});
         console.log('AddProductView.handleFilePhotoProduct.state.photos=', state.photos)
     }
 
@@ -95,12 +81,16 @@ const AddProductView = (props) => {
     }, []);
     
     useEffect(() => {
+		console.log("AddProductView.useEffect 2-Behavior before the component is added to the DOM")
+
         let type = 'Nuevo'
         let product = state.product_inital_state
         
         if(props.match.params.id) {
             type = 'Modificar'
             actions.fetchProduct(props.match.params.id)
+     } else {
+            actions.resetProduct()
         }
 
         console.log('AddProductView.useEffect 1-type=', type)
@@ -109,12 +99,37 @@ const AddProductView = (props) => {
         console.log('AddProductView.useEffect 1-state.type=', state.type)
         actions.setInfoBar(true, `Registro del producto - ${type}`)
 
-        if (props.match.params.id ===  undefined) {
-            setState({...state, product: productInitialSetup});
-            
-        } 
             
     }, [props.match.params.id]);
+
+    useEffect(() => {
+        console.log("AddProductView.useEffect-3-Behavior before the component is added to the DOM")
+        console.log("AddProductView.useEffect-3-store.product=", store.product )
+        const urlImages = process.env.REACT_APP_BACK_IMAGES
+        console.log("AddProductView.useEffect-3.urlImages=", urlImages)
+    
+
+        if(store.product && store.product.id !== '') {
+            let newState = state
+            console.log("AddProductView.useEffect-3-store.product.photos.length=", store.product.photos.length )
+            for (let i = 0; i< store.product.photos.length; i++) {
+                console.log("AddProductView.useEffect-3-store.product.photos=", i, store.product.photos[i] )
+                if (store.product.photos[i] !== ''){ 
+                    newState.images[i].src = urlImages+store.product.photos[i]
+                    newState.images[i].small = false
+                }
+                else {    
+                    newState.images[i].src = '/images/camera.png'
+                    newState.images[i].small = true
+                }
+            }
+            setState({...state, state:newState})    
+            
+        console.log("AddProductView.useEffect-3-newState=", newState )
+        console.log("AddProductView.useEffect-3-state=", state )
+        }
+        
+    }, [store.product]);
 
 
 
@@ -241,41 +256,54 @@ const AddProductView = (props) => {
            // }
         })
         .then(resp => resp.json())
-        .then(data => console.log('AddProductView.handleSubmit.data=',data));
-        actions.setProduct(productInitialSetup);
-        actions.resetUserStore();
+        .then(data => {
+            console.log('AddProductView.handleSubmit.data=',data)
+            if(data.msg) {
+                let newState = state
+                newState.respondMessage = data.msg
+                setState({...state, state:newState})
+            }
+        });
+        //actions.resetProduct();
+        //actions.resetUserStore();
         console.log("AddProductView.userStore (after reset)=", store.userStore)
-        history.push('/my-store/'+store.login.data.user.userStore.id);
+        //history.push('/my-store/'+store.login.data.user.userStore.id);
         //history.push('/');
 
     } 
 
-    console.log("AddProductView.state.product(2)=", store.product)
-
+    console.log("AddProductView.store.product(2)=", store.product)
+    console.log("AddProductView.state.product(2)=", state.product)
+    console.log(">>>>AddProductView.process.env=", process.env)
+    console.log(">>>>AddProductView.process.env.REACT_APP_BACK_IMAGES=", process.env.REACT_APP_BACK_IMAGES)
+    
+   
     return (
-        <form className='form-group add-product-view-container'>
+        <>
+        {store.product && (
+        <form className='form-group add-product-view-container' onSubmit={e => handleSubmit(e)}>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
-                    <DraggableUploader src={store.product.photos[0]} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
+                    <DraggableUploader src={state.images[0].src} small={state.images[0].small} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
                 </div>            
-                <div className='add-product-view-a-02'>
+                 <div className='add-product-view-a-02'>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={store.product.photos[1]} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
+                        <DraggableUploader src={state.images[1].src} small={state.images[1].small} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={store.product.photos[2]} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
+                        <DraggableUploader src={state.images[2].src} small={state.images[2].small} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
                     </div>
 
                 </div>  
                 <div className='add-product-view-a-02'>
 
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={store.product.photos[3]} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
+                        <DraggableUploader src={state.images[3].src} small={state.images[3].small} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={store.product.photos[4]} handleFile= {handleFilePhotoProduct} index={4} type=''/>
+                        <DraggableUploader src={state.images[4].src} small={state.images[4].small} handleFile= {handleFilePhotoProduct} index={4} type=''/>
                     </div>
-                </div>
+                </div> 
             </div>
             <div className='add-product-view-b'>
                 <p className='add-product-view-b-01'>¡Vender es bueno y a todos les gusta!</p>
@@ -335,6 +363,7 @@ const AddProductView = (props) => {
                             name='price'
                             value={store.product.price}
                             onChange={e => handleChange(e, 'price')}
+                            pattern='[0-9]+'
                         />
                     </div>
                 </div>
@@ -499,12 +528,21 @@ const AddProductView = (props) => {
 
                 </div>
 
+                <div className='add-product-view-b-04'>
+                    <div>
+                        <p><label>{state.respondMessage}</label></p>
+                    </div>
+                </div>
+
+
                 <div className='add-product-view-b-07'>
-					<button className='button-green' onClick={e => handleSubmit(e)}>salvar</button>
+					<button className='button-green'>salvar</button>
                     <button className='button-blue'>foto de capa</button>
 				</div>
             </div>
         </form>
+        )}
+        </>
     )
 }
 

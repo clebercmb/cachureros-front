@@ -10,7 +10,9 @@ const Navbar = (props) => {
   console.log("==>Layout.actions.getInfoBar()", actions.getInfoBar());
 
   const [state, setState] = useState({
-    login: {}
+    login: {}, 
+    userPhoto:'',
+  
 	});
 
 
@@ -21,6 +23,17 @@ const Navbar = (props) => {
     console.log("Navbar.useEffect 1: state", state);
     console.log("Navbar.useEffect 1: state.login", state.login);
 
+    let login = actions.getLogin()
+    let newState = state
+  
+    if(login.data) {
+      const urlImages = process.env.REACT_APP_BACK_IMAGES
+      newState.userPhoto = urlImages+login.data.user.photoUrl
+    } else {
+      newState.userPhoto='/images/user.png'
+    } 
+
+    setState({...state, state:newState})
 
   }, [store.login]);
 
@@ -31,10 +44,11 @@ const Navbar = (props) => {
   let user = state.login.data ? state.login.data.user : undefined;
   console.log('Navbar.user=', user)
 
+
+
   return (
     <div className="container-level-01">
       <nav id="navbar" className="navbar2">
-        {/* <nav id="menu" className="navbar navbar-light bg-light mb-3"> */}
         <ul>
           <li>
             <Link
@@ -61,9 +75,16 @@ const Navbar = (props) => {
                 </Link>
               </li>
               <li>
-                <Link to={`/message/${user && user.id}`}>
-                  <img src="/images/notification.png" alt="Notification" />
-                </Link>
+
+                {
+                  !!actions.getLogin().data && actions.getLogin().data.user && (
+                    <Link to={`/messages/${actions.getLogin().data.user.id}`}>
+                      <img src="/images/notification.png" alt="Notification" />
+                    </Link>
+                  )
+                }
+
+
               </li>
 
               <li className="nav-item dropdown">
@@ -76,46 +97,67 @@ const Navbar = (props) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <img className="user" src="/images/user.png" alt="User" />
+                  <img className="user" src={state.userPhoto} alt="User" />
                 </a>
                 <div
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <Link to="/login" className="dropdown-item">
-                    Iniciar Sesión
-                  </Link>
-                  <Link to="/registro" className="dropdown-item">
-                    Nueva Cuenta
-                  </Link>
-
-                  <Link to="/product-view/12" className="dropdown-item">
-                    Product
-                  </Link>
+                  {
+                    !actions.getLogin().data &&(
+                      <Link to="/login" className="dropdown-item">
+                        Iniciar Sesión
+                      </Link>
+                    )
+                  }
+                  {
+                    !actions.getLogin().data &&(
+                      <Link to="/registro" className="dropdown-item">
+                        Nueva Cuenta
+                      </Link>
+                    )
+                  }
 
                   {
-                    !!user && (
-                      <Link to="/product" className="dropdown-item">
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to={`/order/user/${actions.getLogin().data.user && actions.getLogin().data.user.id}`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
+                        Compras
+                      </Link>
+                    )
+                  }
+
+                  {
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to="/product" className="dropdown-item" onClick={()=>actions.resetProduct()}>
                         Nuevo Producto
                       </Link>
                     )
                   }
                   
                   {
-                    !!user && (
-                      <Link to={`/user-profile/${user.userStore && user.userStore.id}`} className="dropdown-item">
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to={`/user-profile/${actions.getLogin().data.user.userStore && actions.getLogin().data.user.userStore.id}`} className="dropdown-item">
                         Configuración
                       </Link>
                     )
                   }
 
                   {
-                    !!user && (
-                      <Link to= {`/my-store/${user.userStore && user.userStore.id}`} className="dropdown-item">
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to= {`/my-store/${actions.getLogin().data.user.userStore && actions.getLogin().data.user.userStore.id}`} className="dropdown-item">
                         Mi tendita
                       </Link>
                     )
                   }
+
+                  {
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to= '/' className="dropdown-item" onClick={()=>actions.resetLogin()}>
+                        Logout
+                      </Link>
+                    )
+                  }
+
 
                 </div>
               </li>

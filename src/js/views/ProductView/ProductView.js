@@ -24,28 +24,28 @@ const ProductView = props => {
         actions.fetchProduct(props.match.params.id);
         console.log("ProductView.useEffect 1.store.product", store.product);
         setId(props.match.params.id)
+        //actions.setInfoBar(true, 'Comentarios', 'Valoraciones', product.store.userPhoto)
+        actions.setInfoBar(true, 'Comentarios', 'Valoraciones')
+
 	}, []);
 
 	useEffect(() => {
 		console.log("ProductView useEffect 2: Behavior before the component is added to the DOM");
         console.log("ProductView.useEffect 2.store.product", store.product);
-        let product = store.product
-        console.log("ProductView.useEffect 2.product", product);
+        
+        let newState = state
+        newState.product = store.product
+        console.log("ProductView.useEffect 2.newState", newState);
 
         setState({
             ...state, 
-            product: product,
-            principalPhoto: product.largePhoto
+            state: newState
         })
 
         let userPhoto = ''
-
-
-        //actions.setInfoBar(true, 'Comentarios', 'Valoraciones', product.store.userPhoto)
-        actions.setInfoBar(true, 'Comentarios', 'Valoraciones')
-        
-		console.log("ProductView.useEffect 2.state.product", product);
-        console.log("ProductView.useEffect 2.state.product", state.product)
+ 
+		console.log("ProductView.useEffect 2.newState=", newState);
+        console.log("ProductView.useEffect 2.state.product", state)
 
 	}, [store.product]);
 
@@ -53,7 +53,7 @@ const ProductView = props => {
     let relatedProducts = state.product.relatedProducts
     console.log("ProductView.relatedProducts", relatedProducts)
 
-
+    
     if (relatedProducts)
         relatedProducts = relatedProducts.map((p, i) => {
             return (
@@ -80,18 +80,20 @@ const ProductView = props => {
         console.log('changePhotoArray.product=',product)
     }
 
+    const urlImages = process.env.REACT_APP_BACK_IMAGES
+
     return (
         <div className='productview-container'>
             <div className='productview-a'>
                 <div className='productview-a-01'>
                     <div className='productview-a-01-01'>
-                        {state.product.photos && <ProductLargePhoto src={state.product.photos[0]} index={0} onclick={changePhotoArray} alt='Product Photo'/>}    
+                        {state.product.photos && <ProductLargePhoto endpoint={urlImages} src={state.product.photos[0]} index={0} onclick={changePhotoArray} alt='Product Photo'/>}    
                     </div>
                     <div className='productview-a-01-02'>    
-                        {state.product.photos && <ProductSmallPhoto src={state.product.photos[1]} index={1} onclick={changePhotoArray} alt='Small Product Photo 1'/>}   
-                        {state.product.photos && <ProductSmallPhoto src={state.product.photos[2]} index={2} onclick={changePhotoArray} alt='Small Product Photo 2'/>}   
-                        {state.product.photos && <ProductSmallPhoto src={state.product.photos[3]} index={3} onclick={changePhotoArray} alt='Small Product Photo 3'/>}   
-                        {state.product.photos && <ProductSmallPhoto src={state.product.photos[4]} index={4} onclick={changePhotoArray} alt='Small Product Photo 4'/>}   
+                        {state.product.photos && <ProductSmallPhoto endpoint={urlImages} src={state.product.photos[1]} index={1} onclick={changePhotoArray} alt='Small Product Photo 1'/>}   
+                        {state.product.photos && <ProductSmallPhoto endpoint={urlImages} src={state.product.photos[2]} index={2} onclick={changePhotoArray} alt='Small Product Photo 2'/>}   
+                        {state.product.photos && <ProductSmallPhoto endpoint={urlImages} src={state.product.photos[3]} index={3} onclick={changePhotoArray} alt='Small Product Photo 3'/>}   
+                        {state.product.photos && <ProductSmallPhoto endpoint={urlImages} src={state.product.photos[4]} index={4} onclick={changePhotoArray} alt='Small Product Photo 4'/>}   
                     </div>
                 </div>
                 <div className='productview-a-02'>

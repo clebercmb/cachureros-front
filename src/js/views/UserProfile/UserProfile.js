@@ -4,7 +4,7 @@ import { Context } from "../../store/appContext";
 //import history from "../component/history";
 import PropTypes from "prop-types";
 import './UserProfile.css'
-
+import '../../../styles/general.css'
 
 
 
@@ -13,15 +13,21 @@ const UserProfile = props => {
 	const { store, actions } = useContext(Context);
 	console.log("props.history", props.history);
 
-
-	let [state, setState] = useState({
-		agendaSlug: "clebermb",
+	const [state, setState] = useState({
 		fullName: "",
 		email: "",
 		phone: "",
 		address: "",
 		mode: "Add",
-		userStore: null
+		fileInputUserPhoto:undefined,
+		fileInputUserStorePhoto:undefined,
+		userStore: null,
+		userPhotoUrl:null,
+		userStorePhotoUrl:null,
+		responseMessage: {
+			msg:''
+		}
+
 	});
 
 	const saveValue = e => {
@@ -53,13 +59,6 @@ const UserProfile = props => {
 		//props.history.push("/");
 	}, [store.userStore]);
 
-	useEffect(() => {
-		console.log("UserProfile.userEffect (2):Behavior before the component is added to the DOM");
-		console.log("UserProfile.userEffect (2):props.match.params.id", props.match.params.id);
-		console.log("UserProfile.userEffect (2):store.userStore", store.userStore);
-
-		//props.history.push("/");
-	}, [store.userStore]);
 
 	console.log(">>UserProfile.store.useStore", store.useStore);
 	let url = process.env.REACT_APP_URL + '/images-products/'
@@ -73,6 +72,205 @@ const UserProfile = props => {
     })  
 	console.log(">>UserProfile.regionListOptions=", regionListOptions);
 
+	function handleName(e) {
+        console.log("***UserProfile.handleName")
+        console.log('UserProfile.handleName.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleName.value=',value)
+
+        let userStore = store.userStore
+        userStore.name = value
+		actions.setUserStore(userStore); 
+    }
+
+	function handleBio(e) {
+        console.log("***UserProfile.handleBio")
+        console.log('UserProfile.handleBio.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleBio.value=',value)
+
+        let userStore = store.userStore
+        userStore.bio = value
+		actions.setUserStore(userStore); 
+	}
+	
+	function handleUrl(e) {
+        console.log("***UserProfile.handleUrl")
+        console.log('UserProfile.handleUrl.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleUrl.value=',value)
+
+        let userStore = store.userStore
+        userStore.url = value
+		actions.setUserStore(userStore); 
+    }
+
+	function handleRegion(e) {
+        console.log("***UserProfile.handleRegion")
+        console.log('UserProfile.handleRegion.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleRegion.value=',value)
+
+		let region = {
+			id: parseInt(value)
+		}
+
+        let userStore = store.userStore
+        userStore.region= region
+		actions.setUserStore(userStore); 
+	}
+	
+	function handleUserName(e) {
+        console.log("***UserProfile.handleUserName")
+        console.log('UserProfile.handleUserName.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleUserName.value=',value)
+        let userStore = store.userStore
+        userStore.user.name = value
+		actions.setUserStore(userStore); 
+	}
+	
+	function handleEmail(e) {
+        console.log("***UserProfile.handleLogin")
+        console.log('UserProfile.handleLogin.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleLogin.value=',value)
+        let userStore = store.userStore
+        userStore.user.login.email = value
+		actions.setUserStore(userStore); 
+	}
+	
+	function handlePassword(e) {
+        console.log("***UserProfile.handlePassword")
+        console.log('UserProfile.handlePassword.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handlePassword.value=',value)
+        let userStore = store.userStore
+        userStore.user.login.password = value
+		actions.setUserStore(userStore); 
+	}
+
+	function handleBirthDate(e) {
+        console.log("***UserProfile.handlePassword")
+        console.log('UserProfile.handlePassword.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handlePassword.value=',value)
+        let userStore = store.userStore
+        userStore.user.birthDate = value
+		actions.setUserStore(userStore); 
+	}
+
+	function handleNationalId(e) {
+        console.log("***UserProfile.handleNationalId")
+        console.log('UserProfile.handleNationalId.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleNationalId.value=',value)
+        let userStore = store.userStore
+        userStore.user.nationalId = value
+		actions.setUserStore(userStore); 
+	}
+
+	function handlePhone(e) {
+        console.log("***UserProfile.handlePhone")
+        console.log('UserProfile.handlePhone.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handlePhone.value=',value)
+        let userStore = store.userStore
+        userStore.user.phone = value
+		actions.setUserStore(userStore); 
+	}
+
+    async function handleSubmit (e)  {
+        console.log("****>UserProfile.handleSubmit!")
+        e.preventDefault();
+
+		console.log("****>UserProfile.handleSubmit.state=", state)
+		console.log("****>UserProfile.handleSubmit.userStore=", store.userStore)
+		let formData = new FormData();
+
+        formData.append("email", store.userStore.user.login.email);
+        formData.append("password", store.userStore.user.login.password);
+        formData.append("userName", store.userStore.user.name);
+        formData.append("birthDate", store.userStore.user.birthDate);
+        formData.append("nationalId", store.userStore.user.nationalId);
+        formData.append("phone", store.userStore.user.phone);
+        formData.append("userStoreName", store.userStore.name);
+        formData.append("regionId", store.userStore.region.id);
+        formData.append("bio", store.userStore.bio);
+        formData.append("url", store.userStore.url);
+		formData.append("userStorePhotoUrl", state.userStorePhotoUrl);
+		formData.append("hasUserStorePhotoUrl", state.userStorePhotoUrl !== null );
+		formData.append("userPhoto", state.userPhotoUrl);
+		formData.append("hasUserPhotoUrl", state.userPhotoUrl !== null );	
+	
+        let url = process.env.REACT_APP_URL+'/my-store/'+store.userStore.id
+        let methodCall = 'PUT'
+        
+        console.log("UserProfile.handleSubmit.url=", url)
+		console.log("UserProfile.handleSubmit.methodCall=", methodCall)
+		console.log("UserProfile.handleSubmit.formData=", formData)
+
+        await fetch(url, {
+            method: methodCall,
+            body: formData, //JSON.stringify(state.product),
+           // headers: {
+           //     "Content-Type": "application/json"
+           // }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+			console.log('#####UserProfile.handleSubmit.data=',data)
+			let newState = state
+			newState.responseMessage = data
+			setState({...state, responseMessage:data})
+	
+			console.log(">>>>>>UserProfile.state=", state)
+		})
+
+        //actions.resetUserStore();
+		console.log("UserProfile.userStore (after reset)=", store.userStore)
+		console.log("UserProfile.state (after reset)=", state)
+        //history.push('/my-store/'+store.login.data.user.userStore.id);
+        //history.push('/');
+
+	}
+
+	function handleUserStoreFile (e) {
+        console.log('UserProfile.handleFile')
+        const {name, files} = e.target;
+        console.log('UserProfile.handleFile.name=', name)
+        console.log('UserProfile.handleFile.files=', files) 
+        let image = files[0]
+
+        const reader = new FileReader();
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                setState({...state, userStorePhotoUrl: reader.result});
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
+	
+    function handleUserFile (e) {
+        console.log('UserProfile.handleFile')
+        const {name, files} = e.target;
+        console.log('UserProfile.handleFile.name=', name)
+        console.log('UserProfile.handleFile.files=', files) 
+        let image = files[0]
+
+        const reader = new FileReader();
+        reader.onload = () =>{
+            if(reader.readyState === 2){
+                setState({...state, userPhotoUrl: reader.result});
+            }
+        }
+        reader.readAsDataURL(e.target.files[0])
+    }
+
+	console.log(">>>>>>UserProfile.state=", state)
+
+	const urlImages = process.env.REACT_APP_URL+'/images/'
+	
 	return (
 		<div>
 			{
@@ -80,9 +278,8 @@ const UserProfile = props => {
 					<div className="userProfile-container">
 
 						<div className='userProfile-item-left'>
-
 							<div className='userProfile-item-left-item-01'>
-								<img src='/images/juanita.jpg' alt="Juanita Photo" className="photo-perfil" />
+								<img className='photo-perfil' src={urlImages+store.userStore.user.photoUrl} />								
 								<p>{store.userStore.user.name}</p>
 							</div>
 
@@ -110,8 +307,6 @@ const UserProfile = props => {
 								<div className='userProfile-item-left-item-02-02'>
 									<p><b>mi compras</b></p>
 								</div>
-
-
 							</div>
 
 						</div>
@@ -122,156 +317,177 @@ const UserProfile = props => {
 									<p>perfil</p>
 									<div className='userProfile-item-right-item2-perfil-photo'>
 										<div className='userProfile-item-right-item2-perfil-photo-item1'>
-											<img src='/images/juanita.jpg' alt="Juanita Photo" className="photo-perfil" />
+											<img className='photo-perfil' src={state.userPhotoUrl === null ? urlImages+store.userStore.user.photoUrl: state.userPhotoUrl} />
 											<label>foto</label>
 										</div>
-										<button className='button-blue .userProfile-item-right-item2-perfil-photo-item2'>cambiar foto</button>
+							
+										<div className='userProfile-item-right-item2-perfil-photo-item2'> 
+											<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserPhoto = input} onChange={ (e) => handleUserFile(e)} />
+
+											<button className='button-blue' onClick={() => state.fileInputUserPhoto.click()}>cambiar foto</button>
+										</div>
 									</div>
 
-
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
-										<label htmlFor='titulo'>título</label>
+										<label htmlFor='titulo' className='userProfile-label'>título</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="título"
 											id='titulo'
 											name="titulo"
-											value={store.userStore.user.name}
-
+											onChange={e => handleName(e)}
+											value={store.userStore.name}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-bio'>
-										<label htmlFor='bio'>bio</label>
-										<textarea id="bio" name="bio" className="form-control" placeholder="bio" value={store.userStore.user.bio} />
+										<label htmlFor='bio' className='userProfile-label'>bio</label>
+										<textarea id="bio" name="bio" className="form-control userProfile-input" placeholder="bio" value={store.userStore.bio} onChange={e => handleBio(e)}/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
-										<label htmlFor='url'>url</label>
+										<label htmlFor='url' className='userProfile-label'>url</label>
 										<div className='user-profile-url'>
-											<label htmlFor='url'>cachurero.cl/</label>
+											<label htmlFor='url' className='url-label'>cachurero.cl/</label>
 											<input
 												type="text"
-												className="form-control"
+												className="form-control url-input"
 												placeholder="url"
 												id='url'
 												name="url"
+												value={store.userStore.url}
+												onChange={e => handleUrl(e)}
 											/>
 										</div>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
-										<label htmlFor='region'>Region</label>
-										<select name="region" id="region" className="form-control">
+										<label htmlFor='region' className='userProfile-label'>Region</label>
+										<select name="region" id="region" defaultValue={1} value={store.userStore.region.id} className="form-control userProfile-input" onChange={e => handleRegion(e)}>
 											{regionListOptions}
 										</select>
+									
 									</div>
-
 
 								</div>
 								<div className='userProfile-item-right-item2-datos-personales'>
 									<p>datos personales</p>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>nombre</label>
+										<label className='userProfile-label'>nombre</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="nombre"
 											id='name'
 											name="name"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.name} 
+											onChange={e => handleUserName(e)}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>email</label>
+										<label className='userProfile-label'>email</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="email"
 											id='email'
 											name="email"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.login.email}
+											onChange={e => handleEmail(e)}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>contraseña</label>
+										<label className='userProfile-label'>contraseña</label>
 										<input
-											type="text"
-											className="form-control"
+											type="password"
+											className="form-control userProfile-input"
 											placeholder="contraseña"
 											id='password'
 											name="password"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.login.password}
+											onChange={e => handlePassword(e)}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>cumpleaños</label>
+										<label className='userProfile-label'>cumpleaños</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="cumpleaños"
 											id='birthdate'
 											name="birthadate"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.birthDate}
+											onChange={e => handleBirthDate(e)}
 										/>
 									</div>
 
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>rut</label>
+										<label className='userProfile-label'>rut</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="rut"
 											id='rut'
 											name="rut"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.nationalId}
+											onChange={e => handleNationalId(e)}
 										/>
 									</div>
 
 									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
-										<label>teléfono</label>
+										<label className='userProfile-label'>teléfono</label>
 										<input
 											type="text"
-											className="form-control"
+											className="form-control userProfile-input"
 											placeholder="teléfono"
 											id='phone'
 											name="phone"
-											defaultValue=''
-											onChange={e => { }}
+											value={store.userStore.user.phone}
+											onChange={e => handlePhone(e)}
 										/>
 									</div>
 
+									<div className='error-message'>
+										{
+											state.responseMessage.msg && (
+												<div className='error-message'>{state.responseMessage.msg}</div>
+											) 
+										}
+									</div>
+
 									<div className='form-group userProfile-item-right-item2-datos-salvar'>
-										<button className='button-green'>salvar</button>
+										<button className='button-green' onClick={e => handleSubmit(e)}>salvar</button>
 									</div>
 
 								</div>
+								
 							</div>
 
 							<div className='userProfile-item-right-item2'>
-
 								<div className='userProfile-item-left-item-01'>
-									<img src='/images/tendita-juanita.png' alt="Juanita Photo" className="photo-tendita" />
-									<button className='button-blue'>foto de capa</button>
-								</div>
 
+									<img className='photo-tendita' src={state.userStorePhotoUrl === null ? urlImages+store.userStore.photoUrl: state.userStorePhotoUrl} />
+
+									<button className='button-blue userProfile-item-left-item-01-button' onClick={() => state.fileInputUserStorePhoto.click()}>foto de capa</button>
+
+									<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserStorePhoto = input} onChange={ (e) => handleUserStoreFile(e)} />
+
+								</div>
 							</div>
 						</div>
 
 					</div>
 				)
 			}
+
+
+
 		</div>
 	);
 };

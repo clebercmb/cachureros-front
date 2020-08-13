@@ -1,0 +1,35 @@
+.container-order-card {
+    display: flex;
+    justify-content: center;
+}
+.sub-container-order-card {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width:  50%;
+    height: 50px;
+    margin-bottom: 10px;
+    border: 1px solid #525252;
+    border-radius: 5px;
+}
+
+.container-order-card label {
+    margin-bottom: 0;
+}
+
+.container-order-card-01 {
+    width: 40%;
+    margin-bottom: 0;
+}
+
+.container-order-card-02 {
+    width: 30%;
+    margin-bottom: 0;
+}
+
+.container-order-card-03 {
+    width: 30%;
+    margin-bottom: 0;
+}
+
