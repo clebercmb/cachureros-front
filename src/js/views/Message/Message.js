@@ -28,7 +28,7 @@ const Message = (props)  => {
         console.log("Message useEffect 1: Behavior before the component is added to the DOM");
         console.log('Message.props.match.params.user_id=', props.match.params.user_id)
         actions.fetchUserMessages(props.match.params.user_id);
-        actions.setInfoBar(true, 'Messages', store.login.data.user.name)
+        actions.setInfoBar(true, 'Mensajes', store.login.data.user.name)
         console.log("Message.useEffect 1.store.userMessages", store.userMessages);
         console.log('Message.useEffect 1.messages=', messages)
 	}, []);
