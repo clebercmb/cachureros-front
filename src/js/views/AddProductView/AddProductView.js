@@ -46,7 +46,7 @@ const AddProductView = (props) => {
         newState.photos[index] = file
         newState.images[index].src = image
         newState.images[index].small = false
-        setState({...state, state: newState});
+        setState(newState);
         console.log('AddProductView.handleFilePhotoProduct.state.photos=', state.photos)
     }
 
@@ -108,7 +108,6 @@ const AddProductView = (props) => {
         const urlImages = process.env.REACT_APP_BACK_IMAGES
         console.log("AddProductView.useEffect-3.urlImages=", urlImages)
     
-
         if(store.product && store.product.id !== '') {
             let newState = state
             console.log("AddProductView.useEffect-3-store.product.photos.length=", store.product.photos.length )
@@ -123,15 +122,13 @@ const AddProductView = (props) => {
                     newState.images[i].small = true
                 }
             }
-            setState({...state, state:newState})    
+            setState(newState)    
             
         console.log("AddProductView.useEffect-3-newState=", newState )
         console.log("AddProductView.useEffect-3-state=", state )
         }
         
     }, [store.product]);
-
-
 
     useEffect(() => {
 		console.log("AddProductView.useEffect 2-Behavior before the component is added to the DOM - departmentList")

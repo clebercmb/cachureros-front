@@ -24,8 +24,6 @@ const DraggableUploader = (props) => {
         console.log('DraggableUploader.handleFile.props.index=', props.index)
         let image = files[0]
 
-
-
         const reader = new FileReader();
         reader.onload = () =>{
             if(reader.readyState === 2){
