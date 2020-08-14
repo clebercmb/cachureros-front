@@ -1,4 +1,4 @@
-import React, { useState, Component, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ShoppingCart from '../component/carrito/Shoppingcart'
@@ -8,7 +8,8 @@ import "../../styles/productos.css";
 function Productos() {
   const { store, actions } = useContext(Context);
   const [boxAdd, setboxAdd] = useState([])
-  const [product, setproduct] = useState([
+  const [product, setproduct] = useState([])
+ /*  const [product, setproduct] = useState([
     {
       id: 1,
       title: "Arrimo",
@@ -65,6 +66,49 @@ function Productos() {
     }
     
   ]);
+ */
+
+  useEffect(()=>{
+		console.log("UserProfile.userEffect (1):Behavior before the component is added to the DOM");
+		console.log("UserProfile.userEffect (1):product=", product);
+		console.log("UserProfile.userEffect (1):store.useStore=", store.useStore);
+
+		fetchAllProduct()
+
+  }, [])
+
+
+
+  async function fetchAllProduct() {
+    console.log("products.fetchAllProduct");
+    console.log("products.fetchAllProduct.env", process.env);
+    console.log("products.fetchAllProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+
+    let url = process.env.REACT_APP_URL+`/product/`
+    
+    console.log("products.fetchAllProduct.url", url)
+
+    //let product = {}
+  
+    await fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("products.fetchAllProduct.data", data);
+        let product = data;
+        setproduct(product);
+        console.log("products.fetchAllProduct.product", product);
+
+      })
+      .catch((error) => {
+        console.log("products.fetchAllProduct.error", error);
+      });
+
+
+    return 
+
+  }
 
   const addProductToCart= (prod) =>{
     var datas = prod;
@@ -75,15 +119,16 @@ function Productos() {
   let listProduct 
   
   if(product){
-
+    console.log('>>>productos.product=', product)
+    const urlImages = process.env.REACT_APP_BACK_IMAGES
     listProduct = () => {
       return product.map((prod) => (
-        <div className="col-md-3">
+        <div key={prod.id} className="col-md-3">
           <div className="card mt-3 mb-3 ml-2  mr-2 p-2">
-            <img src={prod.img} className="card-img-top" alt="..." />
+            <img src={urlImages+prod.photos[0]} className="card-img-top" alt="..." />
             <div className="card-body">
-      <h5 className="card-title mt-1">{prod.title}</h5>
-              <p className="card-text">{prod.precio}</p>
+              <h5 className="card-title mt-1">{prod.name}</h5>
+              <p className="card-text">{prod.price}</p>
               <a href="#" className="btn btn-primary mt-3" onClick={() => addProductToCart(prod)}>
                 Agregar
               </a>

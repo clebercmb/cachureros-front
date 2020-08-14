@@ -379,7 +379,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.product
 
       },
-
       fetchUserCart: (userId) => {
         const store = getStore();
         return store.userCart
