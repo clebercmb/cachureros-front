@@ -19,22 +19,22 @@ const AddProductView = (props) => {
         productStateList:[],
         weightUnitList:[],
         respondMessage: '',
-        photos:[
-            '',
-            '',
-            '',
-            '',
-            ''
-        ],
-        images:[
-            {src:'/images/camera.png', small:true},
-            {src:'/images/camera.png', small:true},
-            {src:'/images/camera.png', small:true},
-            {src:'/images/camera.png', small:true},
-            {src:'/images/camera.png', small:true},
-        ]
-
-
+        product: {
+            photos:[
+                '',
+                '',
+                '',
+                '',
+                ''
+            ],
+            images:[
+                {src:'/images/camera.png', small:true},
+                {src:'/images/camera.png', small:true},
+                {src:'/images/camera.png', small:true},
+                {src:'/images/camera.png', small:true},
+                {src:'/images/camera.png', small:true},
+            ]
+        }
     });
     
     function handleFilePhotoProduct(file, image, index) {
@@ -42,11 +42,11 @@ const AddProductView = (props) => {
         console.log('AddProductView.handleFile.index=', index)
 
         //let photos = state.photos
-        let newState = state
+        let newState = state.product
         newState.photos[index] = file
         newState.images[index].src = image
         newState.images[index].small = false
-        setState(newState);
+        setState({...state, product:newState});
         console.log('AddProductView.handleFilePhotoProduct.state.photos=', state.photos)
     }
 
@@ -109,7 +109,7 @@ const AddProductView = (props) => {
         console.log("AddProductView.useEffect-3.urlImages=", urlImages)
     
         if(store.product && store.product.id !== '') {
-            let newState = state
+            let newState = state.product
             console.log("AddProductView.useEffect-3-store.product.photos.length=", store.product.photos.length )
             for (let i = 0; i< store.product.photos.length; i++) {
                 console.log("AddProductView.useEffect-3-store.product.photos=", i, store.product.photos[i] )
@@ -122,7 +122,7 @@ const AddProductView = (props) => {
                     newState.images[i].small = true
                 }
             }
-            setState(newState)    
+            setState({...state, product:newState})    
             
         console.log("AddProductView.useEffect-3-newState=", newState )
         console.log("AddProductView.useEffect-3-state=", state )
@@ -221,12 +221,12 @@ const AddProductView = (props) => {
         formData.append("flete", store.product.flete);
         formData.append("weightUnitId", store.product.weightUnitId);
         formData.append("qty", store.product.qty);
-        formData.append("photo0", state.photos[0]);
-        formData.append("photo1", state.photos[1]);
-        formData.append("photo2", state.photos[2]);
-        formData.append("photo3", state.photos[3]);
-        formData.append("photo4", state.photos[4]);
-        formData.append("hasUpLoadPhotos", [state.photos[0]!= '', state.photos[1]!= '', state.photos[2]!= '', state.photos[3]!= '', state.photos[4]!= ''] )
+        formData.append("photo0", state.product.photos[0]);
+        formData.append("photo1", state.product.photos[1]);
+        formData.append("photo2", state.product.photos[2]);
+        formData.append("photo3", state.product.photos[3]);
+        formData.append("photo4", state.product.photos[4]);
+        formData.append("hasUpLoadPhotos", [state.product.photos[0]!= '', state.product.photos[1]!= '', state.product.photos[2]!= '', state.product.photos[3]!= '', state.product.photos[4]!= ''] )
         
         formData.append("departmentId", store.product.departmentId);
         formData.append("categoryId", store.product.categoryId);
@@ -281,24 +281,24 @@ const AddProductView = (props) => {
         <form className='form-group add-product-view-container' onSubmit={e => handleSubmit(e)}>
             <div className='add-product-view-a'>
                 <div className='add-product-view-a-01'>
-                    <DraggableUploader src={state.images[0].src} small={state.images[0].small} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
+                    <DraggableUploader src={state.product.images[0].src} small={state.product.images[0].small} handleFile= {handleFilePhotoProduct} index={0} type='L'/>
                 </div>            
                  <div className='add-product-view-a-02'>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.images[1].src} small={state.images[1].small} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
+                        <DraggableUploader src={state.product.images[1].src} small={state.product.images[1].small} handleFile= {handleFilePhotoProduct} index={1} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.images[2].src} small={state.images[2].small} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
+                        <DraggableUploader src={state.product.images[2].src} small={state.product.images[2].small} handleFile= {handleFilePhotoProduct} index={2} type='S'/>
                     </div>
 
                 </div>  
                 <div className='add-product-view-a-02'>
 
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.images[3].src} small={state.images[3].small} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
+                        <DraggableUploader src={state.product.images[3].src} small={state.product.images[3].small} handleFile= {handleFilePhotoProduct} index={3} type='S'/>
                     </div>
                     <div className='add-product-view-a-02-01'>
-                        <DraggableUploader src={state.images[4].src} small={state.images[4].small} handleFile= {handleFilePhotoProduct} index={4} type=''/>
+                        <DraggableUploader src={state.product.images[4].src} small={state.product.images[4].small} handleFile= {handleFilePhotoProduct} index={4} type=''/>
                     </div>
                 </div> 
             </div>

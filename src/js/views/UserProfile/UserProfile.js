@@ -250,8 +250,12 @@ const UserProfile = props => {
 
 			if (newState.responseMessage.user) {
 				let login = actions.getLogin()
+				console.log(">>>>>>UserProfile.store.login= (Before API call):", store.login)
+
 				login.data.user = newState.responseMessage.user
 				actions.setLogin(login)
+				console.log(">>>>>>UserProfile.store.login= (After API call):", store.login)
+
 			}
 	
 			console.log(">>>>>>UserProfile.state= (After API call):", state)
