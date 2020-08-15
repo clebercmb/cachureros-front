@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import './UserProfile.css'
 import '../../../styles/general.css'
 
-
-
 const UserProfile = props => {
 	//const [id, setId] = useState("");
 	const { store, actions } = useContext(Context);
@@ -88,7 +86,6 @@ const UserProfile = props => {
 	let url = process.env.REACT_APP_URL + '/images-products/'
 
 	console.log(">>UserProfile.store.regionList=", store.regionList);
-
     const regionListOptions = store.regionList.map((region, i) => {
         return (
 			<option key={region.id} id={region.id} value={region.id}>{region.name}</option>
