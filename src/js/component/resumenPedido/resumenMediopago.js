@@ -4,7 +4,7 @@ import "../../../styles/resumenmediopago.css"
 function Resumenmediopago() {
   return (
     <div className="informepago mt-3">
-      <form>
+
         <div className="franjainformenvio">
           <h5>Métodos de Pago</h5>
         </div>
@@ -24,11 +24,6 @@ function Resumenmediopago() {
           </div>
         </div>
 
-        <div className="boton mt-1">
-          <button className="button-blue">Confirmar</button>
-          <button className="button-green">Cancelar</button>
-        </div>
-      </form>
     </div>
   );
 }

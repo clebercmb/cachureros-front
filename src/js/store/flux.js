@@ -1,3 +1,5 @@
+import { ExitStatus } from "typescript";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -153,16 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       userCart:{
         id: null,
         user: null,
-        products: [
-          {
-            id: 1001,
-            name: 'Product 1',
-            discount: 10000,
-            price: 12000,
-            qty: 10,
-            photo: '/images/Hee79dcebf31a47f2b483 2.png'
-          }
-        ]
+        products: []
       },
       userMessages: null,
       product: {
@@ -380,12 +373,35 @@ const getState = ({ getStore, getActions, setStore }) => {
         return store.product
 
       },
-
       fetchUserCart: (userId) => {
         const store = getStore();
         return store.userCart
       },
+      addProductToCart: (prod, amount) => {
+        console.log('>>>addProductToCart=', prod)
+        const store = getStore();
+        let userCart = store.userCart
+        let hasProduct = -1
 
+        console.log('>>>addProductToCart.userCart.products.length=', userCart.products.length)
+        for(let i=0; i<userCart.products.length; i++) {
+          console.log('>>>addProductToCart=>', i, userCart.products[i].id, prod)
+
+          if (userCart.products[i].id === prod.id){
+            hasProduct = i
+            break
+          }
+        }
+        console.log('>>>addProductToCart.hasProduct=', hasProduct)
+
+        if (hasProduct>-1)
+          userCart.products[hasProduct] = prod
+        else
+          userCart.products.push(prod)
+
+        setStore({ userCart: userCart });
+
+      },
       fetchLogin: async (login, history) => {
         console.log("****>flux.fetchLogin")
         const store = getStore();
@@ -400,6 +416,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         let methodCall = 'POST'
 
         console.log("flux.fetchLogin.methodCall=", methodCall)
+
         await fetch(url, {
             method: methodCall,
             body: JSON.stringify(login),

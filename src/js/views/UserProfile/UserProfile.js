@@ -6,36 +6,35 @@ import PropTypes from "prop-types";
 import './UserProfile.css'
 import '../../../styles/general.css'
 
-
-
 const UserProfile = props => {
 	//const [id, setId] = useState("");
 	const { store, actions } = useContext(Context);
 	console.log("props.history", props.history);
 
 	const [state, setState] = useState({
-		fullName: "",
-		email: "",
-		phone: "",
-		address: "",
-		mode: "Add",
-		fileInputUserPhoto:undefined,
-		fileInputUserStorePhoto:undefined,
-		userStore: null,
-		userPhotoUrl:null,
-		userStorePhotoUrl:null,
+		userProfile: {
+			fullName: "",
+			email: "",
+			phone: "",
+			address: "",
+			mode: "Add2",
+			userPhoto:'',
+			userPhotoImage:'/images/user.png',
+			userStorePhoto:'',		
+			userStorePhotoImage:'/images/tendita.png',
+			userStore: null,
+			userPhotoUrl:null,
+			userStorePhotoUrl:null,
+
+		},
 		responseMessage: {
 			msg:''
-		}
+		},
+		fileInputUserPhoto:'',
+		fileInputUserStorePhoto:''
 
 	});
 
-	const saveValue = e => {
-		setState({
-			...state,
-			[e.target.name]: e.target.value
-		});
-	};
 
 	useEffect(() => {
 		console.log("UserProfile.userEffect (1):Behavior before the component is added to the DOM");
@@ -55,16 +54,38 @@ const UserProfile = props => {
 		console.log("UserProfile.userEffect (2):Behavior before the component is added to the DOM");
 		console.log("UserProfile.userEffect (2):props.match.params.id", props.match.params.id);
 		console.log("UserProfile.userEffect (2):store.userStore", store.userStore);
+        const urlImages = process.env.REACT_APP_BACK_IMAGES
+
+		let newState = state.userProfile
+
+        if(store.userStore && store.userStore.id !== '' && store.userStore.user.photoUrl !== ''){ 
+			newState.userPhotoImage = urlImages+store.userStore.user.photoUrl
+		}
+
+		if(store.userStore && store.userStore.id !== '' && store.userStore.photoUrl !== ''){ 
+			newState.userStorePhotoImage = urlImages+store.userStore.photoUrl
+		}
+
+		console.log("UserProfile.userEffect (2):store.userStore (before): ", state);
+		setState({...state, userProfile:newState})    
+		console.log("UserProfile.userEffect (2):store.userStore (after):", state);
 
 		//props.history.push("/");
 	}, [store.userStore]);
+
+	useEffect(() => {
+		console.log("UserProfile.userEffect (3):Behavior before the component is added to the DOM");
+		console.log("UserProfile.userEffect (3):store.state", state);
+
+		//props.history.push("/");
+	}, [state]);
+
 
 
 	console.log(">>UserProfile.store.useStore", store.useStore);
 	let url = process.env.REACT_APP_URL + '/images-products/'
 
 	console.log(">>UserProfile.store.regionList=", store.regionList);
-
     const regionListOptions = store.regionList.map((region, i) => {
         return (
 			<option key={region.id} id={region.id} value={region.id}>{region.name}</option>
@@ -198,10 +219,10 @@ const UserProfile = props => {
         formData.append("regionId", store.userStore.region.id);
         formData.append("bio", store.userStore.bio);
         formData.append("url", store.userStore.url);
-		formData.append("userStorePhotoUrl", state.userStorePhotoUrl);
-		formData.append("hasUserStorePhotoUrl", state.userStorePhotoUrl !== null );
-		formData.append("userPhoto", state.userPhotoUrl);
-		formData.append("hasUserPhotoUrl", state.userPhotoUrl !== null );	
+		formData.append("userStorePhotoUrl", state.userProfile.userStorePhoto);
+		formData.append("hasUserStorePhotoUrl", state.userProfile.userStorePhoto !== '' );
+		formData.append("userPhotoUrl", state.userProfile.userPhoto);
+		formData.append("hasUserPhotoUrl", state.userProfile.userPhoto !== '' );	
 	
         let url = process.env.REACT_APP_URL+'/my-store/'+store.userStore.id
         let methodCall = 'PUT'
@@ -220,11 +241,22 @@ const UserProfile = props => {
         .then(resp => resp.json())
         .then(data => {
 			console.log('#####UserProfile.handleSubmit.data=',data)
-			let newState = state
+			let newState = state.userProfile
 			newState.responseMessage = data
 			setState({...state, responseMessage:data})
+
+			if (newState.responseMessage.user) {
+				let login = actions.getLogin()
+				console.log(">>>>>>UserProfile.store.login= (Before API call):", store.login)
+
+				login.data.user = newState.responseMessage.user
+				actions.setLogin(login)
+				console.log(">>>>>>UserProfile.store.login= (After API call):", store.login)
+
+			}
 	
-			console.log(">>>>>>UserProfile.state=", state)
+			console.log(">>>>>>UserProfile.state= (After API call):", state)
+			
 		})
 
         //actions.resetUserStore();
@@ -235,37 +267,37 @@ const UserProfile = props => {
 
 	}
 
-	function handleUserStoreFile (e) {
-        console.log('UserProfile.handleFile')
+
+    function handleFile (e, fieldPhoto, fieldImage) {
+        console.log('AddProductView.handleFile:', fieldPhoto, fieldImage)
         const {name, files} = e.target;
-        console.log('UserProfile.handleFile.name=', name)
-        console.log('UserProfile.handleFile.files=', files) 
+        console.log('AddProductView.handleFile.name=', name)
+        console.log('AddProductView.handleFile.files=', files) 
+		console.log('AddProductView.handleFile.props.index=', props.index)
+
         let image = files[0]
 
         const reader = new FileReader();
         reader.onload = () =>{
             if(reader.readyState === 2){
-                setState({...state, userStorePhotoUrl: reader.result});
-            }
-        }
-        reader.readAsDataURL(e.target.files[0])
-    }
-	
-    function handleUserFile (e) {
-        console.log('UserProfile.handleFile')
-        const {name, files} = e.target;
-        console.log('UserProfile.handleFile.name=', name)
-        console.log('UserProfile.handleFile.files=', files) 
-        let image = files[0]
+				//this.setState({profileImg: reader.result})
+				let newState = state.userProfile
+				newState[fieldPhoto] = files[0]
+				newState[fieldImage] = reader.result
 
-        const reader = new FileReader();
-        reader.onload = () =>{
-            if(reader.readyState === 2){
-                setState({...state, userPhotoUrl: reader.result});
+				newState.mode= 'Add-' + (new Date()).getMilliseconds()
+				//setState({...state, image: reader.result});
+				console.log('handleFile.state= (Before) ', state)
+				setState({...state, userProfile:newState})
+				console.log('handleFile.state= (After) ', state)
+				console.log('handleFile.newState=', newState)
+
+
             }
         }
         reader.readAsDataURL(e.target.files[0])
     }
+
 
 	console.log(">>>>>>UserProfile.state=", state)
 
@@ -279,7 +311,7 @@ const UserProfile = props => {
 
 						<div className='userProfile-item-left'>
 							<div className='userProfile-item-left-item-01'>
-								<img className='photo-perfil' src={urlImages+store.userStore.user.photoUrl} />								
+								<img className='photo-perfil' src={state.userProfile.userPhotoImage} />								
 								<p>{store.userStore.user.name}</p>
 							</div>
 
@@ -314,15 +346,15 @@ const UserProfile = props => {
 						<div className='userProfile-item-right'>
 							<div className='userProfile-item-right-item1'>
 								<div className='userProfile-item-right-item2-perfil'>
-									<p>perfil</p>
+									<p>perfil - {state.userProfile.mode}</p>
 									<div className='userProfile-item-right-item2-perfil-photo'>
 										<div className='userProfile-item-right-item2-perfil-photo-item1'>
-											<img className='photo-perfil' src={state.userPhotoUrl === null ? urlImages+store.userStore.user.photoUrl: state.userPhotoUrl} />
+											<img className='photo-perfil' src={state.userProfile.userPhotoImage} />
 											<label>foto</label>
 										</div>
 							
 										<div className='userProfile-item-right-item2-perfil-photo-item2'> 
-											<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserPhoto = input} onChange={ (e) => handleUserFile(e)} />
+											<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserPhoto = input} onChange={ (e) => handleFile(e, 'userPhoto', 'userPhotoImage')} />
 
 											<button className='button-blue' onClick={() => state.fileInputUserPhoto.click()}>cambiar foto</button>
 										</div>
@@ -364,7 +396,7 @@ const UserProfile = props => {
 
 									<div className='form-group userProfile-item-right-item2-perfil-item'>
 										<label htmlFor='region' className='userProfile-label'>Region</label>
-										<select name="region" id="region" defaultValue={1} value={store.userStore.region.id} className="form-control userProfile-input" onChange={e => handleRegion(e)}>
+										<select name="region" id="region" value={store.userStore.region.id} className="form-control userProfile-input" onChange={e => handleRegion(e)}>
 											{regionListOptions}
 										</select>
 									
@@ -456,7 +488,7 @@ const UserProfile = props => {
 
 									<div className='error-message'>
 										{
-											state.responseMessage.msg && (
+											state.responseMessage && state.responseMessage.msg && (
 												<div className='error-message'>{state.responseMessage.msg}</div>
 											) 
 										}
@@ -473,11 +505,11 @@ const UserProfile = props => {
 							<div className='userProfile-item-right-item2'>
 								<div className='userProfile-item-left-item-01'>
 
-									<img className='photo-tendita' src={state.userStorePhotoUrl === null ? urlImages+store.userStore.photoUrl: state.userStorePhotoUrl} />
+									<img className='photo-tendita' src={state.userProfile.userStorePhotoImage} />
 
 									<button className='button-blue userProfile-item-left-item-01-button' onClick={() => state.fileInputUserStorePhoto.click()}>foto de capa</button>
 
-									<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserStorePhoto = input} onChange={ (e) => handleUserStoreFile(e)} />
+									<input className= 'upload-file' type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInputUserStorePhoto = input} onChange={ (e) => handleFile(e, 'userStorePhoto', 'userStorePhotoImage')} />
 
 								</div>
 							</div>

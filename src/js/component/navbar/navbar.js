@@ -72,6 +72,11 @@ const Navbar = (props) => {
               <li>
                 <Link to="/carritodecompra">
                   <img src="/images/cart.png" alt="Cart" />
+                    {
+                      (store.userCart.products.length > 0) && (
+                        <label className='cart-products-amount' >{store.userCart.products.length}</label>
+                      )
+                    }
                 </Link>
               </li>
               <li>

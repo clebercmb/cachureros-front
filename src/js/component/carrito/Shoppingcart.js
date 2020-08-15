@@ -1,54 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Productos from '../productos'
-import "../../../styles/ShoppingCart.css";
+import { Context } from "../../store/appContext";
+import "./Shoppingcart.css";
 
-function ShoppingCart() {
-  const [productCart, setproductCart] = useState([
-    {
-      id: 1,
-      descripction:
-        "Zapatillas deportivas transpirables a la moda para hombre y mujer",
-      precioLista: "$ 20.000",
-      precioOferta: "$ 16.000",
-      img:
-        "https://ae01.alicdn.com/kf/H3620730f0f8a4bb4906188289e7a4baao.jpg_220x220q90.jpg_.webp",
-    },
-    {
-      id: 2,
-      descripction: "Valstone zapatillas deportivas transpirables para hombre",
-      precioLista: "$ 50.000",
-      precioOferta: "$ 35.000",
-      img:
-        "https://ae01.alicdn.com/kf/Hbee625d389f04f0a9b6e57586ca9df80J.jpg_220x220q90.jpg_.webp",
-    },
-    {
-      id: 3,
-      descripction:
-        "Gafas de sol graduadas con Clip magnético progresivo para hombres",
-      precioLista: "$ 60.000",
-      precioOferta: "$ 15.000",
-      img:
-        "https://ae01.alicdn.com/kf/H05b2cb1ea7374285ae6b15ad703e05d3Z.jpg_220x220q90.jpg_.webp",
-    },
-  ]);
+function ShoppingCart(props) {
+
+  const { store, actions } = useContext(Context);
+
+  function removeFromCart(prod) {
+    console.log('>>> removeFromCart:', prod)
+  }
 
   const prodcart = () => {
-    return productCart.map((prod) => (
-      <div>
-        <div className="listProductos">
-          <div>
-            <input type="checkbox" />
+    const urlImages = process.env.REACT_APP_BACK_IMAGES
+    return store.userCart.products.map((prod) => (
+      <div key={prod.id} className="listProductos">
+        <div className='listProductos-01 cart-product'>        
+          <img className="imagenProducto cart-product" src={urlImages+prod.photos[0]} />
+        </div>
+
+        <div className="listProductos-02 cart-product">
+          <p className='productname'>{prod.name}</p>
+          <div className="precioDescuento">
+            <p className="precioNormal">{prod.originalPrice}</p>
+            <p className="descuento">{prod.price}</p>
           </div>
-          <img className="imagenProducto" src={prod.img} />
-          <div className="descripconPrecio">
-            <p>{prod.descripction}</p>
-            <div className="precioDescuento">
-              <p className="precioNormal">{prod.precioLista}</p>
-              <p className="descuento">{prod.precioOferta}</p>
-            </div>
+          <input
+            type="text"
+            className="cart-product-amount"
+            placeholder="Cantidad"
+            id='amount'
+            name="amount"
+            onChange={e => props.handleQty(e,prod)}
+            value={prod.amount}
+            pattern='[0-9]+'
+
+          />
+          <div>
+              <button className="btn cart-product" onClick={() => removeFromCart(prod)}>
+                  <i className="fas fa-trash-alt" />
+              </button>
           </div>
         </div>
       </div>
+
     ));
   };
 
