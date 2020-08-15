@@ -4,8 +4,11 @@ import './AddProductView.css'
 import { Context } from "../../store/appContext";
 import { updateInferTypeNode } from "typescript";
 import DraggableUploader from "../../component/DraggableUploader/DraggableUploader"
+import { useForm } from "react-hook-form";
 
 const AddProductView = (props) => {
+
+    
 
     const { store, actions} = useContext(Context);
     const {history} = props;
@@ -309,11 +312,11 @@ const AddProductView = (props) => {
                 <p className='add-product-view-b-01'>¡Vender es bueno y a todos les gusta!</p>
                 <p className='add-product-view-b-02'>Luce genial en tus fotos y descripción del producto</p>
 
-                <label htmlFor='name' className='add-product-view-b-03'>Nome</label>
+                <label htmlFor='name' className='add-product-view-b-03'>Nombre</label>
                 <input
                     type="text"
                     className="form-control"
-                    placeholder="Nome"
+                    placeholder="Nombre y Apellidos"
                     id='name'
                     name='name' 
                     value={store.product && store.product.name}
@@ -322,7 +325,16 @@ const AddProductView = (props) => {
                 />
 
                 <label className='add-product-view-b-03'>Descripción</label>
-				<textarea id='description' name='description'  className="form-control" placeholder="Descripción"/>
+                <textarea 
+                id='description' 
+                name='description'  
+                className="form-control" 
+                placeholder="Agregue una breve descripción de su producto" 
+                
+               />
+                <label 
+                className='add-product-view-b-03'
+                style={{fontSize:"13px"}, {marginTop: "-10px"}}>Cantidad: 0/100</label>
 
                 <div className='add-product-view-b-04'>
                     <div>
@@ -330,11 +342,13 @@ const AddProductView = (props) => {
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
-                            placeholder="Marca"
+                            placeholder="Ingrese la marca"
                             id='brand'
                             name='brand'
+                            style={{paddingLeft: "10px"}}
                             value={store.product.brand}
                             onChange={e => handleChange(e, 'brand')}
+                           
                         />
                     </div>
                     <div>
@@ -342,14 +356,25 @@ const AddProductView = (props) => {
                         <input
                             type="text"
                             className="add-product-view-b-04-01"
-                            placeholder="Model"
+                            placeholder="Ingrese el modelo"
                             id='model'
                             name='model'
+                            style={{paddingLeft: "10px"}}
                             value={store.product.model}
                             onChange={e => handleChange(e, 'model')}
+                            
                         />
                     </div>
 
+                </div>
+
+                <div className='add-product-view-b-05'>
+                    <div className='product-feed-filters-content-body-wrapper'>
+                        <label name='hasBrand' className="container-checkbox">Sin Marca
+                            <input  value={store.product.hasBrand} id='hasBrand' name='hasBrand' type="checkbox" onChange={e => handleChange(e, 'hasBrand')}/>
+                            <span className="check"></span>
+                        </label>
+                    </div>
                 </div>
 
                 <div className='add-product-view-b-04'>
@@ -361,21 +386,16 @@ const AddProductView = (props) => {
                             placeholder="Price"
                             id='price'
                             name='price'
+                            style={{paddingLeft: "10px"}}
                             value={store.product.price}
                             onChange={e => handleChange(e, 'price')}
-                            pattern='[0-9]+'
+                            pattern='\d+(\.\d{2})?'
+                            
                         />
                     </div>
                 </div>
                 
-                <div className='add-product-view-b-05'>
-                    <div className='product-feed-filters-content-body-wrapper'>
-                        <label name='hasBrand' className="container-checkbox">Sin Marca
-                            <input  value={store.product.hasBrand} id='hasBrand' name='hasBrand' type="checkbox" onChange={e => handleChange(e, 'hasBrand')}/>
-                            <span className="check"></span>
-                        </label>
-                    </div>
-                </div>
+                
 
                 <div className='add-product-view-b-06'>
                 </div>
@@ -391,12 +411,13 @@ const AddProductView = (props) => {
                             name='department'
                             value={store.product.departmentId}
                             onChange={e => handleChange(e, 'departmentId')}
+                           
                         >
                             {departmentListOptions}
                         </select>
                     </div>
                     <div>
-                        <p><label htmlFor='category'>Categoria</label></p>
+                        <p><label htmlFor='category'>Categoría</label></p>
                         <select
                             type="text"
                             className="add-product-view-b-04-01"
@@ -405,6 +426,7 @@ const AddProductView = (props) => {
                             name='category'
                             value={store.product.categoryId}
                             onChange={e => handleChange(e, 'categoryId')}
+                            
                         >
                             {categoryListOptions}
                         </select>
@@ -422,6 +444,7 @@ const AddProductView = (props) => {
                             name='size'
                             value={store.product.sizeId}
                             onChange={e => handleChange(e, 'sizeId')}
+                            
                         >
                             {sizeListOptions}
                         </select>

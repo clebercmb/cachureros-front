@@ -450,6 +450,7 @@ const UserProfile = props => {
 											name="phone"
 											value={store.userStore.user.phone}
 											onChange={e => handlePhone(e)}
+											pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}"
 										/>
 									</div>
 
