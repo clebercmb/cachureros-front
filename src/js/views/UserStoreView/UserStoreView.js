@@ -3,12 +3,14 @@ import "./UserStoreView.css"
 import { Context } from '../../store/appContext';
 import Filter from '../../component/filter/Filter'  
 
-import ProductSmallMediumPhoto from '../../component/ProductSmallMediumPhoto/ProductSmallMediumPhoto'    
+import ProductSmallMediumPhoto from '../../component/ProductSmallMediumPhoto/ProductSmallMediumPhoto' 
+import ProductCard from '../../component/ProductCard/ProductCard'
+//import ProductCard from '../component/ProductCard/ProductCard'   
 
 const UserStoreView = (props) => {
 
 	const { store, actions } = useContext(Context);
-
+    const {history} = props
 
     const [state, setState] = useState({
 		userName: '',
@@ -42,6 +44,12 @@ const UserStoreView = (props) => {
         
     }, [store.userStore]);
 
+    function editProduct (prod) {
+        console.log(`>>UserStore.edit:/product/${prod.id}`)
+        history.push(`/product/${prod.id}`)
+    }
+
+
     console.log('UserStoreView.store.userStore=', store.userStore)
 
     console.log(">>>>UserStoreView.process.env=", process.env)
@@ -71,12 +79,15 @@ const UserStoreView = (props) => {
                 console.log('UserStoreView.edit=', edit)
                 let url = process.env.REACT_APP_URL+'/images/'
                 return (
-                    <ProductSmallMediumPhoto src={urlImages+p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
+                /*     <ProductSmallMediumPhoto src={urlImages+p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
+ */
+                    <ProductCard key={p.id} urlImages={urlImages} prod={p} editProduct={editProduct}/>
                 )
             }
         })
     }
     console.log("UserStoreView.products(2)=", products)
+
     
     return (
         <div>
