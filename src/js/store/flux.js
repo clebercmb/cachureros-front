@@ -257,34 +257,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       sizeList:[],
       productStateList:[],
       ordersList:[],
-      products: [
-        {
-          id: "1000",
-          nombre_producto: "Arrimo",
-          precio: "$ 40.000",
-        },
-        {
-          id: "1001",
-          nombre_producto: "Bateria de Cocina",
-          precio: "$ 10.000",
-        },
-        {
-          id: "1002",
-          nombre_producto: "Reloj Hombre",
-          precio: "$ 5.000",
-        },
-        {
-          id: "1003",
-          nombre_producto: "Botas de Nieve",
-          precio: "$ 60.000",
-        },
-        {
-          id: "1004",
-          nombre_producto: "Botas de invierno",
-          precio: "$ 120.000",
-        },
-      ],
-
+      products: [],
       error: undefined,
     },
     actions: {
