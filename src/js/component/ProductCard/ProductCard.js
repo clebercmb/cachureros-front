@@ -9,10 +9,11 @@ const ProductCard = (props) => {
         props.addProduct(prod)
     }
 
+    console.log('>>>ProductCard.props.editProduct=', props.editProduct)
     return(
         <div key={props.prod.id} className="col-md-3">
             <div className="card mt-3 mb-3 ml-2  mr-2 p-2">
-            
+
             <Link to={'/product-view/'+props.prod.id}>
                 <img src={props.urlImages+props.prod.photos[0]} className="card-img-top" alt="..." />
             </Link>
@@ -29,6 +30,7 @@ const ProductCard = (props) => {
                     {
                         !!props.editProduct && (
                             <button className='button-blue-product-card' onClick={e=>props.editProduct(props.prod)}>Editar</button>
+                            
                         )                    
                     }
                     {
