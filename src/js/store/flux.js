@@ -377,6 +377,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         const store = getStore();
         return store.userCart
       },
+      resetUserCart: () => {
+        const store = getStore();
+        let userCart = store.userCart
+        userCart.products=[]
+        setStore({ userCart: userCart })
+        
+        return store.userCart
+      },
       addProductToCart: (prod, amount) => {
         console.log('>>>addProductToCart=', prod)
         const store = getStore();
@@ -540,7 +548,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("flux.fetchUserMessages.env", process.env);
         console.log("flux.fetchUserMessages.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
     
-        let url = process.env.REACT_APP_URL+`/user-message/user/${userId}`
+        let url = process.env.REACT_APP_URL+`/user/${userId}/message`
 
         console.log("flux.fetchUserMessages.url", url)
         const store = getStore();
@@ -568,7 +576,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("flux.deleteUserMessages.env", process.env);
         console.log("flux.deleteUserMessages.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
     
-        let url = process.env.REACT_APP_URL+`/user-message/${id}`
+        let url = process.env.REACT_APP_URL+`/message/${id}`
 
         console.log("flux.deleteUserMessages.url", url)
         const store = getStore();
