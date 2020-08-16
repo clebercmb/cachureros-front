@@ -15,8 +15,6 @@ const DatosPersonales = (props) => {
   },[])
   
 
-	
-
   console.log(">>datosPersonales.store.regionList=", store.regionList);
   const regionListOptions = store.regionList.map((region, i) => {
       return (
@@ -28,53 +26,59 @@ const DatosPersonales = (props) => {
 
   return (
     <div className="informenvio">
-        <div className="franjainformenvio">
-          <h5>Información de envío</h5>
-        </div>
+      <div className="franjainformenvio">
+        <h5>Información de envío:&nbsp;</h5>
+        <label className='alert-message' >{props.responseMessage.msg}</label>
+      </div>
 
-        <div className="contacto-envio">
-          <p className="contact-title">Contacto:</p>
-          <div className="contact">
-            <input
-              type="text"
-              placeholder="Nombre y apellidos"
-              className="input-contact"
-            />
-            <input
-              type="text"
-              placeholder="Teléfono"
-              className="input-contact"
-            />
-          </div>
-        </div>
-
-        <div className="contacto-envio-dir">
-          <p className="contact-title">Dirección:</p>
-          <div className="contact">
-            <input
-              type="text"
-              placeholder="Calle"
-              className="input-contact"
-            />
-            <input
-              type="text"
-              placeholder="Número, Piso, Dpto"
-              className="input-contact"
-            />
-          </div>
-
-          <div className="contact-2">
-
-            <div className='form-group'>
-              <p className="contact-title">Región:</p>
-              <select name="region" id="region" value={store.login.data.user.userStore.region && store.login.data.user.userStore.region.id} className='form-control' onChange={e => props.handleRegion(e)}>
-                {regionListOptions}
-              </select>
+      <div className="form-group datos-persnales-address">
+        <label htmlFor='name' className="contact-title">Contacto:</label>
+        <div className="contact">
+          <input
+            name='name'
+            id='name'
+            type="text"
+            value={props.order.name}
+            placeholder="Nombre y apellidos"
+            className="input-contact"
+            onChange={(e)=>props.handleField(e, 'name')}
             
-            </div>
-
-          </div>
+          />
+          <input
+            name='phone'
+            id='phone'
+            type="text"
+            value={props.order.phone}
+            placeholder="Teléfono"
+            className="input-contact"
+            onChange={(e)=>props.handleField(e, 'phone')}
+            
+          />
         </div>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor='address' className="contact-title">Dirección:</label>
+        <input
+          name='address'
+          id='address'
+          type="text"
+          value={props.order.address}
+          placeholder="Dirección"
+          className="input-contact-address"
+          onChange={(e)=>props.handleField(e, 'address')}
+          
+        />
+      </div>
+
+      <div className="form-group">
+        <label htmlFor='region' className="contact-title">Región:</label>
+        <select name="region" id="region" value={props.order.regionId} className='input-contact-region' onChange={(e)=>props.handleField(e, 'regionId')}>
+              {regionListOptions}
+        </select>
+   
+      </div>
+
     </div>
   );
 }

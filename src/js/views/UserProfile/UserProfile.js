@@ -201,6 +201,16 @@ const UserProfile = props => {
 		actions.setUserStore(userStore); 
 	}
 
+	function handleAddress(e) {
+        console.log("***UserProfile.handleAddress")
+        console.log('UserProfile.handleAddress.e=',e)
+        const {value} = e.target; 
+        console.log('UserProfile.handleAddress.value=',value)
+        let userStore = store.userStore
+        userStore.user.address = value
+		actions.setUserStore(userStore); 
+	}
+
     async function handleSubmit (e)  {
         console.log("****>UserProfile.handleSubmit!")
         e.preventDefault();
@@ -214,7 +224,8 @@ const UserProfile = props => {
         formData.append("userName", store.userStore.user.name);
         formData.append("birthDate", store.userStore.user.birthDate);
         formData.append("nationalId", store.userStore.user.nationalId);
-        formData.append("phone", store.userStore.user.phone);
+		formData.append("phone", store.userStore.user.phone);
+		formData.append("address", store.userStore.user.address);
         formData.append("userStoreName", store.userStore.name);
         formData.append("regionId", store.userStore.region.id);
         formData.append("bio", store.userStore.bio);
@@ -482,6 +493,19 @@ const UserProfile = props => {
 											name="phone"
 											value={store.userStore.user.phone}
 											onChange={e => handlePhone(e)}
+										/>
+									</div>
+
+									<div className='form-group userProfile-item-right-item2-datos-personales-item'>
+										<label className='userProfile-label'>Dirección:</label>
+										<input
+											type="text"
+											className="form-control userProfile-input"
+											placeholder="Dirección"
+											id='address'
+											name="address"
+											value={store.userStore.user.address}
+											onChange={e => handleAddress(e)}
 										/>
 									</div>
 
