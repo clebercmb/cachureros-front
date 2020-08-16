@@ -122,7 +122,6 @@ const Navbar = (props) => {
                       </Link>
                     )
                   }
-
                   {
                     !!actions.getLogin().data && actions.getLogin().data.user && (
                       <Link to={`/order/user/${actions.getLogin().data.user && actions.getLogin().data.user.id}`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
@@ -130,7 +129,13 @@ const Navbar = (props) => {
                       </Link>
                     )
                   }
-
+                  {
+                    !!actions.getLogin().data && actions.getLogin().data.user && (
+                      <Link to={`/sells/user/${actions.getLogin().data.user && actions.getLogin().data.user.id}`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
+                        Ventas
+                      </Link>
+                    )
+                  }
                   {
                     !!actions.getLogin().data && actions.getLogin().data.user && (
                       <Link to="/product" className="dropdown-item" onClick={()=>actions.resetProduct()}>

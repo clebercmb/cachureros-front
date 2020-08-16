@@ -1,6 +1,9 @@
 :root {
     font-size: 100%;
     --color-background: #F0F0F7;
+    --color-background-primary: #DDDDDD;
+    --color-background-secundary: #FFFFFF;
+    --color-background-tertiary:  #c4c4c4;
     --color-primary-lighter: #9871F5;
     --color-primary-light: #916BEA;
     --color-primary: #0071BC;

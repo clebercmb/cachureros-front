@@ -5,6 +5,7 @@ import { Context } from "../../store/appContext";
 import ProductLargePhoto from '../../component/ProductLargePhoto/ProductLargePhoto'
 import ProductSmallPhoto from '../../component/ProductSmallPhoto/PhotoSmallPhoto'
 import ProductSmallMediumPhotos from '../../component/ProductSmallMediumPhoto/ProductSmallMediumPhoto'
+import { Link } from "react-router-dom";
 
 const ProductView = props => {
 
@@ -80,6 +81,7 @@ const ProductView = props => {
         console.log('changePhotoArray.product=',product)
     }
 
+    
     const urlImages = process.env.REACT_APP_BACK_IMAGES
 
     return (
@@ -149,7 +151,9 @@ const ProductView = props => {
                     </div>
                     <div className='productview-a-02-02'>
                         <div className='userProfile-item-left-item-01'> 
-                            {state.product.store && <img src={state.product.store.storePhoto} alt="Photo de la tendita" className="photo-tendita" />}
+                            <Link to={`/user-store/${store.product.userStore && store.product.userStore.url}`}>
+                                <img src={store.product.userStore && urlImages+store.product.userStore.photoUrl} alt="Photo de la tendita" className="photo-tendita" />
+                            </Link>
                         </div>
                     </div>
                 </div>

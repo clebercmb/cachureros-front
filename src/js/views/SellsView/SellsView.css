@@ -1,0 +1,55 @@
+.container-sells-view {
+    width: 100%;
+    min-height: 90rem;
+    background: var(--color-background-primary);
+    margin-top: 1rem;
+}
+
+.sells-view {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-height: 10rem;
+    max-width: 100%; 
+    background: var(--color-background-primary);
+
+}
+
+
+.sells-view-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    border-radius: 0.7rem 0.7rem 0 0;
+    background: var(--color-background-tertiary);
+
+}
+
+.sells-view-prods {
+    width: 70%;
+}
+
+.sells-view-summary {
+    width: 25%;
+    height: 10rem;
+}
+
+.sells-view-01 {
+    border-radius: 0.7rem;
+    background: var(--color-background-secundary);
+} 
+
+.sells-view-summary-items {
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+.sells-view-prods-items {
+    padding: 0.5rem;
+}
+
+.sells-view-summary-items-01 {
+    display: flex;
+    justify-content: space-between;
+}

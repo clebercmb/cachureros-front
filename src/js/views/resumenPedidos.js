@@ -39,7 +39,10 @@ function ResumenPedidos(props) {
 
     let newState = state
     newState.order.userId = actions.getLogin().data.user.id
-    newState.order.regionId = actions.getLogin().data.user.userStore.region.id
+    if(actions.getLogin().data.user.userStore.region)
+      newState.order.regionId = actions.getLogin().data.user.userStore.region.id
+    else
+      newState.order.regionId = 1
     newState.order.name=actions.getLogin().data.user.name
     newState.order.address=actions.getLogin().data.user.address
     newState.order.phone=actions.getLogin().data.user.phone
