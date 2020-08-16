@@ -185,8 +185,8 @@ function ResumenPedidos(props) {
       setState({...state, responseMessage:responseMessage})
       console.log(">>resumenPedidos.responseMessage=", responseMessage);
       if( responseMessage.msg !== '') {
-        actions.resetUserCart()
-        history.push("/");
+        //actions.resetUserCart()
+        //history.push("/");
       }
 
   
