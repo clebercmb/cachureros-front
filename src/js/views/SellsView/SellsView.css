@@ -26,12 +26,12 @@
 
 }
 
-.sells-view-prods {
-    width: 70%;
+.sells-view-orders {
+    width: 59%;
 }
 
 .sells-view-summary {
-    width: 25%;
+    width: 40%;
     height: 10rem;
 }
 
@@ -41,15 +41,59 @@
 } 
 
 .sells-view-summary-items {
-    margin-top: 1rem;
+    
     padding: 0.5rem;
 }
 
-.sells-view-prods-items {
+.sells-view-orders-items {
     padding: 0.5rem;
 }
 
 .sells-view-summary-items-01 {
     display: flex;
     justify-content: space-between;
+}
+
+.sells-view-summary-products {
+    margin-top: 3rem;
+    background: var(--color-background-secundary);
+    border-radius: 0.7rem;
+}
+
+.sells-view-orders-items-titles {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.sells-view-orders-items-titles > label {
+    margin-bottom: 0;
+    color: var(--color-text-title);
+    text-align: right;
+    font-weight: bold
+}
+
+.sells-view-orders-items-titles-img {
+    width: 4rem;
+}
+
+.sells-view-orders-items-titles-order {
+    width: 7rem;
+
+}
+
+.sells-view-orders-items-titles-amount {
+    width: 5rem;
+}
+
+.sells-view-orders-items-titles-price {
+    width: 8rem;
+}
+
+.sells-view-orders-items-titles-date {
+    width: 10rem;
+}
+
+.sells-view-orders-items-titles-status {
+    width: 10rem;
 }
