@@ -32,6 +32,7 @@ const injectContext = PassedComponent => {
 			 **/
 			//state.actions.fetchContacts();
 			//state.actions.fetchContacts("https://assets.breatheco.de/apis/fake/contact/agenda/clebermb");
+			//state.userCart.getCarrito("http://127.0.0.1:5000/cart/");
 		}, []);
 
 		// the initial value for the context its not null anymore, but the current state of this component,
