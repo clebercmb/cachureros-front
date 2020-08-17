@@ -1,7 +1,7 @@
 import React from 'react'
-import './SellsCard.css'
+import './SellsProductCard.css'
 
-const SellsCard = (props) => {
+const SellsProductCard = (props) => {
     let urlImages = process.env.REACT_APP_BACK_IMAGES
     return(
         <div className="container-sells-card">
@@ -16,4 +16,4 @@ const SellsCard = (props) => {
     )
 }
 
-export default SellsCard
+export default SellsProductCard
