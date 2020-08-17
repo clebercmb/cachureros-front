@@ -47,16 +47,18 @@ const Message = (props)  => {
     
 
     console.log('Message.props.match.params.user_id=', props.match.params.user_id)
-    let user = actions.getUser();
+    let user = actions.getLogin().data.user;
+
+    /*
     console.log('Message.user=', user)
-    console.log('Message user.id === props.match.params.user_id', user.id === props.match.params.user_id)
+    console.log('Message.user.id === props.match.params.user_id=',user.id, props.match.p0arams.user_id, user.id === props.match.params.user_id)
     if (user.id !== props.match.params.user_id ) {
-        console.log('Not allowed')
+        console.log('Message.user.Not allowed')
         return <Redirect to={{ pathname: '/not-allowed/' }} />
 
     }
     console.log('Messages.usersMessages=', state.userMessages)
-
+    */
     const urlImages = process.env.REACT_APP_BACK_IMAGES
     let userMessages = state.userMessages
     if(userMessages) {

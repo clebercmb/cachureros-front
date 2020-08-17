@@ -1,0 +1,100 @@
+.container-order-view {
+    width: 100%;
+    min-height: 90rem;
+    background: var(--color-background-primary)
+
+}
+
+.order-view-data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-view-user {
+    width: 70%;
+    min-height: 10rem;
+    background: var(--color-background-secundary);
+    border-radius: 0.7rem;
+    margin-top: 2rem;
+}
+
+.order-view-payment {
+    width: 25%;
+    min-height: 10rem;
+    background: var(--color-background-secundary);
+    border-radius: 0.7rem;
+    margin-top: 2rem;
+}
+
+.order-view-payment-data {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+
+}
+
+.order-view-products {
+    width: 70%;
+    min-height: 10rem;
+    background: var(--color-background-secundary);
+    border-radius: 0.7rem;
+}
+
+
+.order-view-summary {
+    width: 25%;
+    min-height: 10rem;
+    background: var(--color-background-secundary);
+    border-radius: 0.7rem;
+}
+
+.order-view-user-title {
+    height: 4rem;
+    background: var(--color-background-tertiary);
+    
+}
+
+.order-view-summary-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 4rem;
+    background: var(--color-background-tertiary);
+    border-radius: 0.7rem 0.7rem 0 0;
+}
+
+.order-view-summary-values {
+    padding: 0 1rem 0 1rem;
+
+}
+
+.order-view-summary-subtotal {
+    display: flex;
+    justify-content: space-between;
+    background: var(--color-background-secundary);
+    margin-top: 2rem;
+}
+
+.order-view-summary-flete {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-view {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.order-view-summary-breakline {
+    margin-top: 1rem;
+    width: 100%;
+    border: 0.01rem solid var(--color-background-tertiary);
+}
+
+.order-view-summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}

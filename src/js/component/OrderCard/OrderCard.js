@@ -7,19 +7,19 @@ const OrderCard = (props) => {
         <div className='container-order-card'>
             <div className='sub-container-order-card'>
                 <div className='container-order-card-01'>
-                    <Link to='/'>
+                    <Link to={`/order/${props.id}`}>
                         <label>Pedido-{props.id}</label>
                     </Link>
                 </div>
 
                 <div className="container-order-card-02">
-                    <Link to='/'>
+                    <Link to={`/order/${props.id}`}>
                         <label>{props.date}</label>
                     </Link>
                 </div>
 
                 <div className="container-order-card-03">
-                    <Link to='/'>
+                    <Link to={`/order/${props.id}`}>
                         <label className='container-order-card-04-a'>{props.status}</label>
                     </Link>
                 </div>

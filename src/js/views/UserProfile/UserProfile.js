@@ -20,9 +20,9 @@ const UserProfile = (props) => {
       address: "",
       mode: "Add2",
       userPhoto: "",
-      userPhotoImage: "/images/user.png",
+      userPhotoImage: "",
       userStorePhoto: "",
-      userStorePhotoImage: "/images/tendita.png",
+      userStorePhotoImage: "",
       userStore: null,
       userPhotoUrl: null,
       userStorePhotoUrl: null,
@@ -219,6 +219,16 @@ const UserProfile = (props) => {
     actions.setUserStore(userStore);
   }
 
+  function handleAddress(e) {
+    console.log("***UserProfile.handleAddress");
+    console.log("UserProfile.handleAddress.e=", e);
+    const { value } = e.target;
+    console.log("UserProfile.handleAddress.value=", value);
+    let userStore = store.userStore;
+    userStore.user.address = value;
+    actions.setUserStore(userStore);
+  }
+
   async function handleSubmit(e) {
     console.log("****>UserProfile.handleSubmit!");
     e.preventDefault();
@@ -233,6 +243,7 @@ const UserProfile = (props) => {
     formData.append("birthDate", store.userStore.user.birthDate);
     formData.append("nationalId", store.userStore.user.nationalId);
     formData.append("phone", store.userStore.user.phone);
+    formData.append("address", store.userStore.user.address);
     formData.append("userStoreName", store.userStore.name);
     formData.append("regionId", store.userStore.region.id);
     formData.append("bio", store.userStore.bio);
@@ -290,6 +301,41 @@ const UserProfile = (props) => {
     //history.push('/my-store/'+store.login.data.user.userStore.id);
     //history.push('/');
   }
+
+  function handleFile(e, fieldPhoto, fieldImage) {
+    console.log("AddProductView.handleFile:", fieldPhoto, fieldImage);
+    const { name, files } = e.target;
+    console.log("AddProductView.handleFile.name=", name);
+    console.log("AddProductView.handleFile.files=", files);
+    console.log("AddProductView.handleFile.props.index=", props.index);
+
+    let image = files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        //this.setState({profileImg: reader.result})
+        let newState = state.userProfile;
+        newState[fieldPhoto] = files[0];
+        newState[fieldImage] = reader.result;
+
+        newState.mode = "Add-" + new Date().getMilliseconds();
+        //setState({...state, image: reader.result});
+        console.log("handleFile.state= (Before) ", state);
+        setState({ ...state, userProfile: newState });
+        console.log("handleFile.state= (After) ", state);
+        console.log("handleFile.newState=", newState);
+      }
+    };
+
+    console.log(">>>>>>UserProfile.state= (After API call):", state);
+  }
+
+  //actions.resetUserStore();
+  console.log("UserProfile.userStore (after reset)=", store.userStore);
+  console.log("UserProfile.state (after reset)=", state);
+  //history.push('/my-store/'+store.login.data.user.userStore.id);
+  //history.push('/');
 
   function handleFile(e, fieldPhoto, fieldImage) {
     console.log("AddProductView.handleFile:", fieldPhoto, fieldImage);
@@ -399,7 +445,7 @@ const UserProfile = (props) => {
                   </div>
                 </div>
 
-                <form onSubmit={e => handleSubmit(e)}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <div className="form-group userProfile-item-right-item2-perfil-item">
                     <label htmlFor="titulo" className="userProfile-label">
                       título
@@ -411,9 +457,9 @@ const UserProfile = (props) => {
                       id="titulo"
                       name="titulo"
                       onChange={(e) => handleName(e)}
-					  value={store.userStore.name}
-					  required
-					  pattern="^[a-zA-Z]{1,30}$"
+                      value={store.userStore.name}
+                      required
+                      pattern="^[a-zA-Z]{1,30}$"
                     />
                   </div>
                   <div className="form-group userProfile-item-right-item2-perfil-bio">
@@ -424,8 +470,8 @@ const UserProfile = (props) => {
                       id="bio"
                       name="bio"
                       className="form-control userProfile-input"
-					  placeholder="En menos de 100 carateres describase"
-					  pattern="^[a-zA-Z]{1,100}$"
+                      placeholder="En menos de 100 carateres describase"
+                      pattern="^[a-zA-Z]{1,100}$"
                       value={store.userStore.bio}
                       onChange={(e) => handleBio(e)}
                     />
@@ -443,8 +489,8 @@ const UserProfile = (props) => {
                         className="form-control url-input"
                         placeholder="url"
                         id="url"
-						name="url"
-						pattern="^[a-zA-Z]{1,30}$"
+                        name="url"
+                        pattern="^[a-zA-Z]{1,30}$"
                         value={store.userStore.url}
                         onChange={(e) => handleUrl(e)}
                       />
@@ -465,103 +511,107 @@ const UserProfile = (props) => {
                     </select>
                   </div>
 
-				  <div className="userProfile-item-right-item2-datos-personales">
-                <p>datos personales</p>
+                  <div className="userProfile-item-right-item2-datos-personales">
+                    <p>datos personales</p>
 
-                <div className="form-group userProfile-item-right-item2-datos-personales-item">
-                  <label className="userProfile-label">email</label>
-                  <input
-                    type="email"
-                    className="form-control userProfile-input"
-                    placeholder="email"
-                    id="email"
-                    name="email"
-                    value={store.userStore.user.login.email}
-                    onChange={(e) => handleEmail(e)}
-                  />
-                </div>
-
-                <div className="form-group userProfile-item-right-item2-datos-personales-item">
-                  <label className="userProfile-label">contraseña</label>
-                  <input
-                    type="password"
-                    className="form-control userProfile-input"
-                    placeholder="Abc123"
-                    id="password"
-                    name="password"
-                    value={store.userStore.user.login.password}
-                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-                    onChange={(e) => handlePassword(e)}
-                  />
-                </div>
-				
-
-                <div className="form-group userProfile-item-right-item2-datos-personales-item">
-                  <label className="userProfile-label">cumpleaños</label>
-                  <input
-                    type="text"
-                    className="form-control userProfile-input"
-                    placeholder="DD/MM/YYYY"
-                    id="birthdate"
-					name="birthadate"
-					pattern='(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d'
-                    value={store.userStore.user.birthDate}
-                    onChange={(e) => handleBirthDate(e)}
-                  />
-                </div>
-
-                <div className="form-group userProfile-item-right-item2-datos-personales-item">
-                  <label className="userProfile-label">rut</label>
-                  <input
-                    type="text"
-                    className="form-control userProfile-input"
-                    placeholder="00 0000 0000"
-                    id="rut"
-					name="rut"
-					pattern="[0-9]{7,10}"
-                    value={store.userStore.user.nationalId}
-                    onChange={(e) => handleNationalId(e)}
-                  />
-                </div>
-
-                <div className="form-group userProfile-item-right-item2-datos-personales-item">
-                  <label className="userProfile-label">teléfono</label>
-                  <input
-                    type="text"
-                    className="form-control userProfile-input"
-                    placeholder="+00 0 0000 0000"
-                    id="phone"
-                    name="phone"
-                    value={store.userStore.user.phone}
-                    onChange={(e) => handlePhone(e)}
-                    pattern="[\+]\d{2}[\]\d{1}[\)]\d{4}[\]\d{4}"
-                  />
-                </div>
-
-                <div className="error-message">
-                  {state.responseMessage && state.responseMessage.msg && (
-                    <div className="error-message">
-                      {state.responseMessage.msg}
+                    <div className="form-group userProfile-item-right-item2-datos-personales-item">
+                      <label className="userProfile-label">email</label>
+                      <input
+                        type="email"
+                        className="form-control userProfile-input"
+                        placeholder="email"
+                        id="email"
+                        name="email"
+                        value={store.userStore.user.login.email}
+                        onChange={(e) => handleEmail(e)}
+                      />
                     </div>
-                  )}
-                </div>
 
-                <div className="form-group userProfile-item-right-item2-datos-salvar">
-                  <button
-					className="button-green"
-					type='submit'>
-                    salvar
-                  </button>
-                </div>
-              </div>
+                    <div className="form-group userProfile-item-right-item2-datos-personales-item">
+                      <label className="userProfile-label">contraseña</label>
+                      <input
+                        type="password"
+                        className="form-control userProfile-input"
+                        placeholder="Abc123"
+                        id="password"
+                        name="password"
+                        value={store.userStore.user.login.password}
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+                        onChange={(e) => handlePassword(e)}
+                      />
+                    </div>
 
+                    <div className="form-group userProfile-item-right-item2-datos-personales-item">
+                      <label className="userProfile-label">cumpleaños</label>
+                      <input
+                        type="text"
+                        className="form-control userProfile-input"
+                        placeholder="DD/MM/YYYY"
+                        id="birthdate"
+                        name="birthadate"
+                        pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d"
+                        value={store.userStore.user.birthDate}
+                        onChange={(e) => handleBirthDate(e)}
+                      />
+                    </div>
 
+                    <div className="form-group userProfile-item-right-item2-datos-personales-item">
+                      <label className="userProfile-label">rut</label>
+                      <input
+                        type="text"
+                        className="form-control userProfile-input"
+                        placeholder="00 0000 0000"
+                        id="rut"
+                        name="rut"
+                        pattern="[0-9]{7,10}"
+                        value={store.userStore.user.nationalId}
+                        onChange={(e) => handleNationalId(e)}
+                      />
+                    </div>
 
+                    <div className="form-group userProfile-item-right-item2-datos-personales-item">
+                      <label className="userProfile-label">teléfono</label>
+                      <input
+                        type="text"
+                        className="form-control userProfile-input"
+                        placeholder="+00 0 0000 0000"
+                        id="phone"
+                        name="phone"
+                        value={store.userStore.user.phone}
+                        onChange={(e) => handlePhone(e)}
+                        pattern="[\+]\d{2}[\]\d{1}[\)]\d{4}[\]\d{4}"
+                      />
+                    </div>
 
+                    <div className="form-group userProfile-item-right-item2-datos-personales-item">
+                      <label className="userProfile-label">Dirección:</label>
+                      <input
+                        type="text"
+                        className="form-control userProfile-input"
+                        placeholder="Dirección"
+                        id="address"
+                        name="address"
+                        value={store.userStore.user.address}
+                        onChange={(e) => handleAddress(e)}
+                      />
+                    </div>
+
+                    <div className="error-message">
+                      {state.responseMessage && state.responseMessage.msg && (
+                        <div className="error-message">
+                          {state.responseMessage.msg}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="form-group userProfile-item-right-item2-datos-salvar">
+                      <button className="button-green" type="submit">
+                        salvar
+                      </button>
+                    </div>
+                  </div>
                 </form>
               </div>
-
-              
             </div>
 
             <div className="userProfile-item-right-item2">

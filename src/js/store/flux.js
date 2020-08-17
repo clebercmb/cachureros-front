@@ -257,34 +257,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       sizeList:[],
       productStateList:[],
       ordersList:[],
-      products: [
-        {
-          id: "1000",
-          nombre_producto: "Arrimo",
-          precio: "$ 40.000",
-        },
-        {
-          id: "1001",
-          nombre_producto: "Bateria de Cocina",
-          precio: "$ 10.000",
-        },
-        {
-          id: "1002",
-          nombre_producto: "Reloj Hombre",
-          precio: "$ 5.000",
-        },
-        {
-          id: "1003",
-          nombre_producto: "Botas de Nieve",
-          precio: "$ 60.000",
-        },
-        {
-          id: "1004",
-          nombre_producto: "Botas de invierno",
-          precio: "$ 120.000",
-        },
-      ],
-
+      products: [],
       error: undefined,
     },
     actions: {
@@ -375,6 +348,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       fetchUserCart: (userId) => {
         const store = getStore();
+        return store.userCart
+      },
+      resetUserCart: () => {
+        const store = getStore();
+        let userCart = store.userCart
+        userCart.products=[]
+        setStore({ userCart: userCart })
+        
         return store.userCart
       },
       addProductToCart: (prod, amount) => {
@@ -540,7 +521,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("flux.fetchUserMessages.env", process.env);
         console.log("flux.fetchUserMessages.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
     
-        let url = process.env.REACT_APP_URL+`/user-message/user/${userId}`
+        let url = process.env.REACT_APP_URL+`/user/${userId}/message`
 
         console.log("flux.fetchUserMessages.url", url)
         const store = getStore();
@@ -568,7 +549,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log("flux.deleteUserMessages.env", process.env);
         console.log("flux.deleteUserMessages.process.env.REACT_APP_URL", process.env.REACT_APP_URL)
     
-        let url = process.env.REACT_APP_URL+`/user-message/${id}`
+        let url = process.env.REACT_APP_URL+`/message/${id}`
 
         console.log("flux.deleteUserMessages.url", url)
         const store = getStore();
