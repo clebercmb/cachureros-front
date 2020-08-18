@@ -12,8 +12,8 @@ const OrderView = (props) => {
 
     
     useEffect(() => {
-		console.log("UserProfile.userEffect (1):Behavior before the component is added to the DOM");
-		console.log("UserProfile.userEffect (1):props.match.params.id", props.match.params.id);
+		console.log("OrderView.userEffect (1):Behavior before the component is added to the DOM");
+		console.log("OrderView.userEffect (1):props.match.params.id", props.match.params.id);
 	
         fetchOrder(props.match.params.id)
 

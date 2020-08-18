@@ -119,7 +119,7 @@ const Navbar = (props) => {
               }
               {
                 !!actions.getLogin().data && actions.getLogin().data.user && (
-                  <Link to={`/sells/user/${actions.getLogin().data.user && actions.getLogin().data.user.id}`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
+                  <Link to={`/my-store/${actions.getLogin().data.user && actions.getLogin().data.user.id}/sells`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
                     Ventas
                   </Link>
                 )
