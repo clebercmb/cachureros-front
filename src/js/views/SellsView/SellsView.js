@@ -103,7 +103,7 @@ const SellsView = (props) => {
         orderList = orders.map((order, i) => {
             console.log('SellsView.order=', order)
             return (
-                <SellsOrderCard img={order.photoUrl} key={order.orderId} id={order.orderId} totalAmount={order.totalAmount} totalPrice={order.totalPrice} createdAt={order.createdAt} status='Enviado'/>
+                <SellsOrderCard img={order.photoUrl} key={order.orderId} userStoreId={actions.getLogin().data.user.userStore.id} orderId={order.orderId} totalAmount={order.totalAmount} totalPrice={order.totalPrice} createdAt={order.createdAt} status='Enviado'/>
                 )    
         })
     }
