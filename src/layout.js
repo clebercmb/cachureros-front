@@ -33,7 +33,7 @@ import OrdersListView from './js/views/OrdersListView/OrdersListView'
 import OrderView from "./js/views/OrderView/OrderView"
 import SellsView from './js/views/SellsView/SellsView'
 import SellOrderView from './js/views/SellOrderView/SellOrderView'
-
+import SendMessageView from './js/views/SendMessageView/SendMessageView'
 
 //import history from "./component/history";
 
@@ -77,6 +77,7 @@ export const Layout = () => {
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
 							<PrivateRoute exact path="/messages/:user_id" component={Messages} />	
+							<PrivateRoute exact path="/messages/send/:receiverId/:message" component={SendMessageView} />
 							<Route exact path="/not-allowed/" component={NotAllowed} />
 							<Route render={() => <h1 className="notfound">Not found!</h1>} />
 						</Switch>
