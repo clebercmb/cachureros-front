@@ -8,8 +8,6 @@ import { useForm } from "react-hook-form";
 
 const AddProductView = (props) => {
 
-    
-
     const { store, actions} = useContext(Context);
     const {history} = props;
 

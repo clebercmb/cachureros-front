@@ -8,6 +8,8 @@
     border-radius: 5px;
 }
 
+
+
 .container-user-message * label {
     margin: 0;
 }
@@ -83,6 +85,38 @@
 
 .container-user-message-02-a {
     margin: 0;
+}
+
+.send-user-messsage {
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+}
+
+.send-user-messsage > label {
+    display: block;
+}
+
+.send-user-messsage-show {
+    margin-bottom: 2rem;
+}
+
+.send-user-messsage-hidden {
+    margin-bottom: 2rem;
+}
+
+.send-user-messsage-input {
+    width: 40rem;
+    border-radius: 0.2rem;
+    height: 1.7rem;
+}
+
+.send-user-message-button {
+    margin-left: 1rem;
+    background: #0071BC;
+    border-radius: 5px;
+    width: 4.7rem;
+    height: 1.7rem;
+    color: white
 }
 
 

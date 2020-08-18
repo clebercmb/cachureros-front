@@ -64,7 +64,7 @@ const Message = (props)  => {
     if(userMessages) {
         userMessages = userMessages.map((p, i) => {
             return (
-                <UserMessage key={i}  id={p.id} user_from={p.sender.name} photo={urlImages+p.sender.photoUrl} message={p.message} link={p.link} status={p.messageStatus.name} type={p.messageType.name} date={p.createdAt} onDelete={deleteMessage}/>
+                <UserMessage key={i}  id={p.id} user_from={p.sender.name} photo={urlImages+p.sender.photoUrl} message={p.message} link={p.link} status={p.messageStatus.name} type={p.messageType.name} date={p.createdAt} onDelete={deleteMessage} senderId={p.sender.id}/>
             )
         })
     }
