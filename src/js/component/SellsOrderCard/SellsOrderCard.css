@@ -1,0 +1,44 @@
+.container-sells-order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.7rem;
+}
+
+.container-sells-order-card > label {
+    margin-bottom: 0;
+    text-align: right;
+}
+
+.sells-order-card-item {
+    height: 3.5rem;;
+}
+
+.sells-order-card-img {
+    width: 4rem;
+}
+
+.sells-order-card-id {
+    width: 7rem;
+}
+
+.sells-order-card-amount {
+    width: 5rem;
+
+}
+
+.sells-order-card-price {
+    width: 8rem;
+}
+
+.sells-order-card-date {
+    width: 10rem;
+}
+
+.sells-order-card-status{
+    width: 10rem;
+}
+
+.sells-order-card-menu {
+    padding: 0;
+}

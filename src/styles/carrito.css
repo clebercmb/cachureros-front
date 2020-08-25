@@ -1,7 +1,12 @@
+.containerCarrito{
+    padding-bottom: 0px;
+}
+
 .carrito{
     display: flex;
+    margin-top: 30px;
 }
 
 .metodosPago{
-    margin-top: 20px;
+    margin-top: 30px;
 }

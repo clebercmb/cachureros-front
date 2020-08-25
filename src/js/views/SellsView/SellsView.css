@@ -1,0 +1,99 @@
+.container-sells-view {
+    width: 100%;
+    min-height: 90rem;
+    background: var(--color-background-primary);
+    margin-top: 1rem;
+}
+
+.sells-view {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-height: 10rem;
+    max-width: 100%; 
+    background: var(--color-background-primary);
+
+}
+
+
+.sells-view-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    border-radius: 0.7rem 0.7rem 0 0;
+    background: var(--color-background-tertiary);
+
+}
+
+.sells-view-orders {
+    width: 59%;
+}
+
+.sells-view-summary {
+    width: 40%;
+    height: 10rem;
+}
+
+.sells-view-01 {
+    border-radius: 0.7rem;
+    background: var(--color-background-secundary);
+} 
+
+.sells-view-summary-items {
+    
+    padding: 0.5rem;
+}
+
+.sells-view-orders-items {
+    padding: 0.5rem;
+}
+
+.sells-view-summary-items-01 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sells-view-summary-products {
+    margin-top: 3rem;
+    background: var(--color-background-secundary);
+    border-radius: 0.7rem;
+}
+
+.sells-view-orders-items-titles {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.sells-view-orders-items-titles > label {
+    margin-bottom: 0;
+    color: var(--color-text-title);
+    text-align: right;
+    font-weight: bold
+}
+
+.sells-view-orders-items-titles-img {
+    width: 4rem;
+}
+
+.sells-view-orders-items-titles-order {
+    width: 7rem;
+
+}
+
+.sells-view-orders-items-titles-amount {
+    width: 5rem;
+}
+
+.sells-view-orders-items-titles-price {
+    width: 8rem;
+}
+
+.sells-view-orders-items-titles-date {
+    width: 10rem;
+}
+
+.sells-view-orders-items-titles-status {
+    width: 10rem;
+}

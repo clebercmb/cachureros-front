@@ -14,10 +14,6 @@ const DraggableUploader = (props) => {
 
     })
 
-    useEffect(() => {
-        setState({...state, image: props.src});
-        console.log('DraggableUploader.useEffect.props.src=', props.src)            
-    }, [props.src]);
 
 
     function handleFile (e) {
@@ -28,24 +24,36 @@ const DraggableUploader = (props) => {
         console.log('DraggableUploader.handleFile.props.index=', props.index)
         let image = files[0]
 
-
-        props.handleFile(files[0], props.index)
-
         const reader = new FileReader();
         reader.onload = () =>{
             if(reader.readyState === 2){
                 //this.setState({profileImg: reader.result})
                 setState({...state, image: reader.result});
+                props.handleFile(files[0], reader.result, props.index)
+
             }
         }
         reader.readAsDataURL(e.target.files[0])
     }
 
-    console.log('DraggableUploader.props.src=', props.src)
+    console.log('DraggableUploader.props.src=%s, index=%s', props.src, props.index)
     console.log('DraggableUploader.state', state)
+    console.log(">>>>DraggableUploader.process.env=", process.env)
+    console.log(">>>>DraggableUploader.process.env.REACT_APP_BACK_IMAGES=", process.env.REACT_APP_BACK_IMAGES)
+
+    console.log(">>>>DraggableUploader.props=", props)
+    console.log(">>>>DraggableUploader.props.src=", props.src)
+
+
+    let url = process.env.REACT_APP_BACK_IMAGES
+    
     return (
         <div className='container-draggable-uploader' onClick={() => state.fileInput.click()}>
-            <img className={state.image === '' ? 'container-draggable-uploader-img-default' : 'container-draggable-uploader-img'} src={state.image === '' ? state.imageDefault: state.image} />
+{/*             <img className={props.image === '' ? 'container-draggable-uploader-img-default' : 'container-draggable-uploader-img'} src={state.image} />
+ */}
+            <img className={props.small ? 'container-draggable-uploader-img-default' : 'container-draggable-uploader-img'} src={props.src} />
+
+
 
             <input type="file" id="file-browser-input" name="file-browser-input" ref={input => state.fileInput = input} onChange={ (e) => handleFile(e)} />
 

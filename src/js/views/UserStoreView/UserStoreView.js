@@ -3,16 +3,17 @@ import "./UserStoreView.css"
 import { Context } from '../../store/appContext';
 import Filter from '../../component/filter/Filter'  
 
-import ProductSmallMediumPhoto from '../../component/ProductSmallMediumPhoto/ProductSmallMediumPhoto'    
+import ProductSmallMediumPhoto from '../../component/ProductSmallMediumPhoto/ProductSmallMediumPhoto' 
+import ProductCard from '../../component/ProductCard/ProductCard'
+//import ProductCard from '../component/ProductCard/ProductCard'   
 
 const UserStoreView = (props) => {
 
 	const { store, actions } = useContext(Context);
-
+    const {history} = props
 
     const [state, setState] = useState({
 		userName: '',
-        userStore: undefined ,
         regionList:[],
         showAllFilter: true
 	});
@@ -26,22 +27,12 @@ const UserStoreView = (props) => {
         //actions.fetchRegionList();
         console.log("UserStoreView.useEffect 1.store.userStore", store.userStore);
         
-	}, [props.match.params.id]);
+	}, [props.match.params.id, store.product]);
 
-    /*
-    useEffect(() => {
-		console.log("UserStoreView useEffect 2: Behavior before the component is added to the DOM");
-		console.log("UserStoreView.useEffect 2.store.regionList", store.regionList);
-        //setState({...state, regionList: store.regionList});        
-        let regionList = store.regionList
-        setState({...state, regionList: regionList});
-
-    }, [store.regionList]);
-*/
 	useEffect(() => {
 		console.log("UserStoreView useEffect 3: Behavior before the component is added to the DOM");
 		console.log("UserStoreView.useEffect 3: store.userStore", store.userStore);
-        setState({...state, userStore: store.userStore});
+        //setState({...state, userStore: store.userStore});
         console.log("UserStoreView.useEffect 3: state", state);
         console.log("UserStoreView.useEffect 3: state.userStore", state.userStore);
 
@@ -53,42 +44,27 @@ const UserStoreView = (props) => {
         
     }, [store.userStore]);
 
-    
-/* 	useEffect(() => {
-		console.log("UserStoreView useEffect 4: Behavior before the component is added to the DOM");
-		console.log("UserStoreView.useEffect 4: state.userStore", state.userStore);
-		console.log("UserStoreView.useEffect 4: state.userStore[user]", state.userStore['user']);
-        
-        let name = ''
-        if(state.userStore['user'] != undefined)
-            name = state.userStore['user'].name
-
-        let storeName = ''
-        if(state.userStore['name'] != undefined)
-            storeName = state.userStore.name
-    
-        
-        console.log("UserStoreView.useEffect 4: storeName", storeName);
-    
-
-
-    }, [state.userStore]);
- */
-
-    console.log('UserStoreView.state.userStore=', state.userStore)
-
-    if(state.userStore) {
-//        actions.setInfoBar(true, state.userStore.user.name)
-//        actions.setInfoStore('Tendita', 'q')
+    function editProduct (prod) {
+        console.log(`>>UserStore.edit:/product/${prod.id}`)
+        history.push(`/product/${prod.id}`)
     }
+
+
+    console.log('UserStoreView.store.userStore=', store.userStore)
+
+    console.log(">>>>UserStoreView.process.env=", process.env)
+    console.log(">>>>UserStoreView.process.env.REACT_APP_BACK_IMAGES=", process.env.REACT_APP_BACK_IMAGES)
+    
+    const urlImages = process.env.REACT_APP_BACK_IMAGES
+    console.log("%%%%%%%%% >>>>UserStoreView.urlImages=", urlImages)
 
     //let products = store.userStore.products
     let products = []
-    if (state.userStore && state.userStore.products)
-        products = state.userStore.products
+    if (store.userStore && store.userStore.products)
+        products = store.userStore.products
     console.log("UserStoreView.products(1)=", products)
 
-    if (products)
+    if (products) {
         products = products.map((p, i) => {
             console.log("UserStoreView.p=", p)
             console.log("UserStoreView.p.photos=", p.photos)
@@ -101,39 +77,44 @@ const UserStoreView = (props) => {
                 if(store.login.data)
                     edit = store.login.data.user.id === p.userStore.id
                 console.log('UserStoreView.edit=', edit)
+                let url = process.env.REACT_APP_URL+'/images/'
                 return (
-                    <ProductSmallMediumPhoto src={p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
+                /*     <ProductSmallMediumPhoto src={urlImages+p.photos[0]} key={i} id={p.id} alt={p.name} price={`${p.price}CLP`} name={p.name} edit={edit}/>
+ */
+                    <ProductCard key={p.id} urlImages={urlImages} prod={p} editProduct={editProduct}/>
                 )
             }
         })
-
+    }
     console.log("UserStoreView.products(2)=", products)
 
+    
     return (
         <div>
+
             <div className='user-store-view'>
                 <div className='user-store-view-01'>
                     <div className='user-store-view-01-a'>
-                        <img className='user-store-view-01-a-01'  src={state.userStore && state.userStore.user.photoUrl}/>
+                        <img className='user-store-view-01-a-01'  src={store.userStore && urlImages+store.userStore.user.photoUrl}/>
                         <div className='user-store-view-01-a-02'>
-                            <label className='user-store-view-01-a-02-1'>{state.userStore && state.userStore.url}</label>
-                            <label>{state.userStore && state.userStore.district}</label>
+                            <label className='user-store-view-01-a-02-1'>{store.userStore && store.userStore.url}</label>
+                            <label>{store.userStore && store.userStore.district}</label>
                         </div>
                         <div className='user-store-view-01-a-03'>
-                            <label>En Chachurero desde {state.userStore && state.userStore.createdAt}</label>
+                            <label>En Chachurero desde {store.userStore && store.userStore.createdAt}</label>
                         </div>
                         </div> 
                     <div className='user-store-view-01-b'>
-                        <img src={state.userStore && state.userStore.photoUrl}></img>
+                        <img src={store.userStore && urlImages+store.userStore.photoUrl}></img>
                     </div>
                 </div>
                 <div className='user-store-view-02'>
                     <div className='user-store-view-02-a'>
-                        <label>{state.userStore && state.userStore.sells} a venta</label>
-                        <label>{state.userStore && state.userStore.solds} venditos</label>
-                        <label>{state.userStore && state.userStore.likes} cachurada</label>
-                        <label>{state.userStore && state.userStore.followers} seguidores</label>
-                        <label>{state.userStore && state.userStore.followeds} seguindo</label>
+                        <label>{store.userStore && store.userStore.sells} a venta</label>
+                        <label>{store.userStore && store.userStore.solds} venditos</label>
+                        <label>{store.userStore && store.userStore.likes} cachurada</label>
+                        <label>{store.userStore && store.userStore.followers} seguidores</label>
+                        <label>{store.userStore && store.userStore.followeds} seguindo</label>
                     </div>
                     <div className='user-store-view-02-b'>
                         <label>Busqueda en esta tendita</label>

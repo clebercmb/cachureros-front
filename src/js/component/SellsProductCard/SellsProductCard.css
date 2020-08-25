@@ -1,0 +1,36 @@
+.container-sells-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 4rem;
+    background: var(--color-background-secundary);
+    
+}
+
+.container-sells-card > label {
+    margin-bottom: 0;
+}
+
+.sells-card-img img {
+    height: 3.5rem;
+}
+
+.sells-card-img {
+    width: 11%;
+}
+
+.sells-card-name {
+    width: 55%;
+    margin-bottom: 0;
+}
+
+.sells-card-total-amount {
+    width: 10%;
+    text-align: right;
+}
+
+.sells-card-total-price {
+    width: 20%;
+    text-align: right;
+}

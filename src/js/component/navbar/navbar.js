@@ -10,7 +10,9 @@ const Navbar = (props) => {
   console.log("==>Layout.actions.getInfoBar()", actions.getInfoBar());
 
   const [state, setState] = useState({
-    login: {}
+    login: {}, 
+    userPhoto:'',
+  
 	});
 
 
@@ -21,6 +23,17 @@ const Navbar = (props) => {
     console.log("Navbar.useEffect 1: state", state);
     console.log("Navbar.useEffect 1: state.login", state.login);
 
+    let login = actions.getLogin()
+    let newState = state
+  
+    if(login.data) {
+      const urlImages = process.env.REACT_APP_BACK_IMAGES
+      newState.userPhoto = urlImages+login.data.user.photoUrl
+    } else {
+      newState.userPhoto='/images/user.png'
+    } 
+
+    setState({...state, state:newState})
 
   }, [store.login]);
 
@@ -31,12 +44,12 @@ const Navbar = (props) => {
   let user = state.login.data ? state.login.data.user : undefined;
   console.log('Navbar.user=', user)
 
+
+
   return (
     <div className="container-level-01">
-      <nav id="navbar" className="navbar2">
-        {/* <nav id="menu" className="navbar navbar-light bg-light mb-3"> */}
-        <ul>
-          <li>
+      <nav id="navbar" className="nav-bar">
+        <div className="nav-bar-logo">
             <Link
               to="/"
               onClick={(e) => {
@@ -45,83 +58,108 @@ const Navbar = (props) => {
             >
               <img src="/images/Cachurero.svg" alt="Logo" />
             </Link>
-          </li>
-          <li className="right">
-            <ul className="right">
-              <li>
-                <input
-                  type="search"
-                  className="form-control"
-                  placeholder="Seach"
-                ></input>
-              </li>
-              <li>
-                <Link to="/carritodecompra">
-                  <img src="/images/cart.png" alt="Cart" />
-                </Link>
-              </li>
-              <li>
-                <Link to={`/message/${user && user.id}`}>
-                  <img src="/images/notification.png" alt="Notification" />
-                </Link>
-              </li>
-
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link "
-                  href="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img className="user" src="/images/user.png" alt="User" />
-                </a>
-                <div
-                  className="dropdown-menu"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
+        </div>
+        <div className="nav-bar-menu">
+          <input
+            type="search"
+            className="form-control nav-bar-search"
+            placeholder="Seach"
+          />
+          <Link to="/carritodecompra">
+            <img src="/images/cart.png" alt="Cart" />
+            {
+              (store.userCart.products.length > 0) && (
+                <label className='cart-products-amount' >{store.userCart.products.length}</label>
+              )
+            }
+          </Link>
+          {
+            !!actions.getLogin().data && actions.getLogin().data.user && (
+              <Link to={`/messages/${actions.getLogin().data.user.id}`}>
+                <img src="/images/notification.png" alt="Notification" />
+              </Link>
+            )
+          }
+          <div className="nav-item dropdown">
+            <a
+              className="nav-link "
+              href="#"
+              id="navbarDropdownMenuLink"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img className="nav-bar-user" src={state.userPhoto} alt="User" />
+            </a>
+            <div
+              className="dropdown-menu"
+              aria-labelledby="navbarDropdownMenuLink"
+            >
+              {
+                !actions.getLogin().data &&(
                   <Link to="/login" className="dropdown-item">
                     Iniciar Sesión
                   </Link>
+                )
+              }
+              {
+                !actions.getLogin().data &&(
                   <Link to="/registro" className="dropdown-item">
                     Nueva Cuenta
                   </Link>
-
-                  <Link to="/product-view/12" className="dropdown-item">
-                    Product
+                )
+              }
+              {
+                !!actions.getLogin().data && actions.getLogin().data.user && (
+                  <Link to={`/order/user/${actions.getLogin().data.user && actions.getLogin().data.user.id}`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
+                    Compras
                   </Link>
+                )
+              }
+              {
+                !!actions.getLogin().data && actions.getLogin().data.user && (
+                  <Link to={`/my-store/${actions.getLogin().data.user && actions.getLogin().data.user.id}/sells`} className="dropdown-item" onClick={()=>actions.resetProduct()}>
+                    Ventas
+                  </Link>
+                )
+              }
+              {
+                !!actions.getLogin().data && actions.getLogin().data.user && (
+                  <Link to="/product" className="dropdown-item" onClick={()=>actions.resetProduct()}>
+                    Nuevo Producto
+                  </Link>
+                )
+              }
+              
+              {
+                !!actions.getLogin().data && actions.getLogin().data.user && (
+                  <Link to={`/user-profile/${actions.getLogin().data.user.userStore && actions.getLogin().data.user.userStore.id}`} className="dropdown-item">
+                    Configuración
+                  </Link>
+                )
+              }
 
-                  {
-                    !!user && (
-                      <Link to="/add-product-view" className="dropdown-item">
-                        Nuevo Producto
-                      </Link>
-                    )
-                  }
-                  
-                  {
-                    !!user && (
-                      <Link to="/user-profile" className="dropdown-item">
-                        Configuración
-                      </Link>
-                    )
-                  }
+              {
+                !!actions.getLogin().data && actions.getLogin().data.user && (
+                  <Link to= {`/my-store/${actions.getLogin().data.user.userStore && actions.getLogin().data.user.userStore.id}`} className="dropdown-item">
+                    Mi tendita
+                  </Link>
+                )
+              }
 
-                  {
-                    !!user && (
-                      <Link to= {`/my-store/${user.userStore && user.userStore.id}`} className="dropdown-item">
-                        Mi tendita
-                      </Link>
-                    )
-                  }
+              {
+                !!actions.getLogin().data && actions.getLogin().data.user && (
+                  <Link to= '/' className="dropdown-item" onClick={()=>actions.resetLogin()}>
+                    Logout
+                  </Link>
+                )
+              }
 
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
+
+            </div>
+          </div>
+        </div>
       </nav>
     </div>
   );

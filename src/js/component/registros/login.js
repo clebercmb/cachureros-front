@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../../styles/login.css";
 import { Context } from '../../store/appContext';
 
+
 const Login = (props) => {
 
   const {history} = props;
@@ -20,7 +21,7 @@ const Login = (props) => {
     //actions.fetchRegionList();
   }, []);
 
-  function handleChange(e, field) {
+  let handleChange = (e, field) => {
     console.log("***login.handleChange=",field)
     console.log('login.handleChange.e=',e)
     const {value} = e.target;
@@ -39,31 +40,7 @@ const Login = (props) => {
 
     actions.fetchLogin(login, history)
 
-    
-/*     let url = process.env.REACT_APP_URL+'/login/'
-    let methodCall = 'POST'
-    console.log("login.handleSubmit.url=", url)
-    console.log("login.handleSubmit.methodCall=", methodCall)
-    fetch(url, {
-        method: methodCall,
-        body: JSON.stringify(login),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log("login.handleSubmit.data", data);
-      localStorage.setItem("login", data);
-    })
-    .catch((error) => {
-      console.log("login.handleSubmit.error", error);
-    });
-     */
-
-}   
+  }   
 
   return (
     <div className="containerLogin">

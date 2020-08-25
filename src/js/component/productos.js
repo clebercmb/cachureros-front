@@ -1,90 +1,77 @@
-import React, { Component } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import ShoppingCart from './carrito/Shoppingcart'
+import ProductCard from '../component/ProductCard/ProductCard'
 
 import "../../styles/productos.css";
 
-class Productos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [
-        {
-          id: 1,
-          title: "Arrimo",
-          precio: "$ 40.000",
-          img: "img/mesa 1.png",
-        },{
-          id: 1,
-          title: "Bateria",
-          precio: "$ 10.000",
-          img: "img/bateria.png",
-        },
-        {
-          id: 1,
-          title: "Reloj de Hombre",
-          precio: "$ 8.000",
-          img: "img/reloj.png",
-        },
-        {
-          id: 1,
-          title: "Botas de Nieves",
-          precio: "$ 140.000",
-          img: "img/botas.png",
-        },{
-          id: 1,
-          title: "Polera de Algodon",
-          precio: "$ 5.000",
-          img: "img/poleras.png",
-        },{
-          id: 1,
-          title: "Horno",
-          precio: "$ 17.000",
-          img: "img/hornos.png",
-        },{
-          id: 1,
-          title: "Teclado y Mouse",
-          precio: "$ 22.000",
-          img: "img/teclado.png",
-        },{
-          id: 1,
-          title: "Juego de mancuernas",
-          precio: "$ 25.000",
-          img: "img/mancuernas.png",
-        },
-      ],
+function Productos() {
+  const { store, actions } = useContext(Context);
+  const [boxAdd, setboxAdd] = useState([])
+  const [product, setproduct] = useState([])
+
+  useEffect(()=>{
+		console.log("UserProfile.userEffect (1):Behavior before the component is added to the DOM");
+		console.log("UserProfile.userEffect (1):product=", product);
+		console.log("UserProfile.userEffect (1):store.useStore=", store.useStore);
+
+		fetchAllProduct()
+
+  }, [])
+
+
+  async function fetchAllProduct() {
+    console.log("products.fetchAllProduct");
+    console.log("products.fetchAllProduct.env", process.env);
+    console.log("products.fetchAllProduct.process.env.REACT_APP_URL2", process.env.REACT_APP_URL)
+
+    let url = process.env.REACT_APP_URL+`/product/`
+    
+    console.log("products.fetchAllProduct.url", url)
+
+  
+    await fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("products.fetchAllProduct.data", data);
+        let product = data;
+        setproduct(product);
+        console.log("products.fetchAllProduct.product", product);
+
+      })
+      .catch((error) => {
+        console.log("products.fetchAllProduct.error", error);
+      });
+
+
+    return 
+
+  }
+  
+  let listProduct 
+  
+  if(product){
+    console.log('>>>productos.product=', product)
+    const urlImages = process.env.REACT_APP_BACK_IMAGES
+    listProduct = () => {
+      return product.map((prod) => (
+        <ProductCard key={prod.id} urlImages={urlImages} prod={prod} addProduct={actions.addProductToCart}/>
+      ));
     };
+  
   }
 
-  render() {
-    return (
-      <div>
-        <div className="container">
-          <div className="row">
-            {this.state.data.map((productos) => {
-              return (
-                <div className="col-md-3">
-                  <div className="card mt-3 mb-3 ml-2  mr-2 p-2">
-                    <img
-                      src={productos.img}
-                      className="card-img-top"
-                      alt="..."/>
-                    <div className="card-body">
-                      <h5 className="card-title mt-1">{productos.title}</h5>
-                      <p className="card-text">{productos.precio}</p>
-                      <a href="#" className="btn btn-primary mt-3">
-                        Comprar
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+  
+  return (
+    <div>
+      <div className="container">
+        <div className="row">{listProduct()}</div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Productos;

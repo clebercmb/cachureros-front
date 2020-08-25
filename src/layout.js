@@ -16,6 +16,7 @@ import UserProfile from "./js/views/UserProfile/UserProfile"
 import Navbar from "./js/component/navbar/navbar";
 import Carrito from "./js/views/carrito"
 import RegistroUsuario from "./js/component/registros/registroUser";
+import Register from "./js/component/registros/register";
 import Login from "./js/component/registros/login";
 import ProductView from "./js/views/ProductView/ProductView"
 import AddProductView from "./js/views/AddProductView/AddProductView"
@@ -26,10 +27,13 @@ import InformationBar from "./js/component/InformationBar/InformationBar"
 import { Context } from "./js/store/appContext";
 import ResumenPedidos from "./js/views/resumenPedidos";
 import UserStoreView from "./js/views/UserStoreView/UserStoreView"
-import Message from './js/views/Message/Message'
+import Messages from './js/views/Message/Message'
 import NotAllowed from './js/component/NotAllowed/NotAllowed'
-
-
+import OrdersListView from './js/views/OrdersListView/OrdersListView'
+import OrderView from "./js/views/OrderView/OrderView"
+import SellsView from './js/views/SellsView/SellsView'
+import SellOrderView from './js/views/SellOrderView/SellOrderView'
+import SendMessageView from './js/views/SendMessageView/SendMessageView'
 
 //import history from "./component/history";
 
@@ -55,20 +59,25 @@ export const Layout = () => {
 						<Switch>
 							<Route exact path="/resumen-pedidos" component={ResumenPedidos} />
 							<Route exact path="/login" component={Login} />
-							<Route exact path="/registro" component={RegistroUsuario} />
+							<Route exact path="/registro" component={Register} />
 							<Route exact path="/carritodecompra" component={Carrito} />
 							<Route exact path="/index.html" component={Contacts} />
 							<Route exact path="/" component={Home} />
 							<Route exact path="/contacts" component={Contacts} />
-							<PrivateRoute exact path="/user-profile" component={UserProfile} />
+							<PrivateRoute exact path="/user-profile/:id" component={UserProfile} />
 							<Route exact path="/product-view/:id" component={ProductView} />
 							<Route exact path="/user-store/:url" component={UserStoreView} />
+							<PrivateRoute exact path="/order/user/:id" component={OrdersListView} />
+							<PrivateRoute exact path="/my-store/:id/sells" component={SellsView} />
+							<PrivateRoute exact path="/my-store/:userStoreId/sell/:orderId" component={SellOrderView} />
 							<PrivateRoute exact path="/my-store/:id" component={UserStoreView} />
-							<PrivateRoute exact path="/add-product-view" component={AddProductView} />
-							<PrivateRoute exact path="/add-product-view/:id" component={AddProductView} />
+							<PrivateRoute exact path="/product" component={AddProductView} />
+							<PrivateRoute exact path="/product/:id" component={AddProductView} />
+							<PrivateRoute exact path="/order/:id" component={OrderView} />
 							<Route exact path="/add" component={AddContact} />
 							<Route exact path="/edit/:id" component={AddContact} />
-							<PrivateRoute exact path="/message/:user_id" component={Message} />	
+							<PrivateRoute exact path="/messages/:user_id" component={Messages} />	
+							<PrivateRoute exact path="/messages/send/:receiverId/:message" component={SendMessageView} />
 							<Route exact path="/not-allowed/" component={NotAllowed} />
 							<Route render={() => <h1 className="notfound">Not found!</h1>} />
 						</Switch>
