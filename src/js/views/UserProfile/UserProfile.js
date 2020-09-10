@@ -299,7 +299,8 @@ const UserProfile = (props) => {
     console.log("UserProfile.userStore (after reset)=", store.userStore);
     console.log("UserProfile.state (after reset)=", state);
     //history.push('/my-store/'+store.login.data.user.userStore.id);
-    //history.push('/');
+    actions.setInfoBar(false, "", "");
+    props.history.push("/");
   }
 
   function handleFile(e, fieldPhoto, fieldImage) {
