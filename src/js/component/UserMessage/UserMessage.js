@@ -27,7 +27,6 @@ const UserMessage = (props) => {
 
     async function handleMessage(e, senderId) {
         console.log('>>UserMessage.handleMessage.senderId=', senderId)
-
         e.preventDefault();
         if (!messageList['message_'+senderId])
             return
